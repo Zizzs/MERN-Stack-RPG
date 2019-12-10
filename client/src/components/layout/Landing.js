@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../../App.css";
+
 class Landing extends Component {
   render() {
     return (
@@ -7,6 +9,12 @@ class Landing extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>Welcome to Void</h4>
+            <p>
+              <i>
+                Explore the lands of the void and reap the spoils of the
+                Celestials...
+              </i>
+            </p>
             <br />
             <div className="col s6">
               <Link
@@ -40,4 +48,5 @@ class Landing extends Component {
     );
   }
 }
+
 export default Landing;

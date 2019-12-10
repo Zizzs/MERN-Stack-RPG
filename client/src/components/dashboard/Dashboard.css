@@ -1,0 +1,63 @@
+#hubMainDiv {
+  display: grid;
+  grid-template-rows: 2fr 10fr;
+  text-align: center;
+  border: 2px solid white;
+  padding: 25px;
+  margin: 50px;
+  border-radius: 3px;
+}
+
+#hubTitleLogoutDiv {
+  display: grid;
+  grid-template-columns: 10fr 2fr;
+  padding: 25px;
+  border-radius: 3px;
+}
+
+#hubPlayerThingsDiv {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-column-gap: 25px;
+  border-radius: 3px;
+}
+
+#hubTitleDiv {
+  margin-left: 230px;
+  border-radius: 3px;
+}
+
+#chatDiv {
+  border: 2px solid white;
+  background-color: #0b0a46;
+  border-radius: 3px;
+}
+
+#linksDiv {
+  border: 2px solid white;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 25px;
+  padding: 25px;
+  border-radius: 3px;
+}
+
+#cityResources {
+  background-color: #0b0a46;
+  border-radius: 3px;
+}
+
+#resourceButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#cityExits {
+  background-color: #0b0a46;
+  border-radius: 3px;
+}
+
+#exitsButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

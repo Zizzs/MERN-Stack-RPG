@@ -1,0 +1,12 @@
+#navbarDiv {
+  background-color: #0b0a46;
+}
+
+#chevRight {
+  float: right;
+  margin-left: 10px;
+}
+
+#chevLeft {
+  float: left;
+}
