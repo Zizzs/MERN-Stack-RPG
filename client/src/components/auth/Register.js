@@ -54,8 +54,12 @@ class Register extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
+          <div className="col s8 offset-s2" style={{ marginTop: "55px" }}>
+            <Link
+              style={{ marginLeft: "10px" }}
+              to="/"
+              className="btn-flat waves-effect white"
+            >
               <i className="material-icons left">keyboard_backspace</i> Back to
               home
             </Link>
@@ -70,6 +74,7 @@ class Register extends Component {
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
                 <input
+                  style={{ backgroundColor: "white" }}
                   onChange={this.onChange}
                   value={this.state.name}
                   error={errors.name}
@@ -84,6 +89,7 @@ class Register extends Component {
               </div>
               <div className="input-field col s12">
                 <input
+                  style={{ backgroundColor: "white" }}
                   onChange={this.onChange}
                   value={this.state.email}
                   error={errors.email}
@@ -98,6 +104,7 @@ class Register extends Component {
               </div>
               <div className="input-field col s12">
                 <input
+                  style={{ backgroundColor: "white" }}
                   onChange={this.onChange}
                   value={this.state.password}
                   error={errors.password}
@@ -112,6 +119,7 @@ class Register extends Component {
               </div>
               <div className="input-field col s12">
                 <input
+                  style={{ backgroundColor: "white" }}
                   onChange={this.onChange}
                   value={this.state.password2}
                   error={errors.password2}

@@ -2,10 +2,25 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import Modal from "../layout/Modal";
 
 import "./Dashboard.css";
 
 class Dashboard extends Component {
+  state = {
+    showHealer: false
+  };
+
+  showHealerModal = () => {
+    console.log("Show Healer");
+    this.setState({ showHealer: true });
+  };
+
+  hideHealerModal = () => {
+    console.log("Hide Healer");
+    this.setState({ showHealer: false });
+  };
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -13,7 +28,7 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
-    console.log(user);
+    //console.log(user);
     return (
       <div id="hubMainDiv">
         <div id="hubTitleLogoutDiv">
@@ -31,7 +46,7 @@ class Dashboard extends Component {
                 marginTop: "1rem"
               }}
               onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+              className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
             >
               Logout
             </button>
@@ -44,6 +59,7 @@ class Dashboard extends Component {
               <p>City Resources</p>
               <div id="resourceButtons">
                 <div>
+                  {/* Healer Button */}
                   <button
                     style={{
                       width: "150px",
@@ -51,24 +67,20 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                    onClick={this.showHealerModal}
                   >
                     Healer
                   </button>
-                  <div id="healer" class="modal">
-                    <div class="modal-content">
-                      <h4>Healer</h4>
-                      <p>You can heal here</p>
-                    </div>
-                    <div class="modal-footer">
-                      <a
-                        href="#!"
-                        class="modal-close waves-effect waves-green btn-flat"
-                      >
-                        Agree
-                      </a>
-                    </div>
-                  </div>
+                  <Modal
+                    show={this.state.showHealer}
+                    handleClose={this.hideHealerModal}
+                  >
+                    <p>Healer</p>
+                    <p>Tend your wounds for 50 fragments</p>
+                  </Modal>
+
+                  {/* Trainer Button */}
                   <br />
                   <button
                     style={{
@@ -77,7 +89,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Trainer
                   </button>
@@ -90,7 +102,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Merchant Ring
                   </button>
@@ -102,7 +114,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Crafting Square
                   </button>
@@ -120,7 +132,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Zone One
                   </button>
@@ -132,7 +144,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Zone Two
                   </button>
@@ -145,7 +157,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Zone Three
                   </button>
@@ -157,7 +169,7 @@ class Dashboard extends Component {
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
-                    className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
+                    className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
                     Zone Four
                   </button>
