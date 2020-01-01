@@ -1,4 +1,4 @@
-#characterPanel {
+#chatPanel {
   background-color: white;
   color: black;
   width: 400px;
@@ -10,15 +10,17 @@
   top: 0;
   left: 0;
   transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  overflow-y: scroll;
+  overflow: scroll;
   z-index: 1000;
+
+  overflow-y: scroll;
 }
 
-#characterPanel.hide {
-  transform: translate3d(-100vw, 0, 0);
+#chatPanel.hide {
+  transform: translate3d(100vw, 0, 0);
 }
 
-#characterPanel.show {
-  transform: translate3d(0vw, 0, 0);
+#chatPanel.show {
+  transform: translate3d(70vw, 0, 0);
   overflow: hidden;
 }

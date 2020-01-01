@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Modal from "../layout/Modal";
+import HubImage from "../../images/cosmicCity.png";
 
 import "./Dashboard.css";
 
@@ -53,7 +54,9 @@ class Dashboard extends Component {
           </div>
         </div>
         <div id="hubPlayerThingsDiv">
-          <div id="chatDiv">Chat goes here</div>
+          <div id="chatDiv">
+            <img src={HubImage} />
+          </div>
           <div id="linksDiv">
             <div id="cityResources">
               <p>City Resources</p>

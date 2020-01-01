@@ -8,6 +8,10 @@
   border-radius: 3px;
 }
 
+#hubImage {
+  width: 5%;
+}
+
 #hubTitleLogoutDiv {
   display: grid;
   grid-template-columns: 10fr 2fr;

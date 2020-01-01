@@ -33,8 +33,6 @@ class CharacterPanel extends Component {
         <p>Unbound Fragments: {user.character.unboundFragments}</p>
         <p>Item Count: {user.character.items.length}</p>
         <p>Equipped Items: {user.character.equippedItems.length}</p>
-        <p>Bank Item Count: {user.character.bankItems.length}</p>
-        <p>Bank Slots: {user.character.bankSlots}</p>
       </div>
     );
   }

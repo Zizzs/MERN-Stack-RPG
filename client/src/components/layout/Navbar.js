@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CharacterPanel from "../character/CharacterPanel";
+import ChatPanel from "../chat/ChatPanel";
 import "./Navbar.css";
 
 class Navbar extends Component {
   state = {
-    isCharacterPanelOpen: false
+    isCharacterPanelOpen: false,
+    isChatPanelOpen: false
   };
 
   toggleCharacterPanel = () => {
@@ -13,6 +15,14 @@ class Navbar extends Component {
       this.setState({ isCharacterPanelOpen: false });
     } else {
       this.setState({ isCharacterPanelOpen: true });
+    }
+  };
+
+  toggleChatPanel = () => {
+    if (this.state.isChatPanelOpen) {
+      this.setState({ isChatPanelOpen: false });
+    } else {
+      this.setState({ isChatPanelOpen: true });
     }
   };
 
@@ -49,10 +59,25 @@ class Navbar extends Component {
                   chevron_right
                 </i>
               </Link>
+              <button
+                style={{
+                  width: "150px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  float: "right",
+                  marginRight: "1.5rem",
+                  marginTop: "15px"
+                }}
+                onClick={this.toggleChatPanel}
+                className="btn btn-small waves-effect hoverable #1a237e indigo darken-4"
+              >
+                Chat
+              </button>
             </div>
           </nav>
         </div>
         <CharacterPanel panelOpen={this.state.isCharacterPanelOpen} />
+        <ChatPanel panelOpen={this.state.isChatPanelOpen} />
       </div>
     );
   }
