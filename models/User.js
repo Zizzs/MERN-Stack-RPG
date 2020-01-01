@@ -18,6 +18,84 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  character: {
+    health: {
+      type: Number,
+      default: 25
+    },
+    mana: {
+      type: Number,
+      default: 10
+    },
+    strength: {
+      type: Number,
+      default: 5
+    },
+    dexterity: {
+      type: Number,
+      default: 5
+    },
+    intellect: {
+      type: Number,
+      default: 5
+    },
+
+    luminosity: {
+      type: Number,
+      default: 0
+    },
+    spark: {
+      type: Number,
+      default: 0
+    },
+    enlightenment: {
+      type: Number,
+      default: 0
+    },
+
+    currentEnergy: {
+      type: Number,
+      default: 50
+    },
+    maxEnergy: {
+      type: Number,
+      default: 50
+    },
+
+    boundFragments: {
+      type: Number,
+      default: 0
+    },
+    unboundFragments: {
+      type: Number,
+      default: 0
+    },
+
+    items: Array,
+    equippedItems: Array,
+    bankItems: Array,
+    bankSlots: {
+      type: Number,
+      default: 1
+    },
+
+    pylonAlpha: {
+      type: Boolean,
+      default: false
+    },
+    pylonBeta: {
+      type: Boolean,
+      default: false
+    },
+    pylonGamma: {
+      type: Boolean,
+      default: false
+    },
+    pylonDelta: {
+      type: Boolean,
+      default: false
+    }
   }
 });
 

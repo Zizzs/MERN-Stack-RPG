@@ -70,7 +70,29 @@ router.post("/login", (req, res) => {
         // Create JWT Payload
         const payload = {
           id: user.id,
-          name: user.name
+          name: user.name,
+          character: {
+            health: user.character.health,
+            mana: user.character.mana,
+            strength: user.character.strength,
+            dexterity: user.character.dexterity,
+            intellect: user.character.intellect,
+            luminosity: user.character.luminosity,
+            spark: user.character.spark,
+            enlightenment: user.character.enlightenment,
+            currentEnergy: user.character.currentEnergy,
+            maxEnergy: user.character.maxEnergy,
+            boundFragments: user.character.boundFragments,
+            unboundFragments: user.character.unboundFragments,
+            items: user.character.items,
+            equippedItems: user.character.equippedItems,
+            bankItems: user.character.bankItems,
+            bankSlots: user.character.bankSlots,
+            pylonAlpha: user.character.pylonAlpha,
+            pylonBeta: user.character.pylonBeta,
+            pylonGamma: user.character.pylonGamma,
+            pylonDelta: user.character.pylonDelta
+          }
         };
         // Sign token
         jwt.sign(
