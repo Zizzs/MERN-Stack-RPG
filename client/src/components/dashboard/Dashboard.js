@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Modal from "../layout/Modal";
 import HubImage from "../../images/cosmicCity.png";
+import { giveUserItem } from "../../actions/itemActions";
 
 import "./Dashboard.css";
 
@@ -29,6 +30,7 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
+    console.log(user);
     return (
       <div id="hubMainDiv">
         <div id="hubTitleLogoutDiv">
@@ -97,6 +99,7 @@ class Dashboard extends Component {
                   </button>
                 </div>
                 <div>
+                  {/* Merchant Button */}
                   <button
                     style={{
                       width: "200px",
@@ -105,6 +108,10 @@ class Dashboard extends Component {
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                    onClick={giveUserItem(user, {
+                      name: "Flaming Sword",
+                      type: "Sword"
+                    })}
                   >
                     Merchant Ring
                   </button>

@@ -37,11 +37,15 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
-    let healthPercent =
-      (user.character.health / user.character.maxHealth) * 100;
-    let manaPercent = (user.character.mana / user.character.maxMana) * 100;
-    let energyPercent =
-      (user.character.currentEnergy / user.character.maxEnergy) * 100;
+    let healthPercent;
+    let manaPercent;
+    let energyPercent;
+    if (this.checkObj(user)) {
+      healthPercent = (user.character.health / user.character.maxHealth) * 100;
+      manaPercent = (user.character.mana / user.character.maxMana) * 100;
+      energyPercent =
+        (user.character.currentEnergy / user.character.maxEnergy) * 100;
+    }
 
     if (this.checkObj(user)) {
       return (
@@ -119,7 +123,7 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "blue",
                         height: "100%",
-                        width: `${healthPercent}%`
+                        width: `${manaPercent}%`
                       }}
                     ></div>
                   </div>
@@ -133,7 +137,7 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "teal",
                         height: "100%",
-                        width: `${healthPercent}%`
+                        width: `${energyPercent}%`
                       }}
                     ></div>
                   </div>
