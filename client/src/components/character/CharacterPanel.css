@@ -1,9 +1,9 @@
 #characterPanel {
-  background-color: white;
-  color: black;
+  color: white;
   width: 400px;
   margin-top: 15%;
   margin-bottom: 15%;
+  margin-left: 2%;
   height: 70%;
 
   position: fixed;
@@ -12,6 +12,11 @@
   transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
   overflow-y: scroll;
   z-index: 1000;
+
+  border: 3px solid white;
+  background-color: #0b0a46;
+
+  display: grid;
 }
 
 #characterPanel.hide {
@@ -21,4 +26,64 @@
 #characterPanel.show {
   transform: translate3d(0vw, 0, 0);
   overflow: hidden;
+}
+
+#characterPanelHeader {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
+#imagePic {
+  width: 50%;
+  margin: 15px;
+}
+
+#characterName {
+  text-align: center;
+  font-size: 2em;
+  margin-right: 15%;
+  margin-top: 25%;
+}
+
+#healthMana {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+#mainStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+#extraStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+#energyStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+#fragmentStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+#itemStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  border: 1px solid gray;
 }

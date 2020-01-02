@@ -28,38 +28,37 @@
 #characterBarsDiv {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
-  row-gap: 5px;
 }
 
 #healthBar {
   display: grid;
   grid-template-columns: 9fr 1fr;
   height: 0.5vw;
-  margin: 3px;
+  margin-top: 5px;
 }
 
 #healthBarOutline {
-  border: 1px solid #8b0000;
+  border: 1px solid gray;
 }
 
 #manaBar {
   display: grid;
   grid-template-columns: 9fr 1fr;
   height: 0.5vw;
-  margin: 3px;
+  margin-top: 5px;
 }
 
 #manaBarOutline {
-  border: 1px solid blue;
+  border: 1px solid gray;
 }
 
 #energyBar {
   display: grid;
   grid-template-columns: 9fr 1fr;
   height: 0.5vw;
-  margin: 3px;
+  margin-top: 5px;
 }
 
 #energyBarOutline {
-  border: 1px solid teal;
+  border: 1px solid gray;
 }
