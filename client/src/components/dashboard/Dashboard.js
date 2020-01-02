@@ -29,7 +29,6 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
-    //console.log(user);
     return (
       <div id="hubMainDiv">
         <div id="hubTitleLogoutDiv">
@@ -130,14 +129,14 @@ class Dashboard extends Component {
                 <div>
                   <button
                     style={{
-                      width: "150px",
+                      width: "200px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
-                    Zone One
+                    Crystal Forest
                   </button>
                   <br />
                   <button

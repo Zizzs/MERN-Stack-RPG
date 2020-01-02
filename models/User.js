@@ -24,7 +24,15 @@ const UserSchema = new Schema({
       type: Number,
       default: 25
     },
+    maxHealth: {
+      type: Number,
+      default: 25
+    },
     mana: {
+      type: Number,
+      default: 10
+    },
+    maxMana: {
       type: Number,
       default: 10
     },

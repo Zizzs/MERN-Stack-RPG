@@ -73,7 +73,9 @@ router.post("/login", (req, res) => {
           name: user.name,
           character: {
             health: user.character.health,
+            maxHealth: user.character.maxHealth,
             mana: user.character.mana,
+            maxMana: user.character.maxMana,
             strength: user.character.strength,
             dexterity: user.character.dexterity,
             intellect: user.character.intellect,

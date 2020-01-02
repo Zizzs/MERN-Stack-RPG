@@ -37,6 +37,11 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
+    let healthPercent =
+      (user.character.health / user.character.maxHealth) * 100;
+    let manaPercent = (user.character.mana / user.character.maxMana) * 100;
+    let energyPercent =
+      (user.character.currentEnergy / user.character.maxEnergy) * 100;
 
     if (this.checkObj(user)) {
       return (
@@ -90,6 +95,59 @@ class Navbar extends Component {
           </div>
           <CharacterPanel panelOpen={this.state.isCharacterPanelOpen} />
           <ChatPanel panelOpen={this.state.isChatPanelOpen} />
+          <div id="navbarCharacterStatsWrapper">
+            <div id="navbarCharacterStats">
+              <div>Stats Left</div>
+              <div id="characterBarsDiv">
+                <div id="healthBar">
+                  <div id="healthBarOutline">
+                    <div
+                      style={{
+                        backgroundColor: "#8B0000",
+                        height: "100%",
+                        width: `${healthPercent}%`
+                      }}
+                    ></div>
+                  </div>
+                  <div id="healthBarText">
+                    {user.character.health}/{user.character.maxHealth}
+                  </div>
+                </div>
+                <div id="manaBar">
+                  <div id="manaBarOutline">
+                    <div
+                      style={{
+                        backgroundColor: "blue",
+                        height: "100%",
+                        width: `${healthPercent}%`
+                      }}
+                    ></div>
+                  </div>
+                  <div id="manaBarText">
+                    {user.character.mana}/{user.character.maxMana}
+                  </div>
+                </div>
+                <div id="energyBar">
+                  <div id="energyBarOutline">
+                    <div
+                      style={{
+                        backgroundColor: "teal",
+                        height: "100%",
+                        width: `${healthPercent}%`
+                      }}
+                    ></div>
+                  </div>
+                  <div id="energyBarText">
+                    {user.character.currentEnergy}/{user.character.maxEnergy}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p>Unbound Fragments: {user.character.unboundFragments}</p>
+                <p>Bound Fragments: {user.character.boundFragments}</p>
+              </div>
+            </div>
+          </div>
         </div>
       );
     } else {

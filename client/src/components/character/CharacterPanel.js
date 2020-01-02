@@ -14,13 +14,13 @@ class CharacterPanel extends Component {
       visibility = "hide";
     }
 
-    console.log(user);
-
     return (
       <div id="characterPanel" className={visibility}>
         <p>Name: {user.name}</p>
         <p>Health: {user.character.health}</p>
+        <p>Max Health: {user.character.maxHealth}</p>
         <p>Mana: {user.character.mana}</p>
+        <p>Max Mana: {user.character.maxMana}</p>
         <p>Strength: {user.character.strength}</p>
         <p>Dexterity: {user.character.dexterity}</p>
         <p>Intellect: {user.character.intellect}</p>
