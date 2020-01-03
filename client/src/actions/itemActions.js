@@ -1,16 +1,20 @@
 import axios from "axios";
 
-import { GET_ERRORS } from "./types";
-
-// Login - get user token
-export const giveUserItem = (userData, item) => dispatch => {
+// Give the user an item
+export const giveUserItem = (userData, item) => {
   console.log(item);
   let data = {
     userData: userData,
     item: item
   };
-  axios
-    .post("/api/items", data)
+  axios({
+    method: "post",
+    url: "/api/items/giveItem",
+    headers: { "Content-Type": "application/json" },
+    data: data
+  })
+    //fetch("/api/items/giveItem", options)
+    //.post("/api/items/giveItem", data)
     .then(function(response) {
       console.log(response);
     })
@@ -18,3 +22,5 @@ export const giveUserItem = (userData, item) => dispatch => {
       console.log(error);
     });
 };
+
+export const fragmentItem = (user, item) => {};

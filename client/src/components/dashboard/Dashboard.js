@@ -13,6 +13,12 @@ class Dashboard extends Component {
     showHealer: false
   };
 
+  componentDidMount() {
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+  }
+
   showHealerModal = () => {
     console.log("Show Healer");
     this.setState({ showHealer: true });
@@ -26,6 +32,15 @@ class Dashboard extends Component {
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
+  };
+
+  giveItem = e => {
+    e.preventDefault();
+    const { user } = this.props.auth;
+    giveUserItem(user, {
+      name: "Flaming Sword",
+      type: "Sword"
+    });
   };
 
   render() {
@@ -108,10 +123,7 @@ class Dashboard extends Component {
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={giveUserItem(user, {
-                      name: "Flaming Sword",
-                      type: "Sword"
-                    })}
+                    onClick={this.giveItem}
                   >
                     Merchant Ring
                   </button>

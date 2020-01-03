@@ -28,7 +28,7 @@ app.use(passport.initialize());
 require("./config/passport", passport);
 
 // Items
-app.post("/api/items", itemModule.giveItem);
+app.post("/api/items/giveItem", itemModule.giveItem);
 
 // Routes
 app.use("/api/users", users);
