@@ -5,10 +5,11 @@ import { logoutUser } from "../../actions/authActions";
 import Modal from "../layout/Modal";
 import HubImage from "../../images/cosmicCity.png";
 import { giveUserItem } from "../../actions/itemActions";
+import { Link, withRouter } from "react-router-dom";
 
-import "./Dashboard.css";
+import "./HUB.css";
 
-class Dashboard extends Component {
+class HUB extends Component {
   state = {
     showHealer: false
   };
@@ -43,6 +44,11 @@ class Dashboard extends Component {
     });
   };
 
+  goToCelestialTower = e => {
+    e.preventDefault();
+    this.props.history.push("/CelestialTower");
+  };
+
   render() {
     const { user } = this.props.auth;
     console.log(user);
@@ -70,8 +76,8 @@ class Dashboard extends Component {
           </div>
         </div>
         <div id="hubPlayerThingsDiv">
-          <div id="chatDiv">
-            <img src={HubImage} />
+          <div id="hubImageDiv">
+            <img alt="Cosmic City" src={HubImage} />
           </div>
           <div id="linksDiv">
             <div id="cityResources">
@@ -144,7 +150,7 @@ class Dashboard extends Component {
             </div>
             <div id="cityExits">
               <p>City Exits</p>
-              <div id="exitsButtons">
+              <div id="exitButtons">
                 <div>
                   <button
                     style={{
@@ -197,6 +203,18 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
+            <div id="cityDungeons">
+              <p>Challenges</p>
+              <div id="dungeonsButtons">
+                <Link
+                  style={{ marginLeft: "10px" }}
+                  to="/HUB/CelestialTower"
+                  className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                >
+                  Celestial Tower
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -204,7 +222,7 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {
+HUB.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -213,4 +231,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(withRouter(HUB));

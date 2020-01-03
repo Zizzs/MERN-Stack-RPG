@@ -1,0 +1,27 @@
+#celestialTower {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  padding: 25px;
+  margin: 50px;
+  border-radius: 3px;
+  margin-top: 100px;
+}
+
+#towerLeft,
+#towerRight {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#mainTowerDiv {
+  padding: 25px;
+}
+
+#towerElements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 25px;
+}

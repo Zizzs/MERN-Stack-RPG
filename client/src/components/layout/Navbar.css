@@ -12,6 +12,8 @@
 }
 
 #navbarCharacterStatsWrapper {
+  position: fixed;
+  width: 100%;
   min-height: 7vh;
   background-color: #0b0a46;
   border-top: 1px solid white;

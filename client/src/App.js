@@ -12,8 +12,10 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
+import HUB from "./components/HUB/HUB";
+import CelestialTower from "./components/Dungeons/CelestialTower";
 
+import "./App.css";
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -47,7 +49,12 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/HUB" component={HUB} />
+              <PrivateRoute
+                exact
+                path="/HUB/CelestialTower"
+                component={CelestialTower}
+              />
             </Switch>
           </div>
         </Router>

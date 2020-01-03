@@ -66,7 +66,7 @@ class Navbar extends Component {
                   Character
                 </button>
                 <Link
-                  to="/dashboard"
+                  to="/HUB"
                   style={{
                     fontFamily: "monospace"
                   }}
