@@ -42,14 +42,8 @@ class Combat extends Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
+    setLocation(user, this.state.location);
   }
-
-  updateLocation = location => {
-    const { user } = this.props.auth;
-    console.log(`Sending ${user.name} to ${location}.`);
-    setLocation(user, location);
-    this.props.history.push(location);
-  };
 
   redirectLocation = location => {
     const { user } = this.props.auth;
@@ -78,11 +72,11 @@ class Combat extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
+    //const { user } = this.props.auth;
     //console.log(this.props.history);
-    if (user.character.location !== this.state.location) {
-      this.redirectLocation(user.character.location);
-    }
+    // if (user.character.location !== this.state.location) {
+    //   this.redirectLocation(user.character.location);
+    // }
 
     if (this.state.hasMonster === false) {
       this.setState({ enemy: enemies.skeleton, hasMonster: true });
@@ -299,7 +293,7 @@ class Combat extends Component {
             className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
             onClick={e => {
               e.preventDefault();
-              this.updateLocation("/HUB/CelestialTower");
+              this.redirectLocation("/HUB/CelestialTower");
             }}
           >
             Flee

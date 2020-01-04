@@ -23,14 +23,8 @@ class HUB extends Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
+    setLocation(user, this.state.location);
   }
-
-  updateLocation = location => {
-    const { user } = this.props.auth;
-    console.log(`Sending ${user.name} to ${location}.`);
-    setLocation(user, location);
-    this.props.history.push(location);
-  };
 
   redirectLocation = location => {
     const { user } = this.props.auth;
@@ -66,9 +60,9 @@ class HUB extends Component {
     //console.log(this.props.auth);
     const { user } = this.props.auth;
 
-    if (user.character.location !== this.state.location) {
-      this.redirectLocation(user.character.location);
-    }
+    // if (user.character.location !== this.state.location) {
+    //   this.redirectLocation(user.character.location);
+    // }
     //console.log(user);
     return (
       <div id="hubMainDiv">
@@ -230,7 +224,7 @@ class HUB extends Component {
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   onClick={e => {
                     e.preventDefault();
-                    this.updateLocation("/HUB/CelestialTower");
+                    this.redirectLocation("/HUB/CelestialTower");
                   }}
                 >
                   Celestial Tower

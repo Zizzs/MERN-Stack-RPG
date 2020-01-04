@@ -19,14 +19,8 @@ class CelestialTower extends Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
+    setLocation(user, this.state.location);
   }
-
-  updateLocation = location => {
-    const { user } = this.props.auth;
-    console.log(`Sending ${user.name} to ${location}.`);
-    setLocation(user, location);
-    this.props.history.push(location);
-  };
 
   redirectLocation = location => {
     const { user } = this.props.auth;
@@ -35,10 +29,10 @@ class CelestialTower extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
-    if (user.character.location !== this.state.location) {
-      this.redirectLocation(user.character.location);
-    }
+    //const { user } = this.props.auth;
+    // if (user.character.location !== this.state.location) {
+    //   this.redirectLocation(user.character.location);
+    // }
 
     return (
       <div id="celestialTower">
@@ -77,7 +71,7 @@ class CelestialTower extends Component {
                 className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                 onClick={e => {
                   e.preventDefault();
-                  this.updateLocation("/HUB/CelestialTower/Combat");
+                  this.redirectLocation("/HUB/CelestialTower/Combat");
                 }}
               >
                 Enter The Tower
@@ -96,7 +90,7 @@ class CelestialTower extends Component {
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
               onClick={e => {
                 e.preventDefault();
-                this.updateLocation("/HUB");
+                this.redirectLocation("/HUB");
               }}
             >
               Back To HUB

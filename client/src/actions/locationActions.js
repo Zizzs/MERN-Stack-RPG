@@ -17,6 +17,6 @@ export const setLocation = (userData, location) => {
       //console.log(response);
     })
     .catch(function(error) {
-      //console.log(error);
+      console.log(error);
     });
 };
