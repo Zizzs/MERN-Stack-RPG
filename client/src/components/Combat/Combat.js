@@ -6,12 +6,17 @@ import combatLeft from "../../images/combatLeft.png";
 import combatRight from "../../images/combatRight.png";
 import skeleton from "../../images/skeleton.png";
 
+import { setLocation } from "../../actions/locationActions";
+import { getUser } from "../../actions/authActions";
+
 import { abilities } from "./AbilitiesTemp";
+import { enemies } from "./MonstersTemp";
 
 class Combat extends Component {
   state = {
     position: 2,
     hasUpdated: false,
+    hasMonster: false,
     abilities: {
       positionOneAbility: { name: "" },
       positionTwoAbility: { name: "" },
@@ -19,14 +24,44 @@ class Combat extends Component {
       positionFourAbility: { name: "" },
       positionFiveAbility: { name: "" },
       positionSixAbility: { name: "" }
+    },
+    enemy: {
+      name: "Default",
+      level: 0,
+      health: 10,
+      attackMin: 0,
+      attackMax: 0,
+      drops: ["stuff"]
+    },
+    location: "/HUB/CelestialTower/Combat"
+  };
+
+  componentDidMount() {
+    const { user } = this.props.auth;
+    this.props.getUser(user);
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
     }
+  }
+
+  updateLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    setLocation(user, location);
+    this.props.history.push(location);
+  };
+
+  redirectLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    this.props.history.push(location);
   };
 
   clickedAbility = clickedNumber => {
     let ability = this.state.abilities[
       Object.keys(this.state.abilities)[clickedNumber - 1]
     ];
-    console.log(ability);
+    //console.log(ability);
     if (
       this.state.position - 1 === clickedNumber &&
       ability.direction === "forward"
@@ -39,11 +74,21 @@ class Combat extends Component {
     ) {
       this.setState({ position: clickedNumber, hasUpdated: false });
     }
-    console.log(this.state);
+    //console.log(this.state);
   };
 
   render() {
     const { user } = this.props.auth;
+    //console.log(this.props.history);
+    if (user.character.location !== this.state.location) {
+      this.redirectLocation(user.character.location);
+    }
+
+    if (this.state.hasMonster === false) {
+      this.setState({ enemy: enemies.skeleton, hasMonster: true });
+    }
+
+    // ---------------Ability Position Control--------------------------
     if (this.state.position === 1 && this.state.hasUpdated === false) {
       this.setState({
         hasUpdated: true,
@@ -126,7 +171,10 @@ class Combat extends Component {
         }
       });
     }
+    //----------------------------------------------
 
+    // ---------Position Bar Control----------------
+    // Changes the class of the divs based on the position of the character, setting the background color of the div to white to indicate the current position of the player from the monster.
     let positionOne = "notInPosition";
     let positionTwo = "notInPosition";
     let positionThree = "notInPosition";
@@ -169,8 +217,9 @@ class Combat extends Component {
     } else {
       positionSix = "notInPosition";
     }
+    // ------------------------------------
 
-    console.log(this.state);
+    //console.log(this.state);
 
     return (
       <div id="combat">
@@ -239,6 +288,22 @@ class Combat extends Component {
               </div>
             </div>
           </div>
+          <button
+            style={{
+              width: "250px",
+              borderRadius: "3px",
+              letterSpacing: "1.5px",
+              marginTop: "1rem"
+            }}
+            to="/HUB"
+            className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+            onClick={e => {
+              e.preventDefault();
+              this.updateLocation("/HUB/CelestialTower");
+            }}
+          >
+            Flee
+          </button>
         </div>
         <div id="rightImage">
           <img alt="right combat" id="combatRight" src={combatRight} />
@@ -249,11 +314,12 @@ class Combat extends Component {
 }
 
 Combat.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(Combat);
+export default connect(mapStateToProps, { getUser })(Combat);

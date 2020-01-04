@@ -1,15 +1,35 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
+import { setLocation } from "../../actions/locationActions";
 import "./Navbar.css";
 
 class Navbar extends Component {
   state = {
     isCharacterPanelOpen: false,
-    isChatPanelOpen: false
+    isChatPanelOpen: false,
+    isCharacterInCombat: false,
+    updatedStats: false,
+    healthPercent: 100,
+    manaPercent: 100,
+    energyPercent: 100,
+    health: 25,
+    maxHealth: 25,
+    mana: 25,
+    maxMana: 25,
+    energy: 50,
+    maxEnergy: 50,
+    boundFragments: 0,
+    unboundFragments: 0
+  };
+
+  updateLocation = location => {
+    const { user } = this.props.auth;
+    setLocation(user, location);
+    this.props.history.push(location);
   };
 
   toggleCharacterPanel = () => {
@@ -41,10 +61,36 @@ class Navbar extends Component {
     let manaPercent;
     let energyPercent;
     if (this.checkObj(user)) {
+      if (
+        this.state.health !== user.character.health ||
+        this.state.maxHealth !== user.character.maxHealth ||
+        this.state.mana !== user.character.mana ||
+        this.state.maxMana !== user.character.maxMana ||
+        this.state.energy !== user.character.currentEnergy ||
+        this.state.maxEnergy !== user.character.maxEnergy ||
+        this.state.boundFragments !== user.character.boundFragments ||
+        this.state.unboundFragments !== user.character.boundFragments
+      ) {
+        this.setState({ updatedStats: false });
+      }
+    }
+    if (this.checkObj(user) && this.state.updatedStats === false) {
       healthPercent = (user.character.health / user.character.maxHealth) * 100;
       manaPercent = (user.character.mana / user.character.maxMana) * 100;
       energyPercent =
         (user.character.currentEnergy / user.character.maxEnergy) * 100;
+      this.setState({
+        health: user.character.health,
+        maxHealth: user.character.maxHealth,
+        mana: user.character.mana,
+        maxMana: user.character.maxMana,
+        energy: user.character.currentEnergy,
+        maxEnergy: user.character.maxEnergy,
+        healthPercent: healthPercent,
+        manaPercent: manaPercent,
+        energyPercent: energyPercent,
+        updatedStats: true
+      });
     }
 
     if (this.checkObj(user)) {
@@ -65,12 +111,10 @@ class Navbar extends Component {
                 >
                   Character
                 </button>
-                <Link
+                <p
                   to="/HUB"
-                  style={{
-                    fontFamily: "monospace"
-                  }}
-                  className="col s5 brand-logo center white-text"
+                  id="voidHeader"
+                  className="col s5 brand-logo center"
                 >
                   <i className="material-icons" id="chevLeft">
                     chevron_left
@@ -79,7 +123,7 @@ class Navbar extends Component {
                   <i className="material-icons" id="chevRight">
                     chevron_right
                   </i>
-                </Link>
+                </p>
                 <button
                   style={{
                     width: "150px",
@@ -109,12 +153,12 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "#8B0000",
                         height: "100%",
-                        width: `${healthPercent}%`
+                        width: `${this.state.healthPercent}%`
                       }}
                     ></div>
                   </div>
                   <div id="healthBarText">
-                    {user.character.health}/{user.character.maxHealth}
+                    {this.state.health}/{this.state.maxHealth}
                   </div>
                 </div>
                 <div id="manaBar">
@@ -123,12 +167,12 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "blue",
                         height: "100%",
-                        width: `${manaPercent}%`
+                        width: `${this.state.manaPercent}%`
                       }}
                     ></div>
                   </div>
                   <div id="manaBarText">
-                    {user.character.mana}/{user.character.maxMana}
+                    {this.state.mana}/{this.state.maxMana}
                   </div>
                 </div>
                 <div id="energyBar">
@@ -137,12 +181,12 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "teal",
                         height: "100%",
-                        width: `${energyPercent}%`
+                        width: `${this.state.energyPercent}%`
                       }}
                     ></div>
                   </div>
                   <div id="energyBarText">
-                    {user.character.currentEnergy}/{user.character.maxEnergy}
+                    {this.state.energy}/{this.state.maxEnergy}
                   </div>
                 </div>
               </div>
@@ -161,7 +205,7 @@ class Navbar extends Component {
             <nav className="z-depth-0">
               <div id="navbarDiv" className="nav-wrapper">
                 <Link
-                  to="/dashboard"
+                  to="/HUB"
                   style={{
                     fontFamily: "monospace"
                   }}
@@ -192,4 +236,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(withRouter(Navbar));

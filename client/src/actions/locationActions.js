@@ -1,26 +1,22 @@
 import axios from "axios";
 
 // Give the user an item
-export const giveUserItem = (userData, item) => {
-  console.log(item);
+export const setLocation = (userData, location) => {
+  //console.log(location);
   let data = {
     userData: userData,
-    item: item
+    location: location
   };
   axios({
     method: "post",
-    url: "/api/items/giveItem",
+    url: "/api/location/setLocation",
     headers: { "Content-Type": "application/json" },
     data: data
   })
-    //fetch("/api/items/giveItem", options)
-    //.post("/api/items/giveItem", data)
     .then(function(response) {
       //console.log(response);
     })
     .catch(function(error) {
-      console.log(error);
+      //console.log(error);
     });
 };
-
-export const fragmentItem = (user, item) => {};

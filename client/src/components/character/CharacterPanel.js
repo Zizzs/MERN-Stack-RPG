@@ -18,7 +18,7 @@ class CharacterPanel extends Component {
     return (
       <div id="characterPanel" className={visibility}>
         <div id="characterPanelHeader">
-          <img id="imagePic" src={faceImage} />
+          <img alt="character" id="imagePic" src={faceImage} />
           <p id="characterName">{user.name}</p>
         </div>
         <div id="healthMana">

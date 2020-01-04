@@ -4,11 +4,41 @@ import { connect } from "react-redux";
 import "./CelestialTower.css";
 import celestialTowerLeft from "../../images/celestialTower.png";
 import celestialTowerRight from "../../images/celestialTowerRight.png";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { setLocation } from "../../actions/locationActions";
+import { getUser } from "../../actions/authActions";
 
 class CelestialTower extends Component {
+  state = {
+    location: "/HUB/CelestialTower"
+  };
+
+  componentDidMount() {
+    const { user } = this.props.auth;
+    this.props.getUser(user);
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+  }
+
+  updateLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    setLocation(user, location);
+    this.props.history.push(location);
+  };
+
+  redirectLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    this.props.history.push(location);
+  };
+
   render() {
     const { user } = this.props.auth;
+    if (user.character.location !== this.state.location) {
+      this.redirectLocation(user.character.location);
+    }
 
     return (
       <div id="celestialTower">
@@ -36,7 +66,7 @@ class CelestialTower extends Component {
               <div>Your Tower Stats and Rank</div>
             </div>
             <div id="towerButtonsDiv">
-              <Link
+              <button
                 style={{
                   width: "250px",
                   borderRadius: "3px",
@@ -45,10 +75,32 @@ class CelestialTower extends Component {
                 }}
                 to="/HUB/CelestialTower/Combat"
                 className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                onClick={e => {
+                  e.preventDefault();
+                  this.updateLocation("/HUB/CelestialTower/Combat");
+                }}
               >
                 Enter The Tower
-              </Link>
+              </button>
             </div>
+          </div>
+          <div>
+            <button
+              style={{
+                width: "250px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              to="/HUB"
+              className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+              onClick={e => {
+                e.preventDefault();
+                this.updateLocation("/HUB");
+              }}
+            >
+              Back To HUB
+            </button>
           </div>
         </div>
         <div id="rightImage">
@@ -60,11 +112,14 @@ class CelestialTower extends Component {
 }
 
 CelestialTower.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(withRouter(CelestialTower));
+export default connect(mapStateToProps, { getUser })(
+  withRouter(CelestialTower)
+);

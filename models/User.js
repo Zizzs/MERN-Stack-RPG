@@ -103,6 +103,10 @@ const UserSchema = new Schema({
     pylonDelta: {
       type: Boolean,
       default: false
+    },
+    location: {
+      type: String,
+      default: "/HUB"
     }
   }
 });

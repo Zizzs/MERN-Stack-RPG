@@ -5,20 +5,38 @@ import { logoutUser } from "../../actions/authActions";
 import Modal from "../layout/Modal";
 import HubImage from "../../images/cosmicCity.png";
 import { giveUserItem } from "../../actions/itemActions";
-import { Link, withRouter } from "react-router-dom";
+import { getUser } from "../../actions/authActions";
+import { withRouter } from "react-router-dom";
+import { setLocation } from "../../actions/locationActions";
 
 import "./HUB.css";
 
 class HUB extends Component {
   state = {
-    showHealer: false
+    showHealer: false,
+    location: "/HUB"
   };
 
   componentDidMount() {
+    const { user } = this.props.auth;
+    this.props.getUser(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
   }
+
+  updateLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    setLocation(user, location);
+    this.props.history.push(location);
+  };
+
+  redirectLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    this.props.history.push(location);
+  };
 
   showHealerModal = () => {
     console.log("Show Healer");
@@ -44,14 +62,14 @@ class HUB extends Component {
     });
   };
 
-  goToCelestialTower = e => {
-    e.preventDefault();
-    this.props.history.push("/CelestialTower");
-  };
-
   render() {
+    //console.log(this.props.auth);
     const { user } = this.props.auth;
-    console.log(user);
+
+    if (user.character.location !== this.state.location) {
+      this.redirectLocation(user.character.location);
+    }
+    //console.log(user);
     return (
       <div id="hubMainDiv">
         <div id="hubTitleLogoutDiv">
@@ -206,13 +224,17 @@ class HUB extends Component {
             <div id="cityDungeons">
               <p>Challenges</p>
               <div id="dungeonsButtons">
-                <Link
+                <button
                   style={{ marginLeft: "10px" }}
                   to="/HUB/CelestialTower"
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                  onClick={e => {
+                    e.preventDefault();
+                    this.updateLocation("/HUB/CelestialTower");
+                  }}
                 >
                   Celestial Tower
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -224,11 +246,14 @@ class HUB extends Component {
 
 HUB.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(HUB));
+export default connect(mapStateToProps, { logoutUser, getUser })(
+  withRouter(HUB)
+);

@@ -93,7 +93,8 @@ router.post("/login", (req, res) => {
             pylonAlpha: user.character.pylonAlpha,
             pylonBeta: user.character.pylonBeta,
             pylonGamma: user.character.pylonGamma,
-            pylonDelta: user.character.pylonDelta
+            pylonDelta: user.character.pylonDelta,
+            location: user.character.location
           }
         };
         // Sign token
