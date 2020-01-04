@@ -25,3 +25,7 @@
   grid-template-columns: 1fr 1fr;
   margin: 25px;
 }
+
+i {
+  font-family: "Roboto", sans-serif;
+}

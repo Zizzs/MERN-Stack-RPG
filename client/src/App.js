@@ -14,6 +14,7 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import HUB from "./components/HUB/HUB";
 import CelestialTower from "./components/Dungeons/CelestialTower";
+import Combat from "./components/Combat/Combat";
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -54,6 +55,11 @@ class App extends Component {
                 exact
                 path="/HUB/CelestialTower"
                 component={CelestialTower}
+              />
+              <PrivateRoute
+                exact
+                path="/HUB/CelestialTower/Combat"
+                component={Combat}
               />
             </Switch>
           </div>

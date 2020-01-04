@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./CelestialTower.css";
 import celestialTowerLeft from "../../images/celestialTower.png";
 import celestialTowerRight from "../../images/celestialTowerRight.png";
+import { Link, withRouter } from "react-router-dom";
 
 class CelestialTower extends Component {
   render() {
@@ -12,7 +13,7 @@ class CelestialTower extends Component {
     return (
       <div id="celestialTower">
         <div id="leftImage">
-          <img id="towerLeft" src={celestialTowerLeft} />
+          <img alt="right tower" id="towerLeft" src={celestialTowerLeft} />
         </div>
         <div id="mainTowerDiv">
           <h2>The Celestial Tower</h2>
@@ -35,22 +36,23 @@ class CelestialTower extends Component {
               <div>Your Tower Stats and Rank</div>
             </div>
             <div id="towerButtonsDiv">
-              <button
+              <Link
                 style={{
                   width: "250px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
                   marginTop: "1rem"
                 }}
+                to="/HUB/CelestialTower/Combat"
                 className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
               >
                 Enter The Tower
-              </button>
+              </Link>
             </div>
           </div>
         </div>
         <div id="rightImage">
-          <img id="towerRight" src={celestialTowerRight} />
+          <img alt="left tower" id="towerRight" src={celestialTowerRight} />
         </div>
       </div>
     );
@@ -65,4 +67,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(CelestialTower);
+export default connect(mapStateToProps)(withRouter(CelestialTower));
