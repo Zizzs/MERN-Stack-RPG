@@ -7,7 +7,7 @@ const users = require("./routes/api/users");
 const itemModule = require("./routes/api/items");
 const saveUserModule = require("./routes/api/saveuser");
 const getUserModule = require("./routes/api/getuser");
-const locationModule = require("./routes/api/setlocation");
+const locationModule = require("./routes/api/saveLocalUser");
 
 const app = express();
 // Bodyparser middleware
@@ -25,12 +25,10 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport", passport);
 
-// Items
-app.post("/api/items/giveItem", itemModule.giveItem);
+// Save Local User Data
+app.use("/api/saveLocalUser", locationModule.saveLocalUser);
 
-// Location
-app.use("/api/setLocation", locationModule.setLocation);
-//Save User Data
+// Save Database User Data
 app.post("/api/saveUser", saveUserModule.saveUser);
 
 // Routes

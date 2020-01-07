@@ -11,7 +11,7 @@ export const setLocation = (userData, location) => {
 
   axios({
     method: "post",
-    url: "/api/setLocation",
+    url: "/api/saveLocalUser",
     headers: { "Content-Type": "application/json" },
     data: data
   })

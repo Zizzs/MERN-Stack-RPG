@@ -1,41 +1,30 @@
 import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
-import jwt_decode from "jwt-decode";
-import { GET_ERRORS } from "./types";
-import { updateCurrentUser } from "./authActions";
+// import setAuthToken from "../utils/setAuthToken";
+// import jwt_decode from "jwt-decode";
+// import { GET_ERRORS, UPDATE_CURRENT_USER } from "./types";
+// import { updateCurrentUser } from "./authActions";
 
 // Give the user an item
-export const giveUserItem = (userData, item) => dispatch => {
-  //console.log(item);
+export const giveUserItem = (userData, item) => {
   let data = {
     userData: userData,
     item: item
   };
+
+  data.userData.character.items.push(item);
+
   axios({
     method: "post",
-    url: "/api/items/giveItem",
+    url: "/api/saveLocalUser",
     headers: { "Content-Type": "application/json" },
     data: data
   })
-    .then(response => {
-      // Save to localStorage
-      // Set token to localStorage
+    .then(function(response) {
       console.log(response);
-      const { token } = response.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      dispatch(updateCurrentUser(decoded));
     })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .catch(function(error) {
+      console.log(error);
+    });
 };
 
 export const fragmentItem = (user, item) => {};

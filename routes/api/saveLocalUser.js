@@ -1,16 +1,15 @@
+const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 
-// Give the user an item generated elsewhere.
-const giveItem = (req, res) => {
-  const { userData, item } = req.body;
-  userData.character.items.push(item);
+// Save the User's Location in the Token
+const saveLocalUser = (req, res) => {
+  const { userData } = req.body;
   const payload = {
     id: userData.id,
     name: userData.name,
     character: userData.character
   };
-  //console.log(payload);
   jwt.sign(
     payload,
     keys.secretOrKey,
@@ -26,4 +25,4 @@ const giveItem = (req, res) => {
   );
 };
 
-exports.giveItem = giveItem;
+exports.saveLocalUser = saveLocalUser;
