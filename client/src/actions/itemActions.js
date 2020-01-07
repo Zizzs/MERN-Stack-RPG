@@ -2,7 +2,7 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { GET_ERRORS } from "./types";
-import { setCurrentUser } from "./authActions";
+import { updateCurrentUser } from "./authActions";
 
 // Give the user an item
 export const giveUserItem = (userData, item) => dispatch => {
@@ -28,7 +28,7 @@ export const giveUserItem = (userData, item) => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      dispatch(updateCurrentUser(decoded));
     })
     .catch(err =>
       dispatch({
