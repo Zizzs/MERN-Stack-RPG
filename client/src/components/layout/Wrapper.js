@@ -10,7 +10,7 @@ import Login from "../auth/Login";
 import PrivateRoute from "../private-route/PrivateRoute";
 import HUB from "../HUB/HUB";
 import CelestialTower from "../Dungeons/CelestialTower";
-import Combat from "../Combat/Combat";
+import CombatController from "../Combat/CombatController";
 
 class Wrapper extends Component {
   render() {
@@ -31,7 +31,7 @@ class Wrapper extends Component {
             <PrivateRoute
               exact
               path="/HUB/CelestialTower/Combat"
-              component={Combat}
+              component={CombatController}
             />
           </Switch>
         </div>

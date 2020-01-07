@@ -109,6 +109,6 @@ export const abilities = {
   },
   repositionAbilities: {
     forward: repositionForward,
-    backwards: repositionBackwards
+    backward: repositionBackwards
   }
 };

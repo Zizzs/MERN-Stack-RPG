@@ -4,7 +4,12 @@ const skeleton = {
   health: 50,
   attackMin: 1,
   attackMax: 3,
-  drops: ["fragments", "item"]
+  drops: {
+    minItemCount: 1,
+    maxItemCount: 2,
+    minFragmentCount: 25,
+    maxFragmentCount: 50
+  }
 };
 
 export const enemies = {

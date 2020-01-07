@@ -36,7 +36,9 @@ class CelestialTower extends Component {
   redirectLocation = location => {
     const { user } = this.props.auth;
     console.log(`Sending ${user.name} to ${location}.`);
-    setLocation(user, location);
+    if (location !== "/HUB/CelestialTower/Combat") {
+      setLocation(user, location);
+    }
     this.props.history.push(location);
   };
 
