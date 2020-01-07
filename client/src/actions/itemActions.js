@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Give the user an item
 export const giveUserItem = (userData, item) => {
-  console.log(item);
+  //console.log(item);
   let data = {
     userData: userData,
     item: item
@@ -13,8 +13,6 @@ export const giveUserItem = (userData, item) => {
     headers: { "Content-Type": "application/json" },
     data: data
   })
-    //fetch("/api/items/giveItem", options)
-    //.post("/api/items/giveItem", data)
     .then(function(response) {
       //console.log(response);
     })

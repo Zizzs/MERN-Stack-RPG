@@ -42,7 +42,13 @@ class Combat extends Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
+
+    if (this.state.hasMonster === false) {
+      this.setState({ enemy: enemies.skeleton, hasMonster: true });
+    }
   }
+
+  conponentDidUpdate() {}
 
   redirectLocation = location => {
     const { user } = this.props.auth;
@@ -77,10 +83,6 @@ class Combat extends Component {
     // if (user.character.location !== this.state.location) {
     //   this.redirectLocation(user.character.location);
     // }
-
-    if (this.state.hasMonster === false) {
-      this.setState({ enemy: enemies.skeleton, hasMonster: true });
-    }
 
     // ---------------Ability Position Control--------------------------
     if (this.state.position === 1 && this.state.hasUpdated === false) {

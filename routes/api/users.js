@@ -71,31 +71,7 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           name: user.name,
-          character: {
-            health: user.character.health,
-            maxHealth: user.character.maxHealth,
-            mana: user.character.mana,
-            maxMana: user.character.maxMana,
-            strength: user.character.strength,
-            dexterity: user.character.dexterity,
-            intellect: user.character.intellect,
-            luminosity: user.character.luminosity,
-            spark: user.character.spark,
-            enlightenment: user.character.enlightenment,
-            currentEnergy: user.character.currentEnergy,
-            maxEnergy: user.character.maxEnergy,
-            boundFragments: user.character.boundFragments,
-            unboundFragments: user.character.unboundFragments,
-            items: user.character.items,
-            equippedItems: user.character.equippedItems,
-            bankItems: user.character.bankItems,
-            bankSlots: user.character.bankSlots,
-            pylonAlpha: user.character.pylonAlpha,
-            pylonBeta: user.character.pylonBeta,
-            pylonGamma: user.character.pylonGamma,
-            pylonDelta: user.character.pylonDelta,
-            location: user.character.location
-          }
+          character: user.character
         };
         // Sign token
         jwt.sign(

@@ -1,25 +1,29 @@
-const express = require("express");
-const User = require("../../models/User");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
 
 // Give the user an item generated elsewhere.
 const giveItem = (req, res) => {
   const { userData, item } = req.body;
-  User.findOne({ _id: userData.id }, function(err, user) {
-    if (!err) {
-      if (!user instanceof User) {
-        user = new User();
-        user = userData;
-      }
-      user.character.items.push(item);
-      user.save(function(err) {
-        if (!err) {
-          console.log(`${user.name} got a ${item.name}`);
-        } else {
-          console.log(`Error: Could not save item: ${item.name}`);
-        }
+  userData.character.items.push(item);
+  const payload = {
+    id: userData.id,
+    name: userData.name,
+    character: userData.character
+  };
+  //console.log(payload);
+  jwt.sign(
+    payload,
+    keys.secretOrKey,
+    {
+      expiresIn: 31556926 // 1 year in seconds
+    },
+    (err, token) => {
+      res.json({
+        success: true,
+        token: "Bearer " + token
       });
     }
-  });
+  );
 };
 
 exports.giveItem = giveItem;

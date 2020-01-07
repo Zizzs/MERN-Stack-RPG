@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import Modal from "../layout/Modal";
 import HubImage from "../../images/cosmicCity.png";
 
 import { saveUser } from "../../actions/authActions";
@@ -60,21 +59,21 @@ class HUB extends Component {
 
   giveItem = e => {
     e.preventDefault();
-    const { user } = this.props.auth;
+    let user = this.props.auth.user;
     giveUserItem(user, {
       name: "Flaming Sword",
       type: "Sword"
     });
   };
 
+  consoleLogUser = () => {
+    let user = this.props.auth.user;
+    console.log(user.character.items);
+  };
+
   render() {
     //console.log(this.props.auth);
     const { user } = this.props.auth;
-
-    // if (user.character.location !== this.state.location) {
-    //   this.redirectLocation(user.character.location);
-    // }
-    //console.log(user);
     return (
       <div id="hubMainDiv">
         <div id="hubTitleLogoutDiv">
@@ -116,18 +115,10 @@ class HUB extends Component {
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={this.showHealerModal}
+                    onClick={this.consoleLogUser}
                   >
                     Healer
                   </button>
-                  <Modal
-                    show={this.state.showHealer}
-                    handleClose={this.hideHealerModal}
-                  >
-                    <p>Healer</p>
-                    <p>Tend your wounds for 50 fragments</p>
-                  </Modal>
-
                   {/* Trainer Button */}
                   <br />
                   <button
