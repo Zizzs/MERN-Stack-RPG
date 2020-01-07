@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  withRouter
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 

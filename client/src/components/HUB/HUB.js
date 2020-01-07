@@ -16,16 +16,24 @@ import "./HUB.css";
 class HUB extends Component {
   state = {
     showHealer: false,
+    saved: false,
     location: "/HUB"
   };
 
   componentDidMount() {
+    // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
     console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    saveUser(user);
+    if (user.character.location !== this.state.location) {
+      this.props.history.push(user.character.location);
+    }
+    if (this.state.saved === false) {
+      saveUser(user);
+      this.setState({ saved: true });
+    }
   }
 
   redirectLocation = location => {

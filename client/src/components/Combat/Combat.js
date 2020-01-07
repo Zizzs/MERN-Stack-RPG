@@ -37,17 +37,17 @@ class Combat extends Component {
   };
 
   componentDidMount() {
-    //const { user } = this.props.auth;
-    //this.props.getUser(user);
+    const { user } = this.props.auth;
+    console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    //setLocation(user, this.state.location);
   }
 
   redirectLocation = location => {
     const { user } = this.props.auth;
     console.log(`Sending ${user.name} to ${location}.`);
+    setLocation(user, location);
     this.props.history.push(location);
   };
 
@@ -309,11 +309,12 @@ class Combat extends Component {
 
 Combat.propTypes = {
   auth: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired
+  getUser: PropTypes.func.isRequired,
+  setLocation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getUser })(Combat);
+export default connect(mapStateToProps, { getUser, setLocation })(Combat);

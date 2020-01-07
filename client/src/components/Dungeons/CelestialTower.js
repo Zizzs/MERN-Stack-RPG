@@ -13,16 +13,24 @@ import { saveUser } from "../../actions/authActions";
 
 class CelestialTower extends Component {
   state = {
+    saved: false,
     location: "/HUB/CelestialTower"
   };
 
   componentDidMount() {
+    // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
     console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    saveUser(user);
+    if (user.character.location !== this.state.location) {
+      this.props.history.push(user.character.location);
+    }
+    if (this.state.saved === false) {
+      saveUser(user);
+      this.setState({ saved: true });
+    }
   }
 
   redirectLocation = location => {
@@ -35,12 +43,6 @@ class CelestialTower extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
-    console.log(user);
-    // if (user.character.location !== this.state.location) {
-    //   this.redirectLocation(user.character.location);
-    // }
-
     return (
       <div id="celestialTower">
         <div id="leftImage">
