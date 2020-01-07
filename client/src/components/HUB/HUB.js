@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { withRouter } from "react-router-dom";
 import Modal from "../layout/Modal";
 import HubImage from "../../images/cosmicCity.png";
+
+import { saveUser } from "../../actions/authActions";
+import { logoutUser } from "../../actions/authActions";
 import { giveUserItem } from "../../actions/itemActions";
 import { getUser } from "../../actions/authActions";
-import { withRouter } from "react-router-dom";
 import { setLocation } from "../../actions/locationActions";
 
 import "./HUB.css";
@@ -19,16 +21,17 @@ class HUB extends Component {
 
   componentDidMount() {
     const { user } = this.props.auth;
-    this.props.getUser(user);
+    console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    setLocation(user, this.state.location);
+    saveUser(user);
   }
 
   redirectLocation = location => {
     const { user } = this.props.auth;
     console.log(`Sending ${user.name} to ${location}.`);
+    setLocation(user, location);
     this.props.history.push(location);
   };
 
@@ -220,10 +223,8 @@ class HUB extends Component {
               <div id="dungeonsButtons">
                 <button
                   style={{ marginLeft: "10px" }}
-                  to="/HUB/CelestialTower"
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                  onClick={e => {
-                    e.preventDefault();
+                  onClick={() => {
                     this.redirectLocation("/HUB/CelestialTower");
                   }}
                 >
@@ -241,13 +242,18 @@ class HUB extends Component {
 HUB.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired
+  getUser: PropTypes.func.isRequired,
+  setLocation: PropTypes.func.isRequired,
+  saveUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser, getUser })(
-  withRouter(HUB)
-);
+export default connect(mapStateToProps, {
+  logoutUser,
+  getUser,
+  setLocation,
+  saveUser
+})(withRouter(HUB));

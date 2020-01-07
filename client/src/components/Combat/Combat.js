@@ -37,12 +37,12 @@ class Combat extends Component {
   };
 
   componentDidMount() {
-    const { user } = this.props.auth;
-    this.props.getUser(user);
+    //const { user } = this.props.auth;
+    //this.props.getUser(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    setLocation(user, this.state.location);
+    //setLocation(user, this.state.location);
   }
 
   redirectLocation = location => {

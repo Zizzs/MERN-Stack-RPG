@@ -24,6 +24,7 @@ export const loginUser = userData => dispatch => {
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
+      console.log(res);
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
@@ -64,6 +65,25 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+export const saveUser = userData => {
+  //console.log(location);
+  let data = {
+    userData: userData
+  };
+  axios({
+    method: "post",
+    url: "/api/saveUser",
+    headers: { "Content-Type": "application/json" },
+    data: data
+  })
+    .then(function(response) {
+      //console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 };
 
 export const getUser = userData => dispatch => {

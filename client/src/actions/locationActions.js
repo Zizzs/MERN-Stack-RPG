@@ -1,15 +1,17 @@
 import axios from "axios";
-
-// Give the user an item
+// Save the user's location in the token
 export const setLocation = (userData, location) => {
   //console.log(location);
   let data = {
     userData: userData,
     location: location
   };
+
+  data.userData.character.location = location;
+
   axios({
     method: "post",
-    url: "/api/location/setLocation",
+    url: "/api/setLocation",
     headers: { "Content-Type": "application/json" },
     data: data
   })

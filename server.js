@@ -5,8 +5,9 @@ const passport = require("passport");
 
 const users = require("./routes/api/users");
 const itemModule = require("./routes/api/items");
-const locationModule = require("./routes/api/location");
+const saveUserModule = require("./routes/api/saveuser");
 const getUserModule = require("./routes/api/getuser");
+const locationModule = require("./routes/api/setlocation");
 
 const app = express();
 // Bodyparser middleware
@@ -17,12 +18,7 @@ app.use(
 );
 app.use(bodyParser.json());
 // DB Config
-const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
-mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -32,8 +28,10 @@ require("./config/passport", passport);
 // Items
 app.post("/api/items/giveItem", itemModule.giveItem);
 
-//Location
-app.post("/api/location/setLocation", locationModule.setLocation);
+// Location
+app.use("/api/setLocation", locationModule.setLocation);
+//Save User Data
+app.post("/api/saveUser", saveUserModule.saveUser);
 
 // Routes
 app.use("/api/users", users);
@@ -43,3 +41,9 @@ const port = process.env.PORT || 5000; // process.env.port is Heroku's port if y
 app.listen(port, () =>
   console.log(`Server is up and running on port ${port} !`)
 );
+
+const db = require("./config/keys").mongoURI;
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch(err => console.log(err));
