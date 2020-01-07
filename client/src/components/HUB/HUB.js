@@ -64,6 +64,7 @@ class HUB extends Component {
       name: "Flaming Sword",
       type: "Sword"
     });
+    console.log("Gave user item");
   };
 
   consoleLogUser = () => {
