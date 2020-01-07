@@ -9,7 +9,7 @@ const saveUser = (req, res) => {
         user = new User();
         user = userData;
       }
-      user.character.location = userData.character.location;
+      user.character = userData.character;
       user.save(function(err) {
         if (!err) {
           console.log(`Saved user: ${user.name}`);

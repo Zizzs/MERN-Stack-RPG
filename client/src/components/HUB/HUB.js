@@ -64,7 +64,9 @@ class HUB extends Component {
       name: "Flaming Sword",
       type: "Sword"
     });
-    console.log("Gave user item");
+    user = this.props.auth.user;
+    console.log(user);
+    saveUser(user);
   };
 
   consoleLogUser = () => {
