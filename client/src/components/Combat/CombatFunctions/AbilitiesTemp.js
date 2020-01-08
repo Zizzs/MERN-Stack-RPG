@@ -49,7 +49,7 @@ const damageFourAbility = {
 };
 
 const damageFiveAbility = {
-  name: "Feint",
+  name: "Heal",
   direction: "none",
   melee: false,
   ranged: false,

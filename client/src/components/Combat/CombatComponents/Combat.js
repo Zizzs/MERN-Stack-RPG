@@ -26,78 +26,31 @@ class CombatCelestialTower extends Component {
   componentDidUpdate = () => {
     // ---------------Ability Position Control--------------------------
     // We will read the player's position, and if it has updated. We then recalculate the player's ability positions based off their clicked position.
-
-    if (this.state.position === 1 && this.state.hasUpdated === false) {
-      let newAbilityPositions = calculateAbilityPosition(
-        this.state.position,
-        this.state.combatAbilities,
-        this.state.repositionAbilities
-      );
-      this.setState({
-        hasUpdated: true,
-        abilities: newAbilityPositions
-      });
-    }
-    if (this.state.position === 2 && this.state.hasUpdated === false) {
-      let newAbilityPositions = calculateAbilityPosition(
-        this.state.position,
-        this.state.combatAbilities,
-        this.state.repositionAbilities
-      );
-      this.setState({
-        hasUpdated: true,
-        abilities: newAbilityPositions
-      });
-    }
-
-    if (this.state.position === 3 && this.state.hasUpdated === false) {
-      let newAbilityPositions = calculateAbilityPosition(
-        this.state.position,
-        this.state.combatAbilities,
-        this.state.repositionAbilities
-      );
-      this.setState({
-        hasUpdated: true,
-        abilities: newAbilityPositions
-      });
-    }
-
-    if (this.state.position === 4 && this.state.hasUpdated === false) {
-      let newAbilityPositions = calculateAbilityPosition(
-        this.state.position,
-        this.state.combatAbilities,
-        this.state.repositionAbilities
-      );
-      this.setState({
-        hasUpdated: true,
-        abilities: newAbilityPositions
-      });
-    }
-
-    if (this.state.position === 5 && this.state.hasUpdated === false) {
-      let newAbilityPositions = calculateAbilityPosition(
-        this.state.position,
-        this.state.combatAbilities,
-        this.state.repositionAbilities
-      );
-      this.setState({
-        hasUpdated: true,
-        abilities: newAbilityPositions
-      });
-    }
-
-    if (this.state.position === 6 && this.state.hasUpdated === false) {
-      let newAbilityPositions = calculateAbilityPosition(
-        this.state.position,
-        this.state.combatAbilities,
-        this.state.repositionAbilities
-      );
-      this.setState({
-        hasUpdated: true,
-        abilities: newAbilityPositions
-      });
-    }
+    this.setStateAbilityPositions(1, false);
+    this.setStateAbilityPositions(2, false);
+    this.setStateAbilityPositions(3, false);
+    this.setStateAbilityPositions(4, false);
+    this.setStateAbilityPositions(5, false);
+    this.setStateAbilityPositions(6, false);
     //----------------------------------------------
+  };
+
+  // Ability Position Control for componentDidUpdate
+  setStateAbilityPositions = (position, hasUpdated) => {
+    if (
+      this.state.position === position &&
+      this.state.hasUpdated === hasUpdated
+    ) {
+      let newAbilityPositions = calculateAbilityPosition(
+        this.state.position,
+        this.state.combatAbilities,
+        this.state.repositionAbilities
+      );
+      this.setState({
+        hasUpdated: true,
+        abilities: newAbilityPositions
+      });
+    }
   };
 
   redirectLocation = location => {
