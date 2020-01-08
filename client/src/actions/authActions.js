@@ -70,13 +70,13 @@ export const setUserLoading = () => {
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => {
   // Remove token from local storage
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
+  return setCurrentUser({});
 };
 
 export const saveUser = userData => {
@@ -98,19 +98,22 @@ export const saveUser = userData => {
     });
 };
 
+// Figure this out!
 export const saveLocalUser = userData => {
-  console.log(userData);
-  let data = {
-    userData: { ...userData }
-  };
-  axios({
-    method: "post",
-    url: "/api/saveLocalUser",
-    headers: { "Content-Type": "application/json" },
-    data: data
-  })
-    .then(function(response) {
-      //console.log(response);
+  axios
+    .post("/api/saveLocalUser", userData)
+    .then(response => {
+      // Save to localStorage
+      // Set token to localStorage
+      console.log("User Saved Locally!");
+      const { token } = response.data;
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      return setCurrentUser(decoded);
     })
     .catch(function(error) {
       console.log(error);
@@ -126,7 +129,7 @@ export const getUser = userData => dispatch => {
       }
     })
     .then(res => {
-      //console.log(res);
+      console.log(res);
       // Save to localStorage
       // Set token to localStorage
       const { token } = res.data;

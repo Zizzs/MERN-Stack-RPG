@@ -7,17 +7,19 @@ import HubImage from "../../images/cosmicCity.png";
 import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { logoutUser } from "../../actions/authActions";
 import { giveUserItem } from "../../actions/itemActions";
-import { getUser } from "../../actions/authActions";
 import { setLocation } from "../../actions/locationActions";
 
 import "./HUB.css";
 
 class HUB extends Component {
-  state = {
-    showHealer: false,
-    saved: false,
-    location: "/HUB"
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showHealer: false,
+      saved: false,
+      location: "/HUB"
+    };
+  }
 
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
@@ -32,9 +34,11 @@ class HUB extends Component {
   }
 
   redirectLocation = location => {
-    const { user } = this.props.auth;
+    let user = this.props.auth.user;
     console.log(`Sending ${user.name} to ${location}.`);
     setLocation(user, location);
+    user = this.props.auth.user;
+    saveLocalUser(user);
     saveUser(user);
     this.props.history.push(location);
   };
@@ -51,7 +55,8 @@ class HUB extends Component {
 
   onLogoutClick = e => {
     e.preventDefault();
-    this.props.logoutUser();
+    logoutUser();
+    window.location.reload(false);
   };
 
   giveItem = e => {
@@ -223,7 +228,8 @@ class HUB extends Component {
                 <button
                   style={{ marginLeft: "10px" }}
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                  onClick={() => {
+                  onClick={e => {
+                    e.preventDefault();
                     this.redirectLocation("/HUB/CelestialTower");
                   }}
                 >
@@ -239,20 +245,29 @@ class HUB extends Component {
 }
 
 HUB.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired,
-  setLocation: PropTypes.func.isRequired,
-  saveUser: PropTypes.func.isRequired
+  //logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+  // setLocation: PropTypes.func.isRequired,
+  // saveUser: PropTypes.func.isRequired,
+  // saveLocalUser: PropTypes.func.isRequired,
+  // getUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {
-  logoutUser,
-  getUser,
-  setLocation,
-  saveUser
-})(withRouter(HUB));
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: () => {
+      dispatch(logoutUser());
+    },
+    setLocation,
+    saveUser,
+    saveLocalUser: user => {
+      dispatch(saveLocalUser(user));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HUB));

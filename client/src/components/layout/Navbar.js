@@ -8,23 +8,41 @@ import { setLocation } from "../../actions/locationActions";
 import "./Navbar.css";
 
 class Navbar extends Component {
-  state = {
-    isCharacterPanelOpen: false,
-    isChatPanelOpen: false,
-    isCharacterInCombat: false,
-    updatedStats: false,
-    healthPercent: 100,
-    manaPercent: 100,
-    energyPercent: 100,
-    health: 25,
-    maxHealth: 25,
-    mana: 25,
-    maxMana: 25,
-    energy: 50,
-    maxEnergy: 50,
-    boundFragments: 0,
-    unboundFragments: 0
-  };
+  constructor(props) {
+    super(props);
+    const { user } = this.props.auth;
+    if (this.checkObj(user)) {
+      this.state = {
+        health: user.character.health,
+        maxHealth: user.character.maxHealth,
+        mana: user.character.mana,
+        maxMana: user.character.maxMana,
+        energy: user.character.currentEnergy,
+        maxEnergy: user.character.maxEnergy,
+        healthPercent: (user.character.health / user.character.maxHealth) * 100,
+        manaPercent: (user.character.mana / user.character.maxMana) * 100,
+        energyPercent: user.character.energy / user.character.maxEnergy
+      };
+    } else {
+      this.state = {
+        isCharacterPanelOpen: false,
+        isChatPanelOpen: false,
+        isCharacterInCombat: false,
+        updatedStats: false,
+        healthPercent: 100,
+        manaPercent: 100,
+        energyPercent: 100,
+        health: 25,
+        maxHealth: 25,
+        mana: 25,
+        maxMana: 25,
+        energy: 50,
+        maxEnergy: 50,
+        boundFragments: 0,
+        unboundFragments: 0
+      };
+    }
+  }
 
   updateLocation = location => {
     const { user } = this.props.auth;
@@ -57,41 +75,6 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
-    let healthPercent;
-    let manaPercent;
-    let energyPercent;
-    if (this.checkObj(user)) {
-      if (
-        this.state.health !== user.character.health ||
-        this.state.maxHealth !== user.character.maxHealth ||
-        this.state.mana !== user.character.mana ||
-        this.state.maxMana !== user.character.maxMana ||
-        this.state.energy !== user.character.currentEnergy ||
-        this.state.maxEnergy !== user.character.maxEnergy ||
-        this.state.boundFragments !== user.character.boundFragments ||
-        this.state.unboundFragments !== user.character.boundFragments
-      ) {
-        this.setState({ updatedStats: false });
-      }
-    }
-    if (this.checkObj(user) && this.state.updatedStats === false) {
-      healthPercent = (user.character.health / user.character.maxHealth) * 100;
-      manaPercent = (user.character.mana / user.character.maxMana) * 100;
-      energyPercent =
-        (user.character.currentEnergy / user.character.maxEnergy) * 100;
-      this.setState({
-        health: user.character.health,
-        maxHealth: user.character.maxHealth,
-        mana: user.character.mana,
-        maxMana: user.character.maxMana,
-        energy: user.character.currentEnergy,
-        maxEnergy: user.character.maxEnergy,
-        healthPercent: healthPercent,
-        manaPercent: manaPercent,
-        energyPercent: energyPercent,
-        updatedStats: true
-      });
-    }
 
     if (this.checkObj(user)) {
       return (

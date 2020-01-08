@@ -34,6 +34,7 @@ class CelestialTower extends Component {
     if (location !== "/HUB/CelestialTower/Combat") {
       setLocation(user, location);
     }
+    saveLocalUser(user);
     saveUser(user);
     this.props.history.push(location);
   };
@@ -106,13 +107,24 @@ class CelestialTower extends Component {
 
 CelestialTower.propTypes = {
   auth: PropTypes.object.isRequired,
-  saveUser: PropTypes.func.isRequired
+  saveUser: PropTypes.func.isRequired,
+  saveLocalUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { saveUser })(
-  withRouter(CelestialTower)
-);
+const mapDispatchToProps = dispatch => {
+  return {
+    saveUser,
+    saveLocalUser: user => {
+      dispatch(saveLocalUser(user));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CelestialTower));
