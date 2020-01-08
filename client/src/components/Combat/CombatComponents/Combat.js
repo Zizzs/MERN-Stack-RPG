@@ -3,9 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "./../Combat.css";
-import combatLeft from "../../../images/combatLeft.png";
-import combatRight from "../../../images/combatRight.png";
-import skeleton from "../../../images/skeleton.png";
 
 // Import Calculate Initial Abilities function
 import calculateAbilityPosition from "../CombatFunctions/CalculateAbilityPosition";
@@ -19,39 +16,17 @@ class CombatCelestialTower extends Component {
       combatAbilities: this.props.controllerState.combatAbilities,
       repositionAbilities: this.props.controllerState.repositionAbilities,
       enemy: this.props.controllerState.enemy,
-      abilities: this.props.controllerState.initialAbilities
+      abilities: this.props.controllerState.initialAbilities,
+      imageLeft: this.props.controllerState.imageLeft,
+      imageRight: this.props.controllerState.imageRight,
+      monsterImage: this.props.controllerState.monsterImage
     };
   }
 
-  redirectLocation = location => {
-    const { user } = this.props.auth;
-    console.log(`Sending ${user.name} to ${location}.`);
-    this.props.history.push(location);
-  };
-
-  clickedAbility = clickedNumber => {
-    let ability = this.state.abilities[
-      Object.keys(this.state.abilities)[clickedNumber - 1]
-    ];
-    if (
-      this.state.position - 1 === clickedNumber &&
-      ability.direction === "forward"
-    ) {
-      this.setState({ position: clickedNumber, hasUpdated: false });
-    }
-    if (
-      this.state.position + 1 === clickedNumber &&
-      ability.direction === "backwards"
-    ) {
-      this.setState({ position: clickedNumber, hasUpdated: false });
-    }
-    //console.log(this.state);
-  };
-
-  render() {
-    //console.log(this.state);
+  componentDidUpdate = () => {
     // ---------------Ability Position Control--------------------------
     // We will read the player's position, and if it has updated. We then recalculate the player's ability positions based off their clicked position.
+
     if (this.state.position === 1 && this.state.hasUpdated === false) {
       let newAbilityPositions = calculateAbilityPosition(
         this.state.position,
@@ -123,7 +98,33 @@ class CombatCelestialTower extends Component {
       });
     }
     //----------------------------------------------
+  };
 
+  redirectLocation = location => {
+    const { user } = this.props.auth;
+    console.log(`Sending ${user.name} to ${location}.`);
+    this.props.history.push(location);
+  };
+
+  clickedAbility = clickedNumber => {
+    let ability = this.state.abilities[
+      Object.keys(this.state.abilities)[clickedNumber - 1]
+    ];
+    if (
+      this.state.position - 1 === clickedNumber &&
+      ability.direction === "forward"
+    ) {
+      this.setState({ position: clickedNumber, hasUpdated: false });
+    }
+    if (
+      this.state.position + 1 === clickedNumber &&
+      ability.direction === "backwards"
+    ) {
+      this.setState({ position: clickedNumber, hasUpdated: false });
+    }
+  };
+
+  render() {
     // ---------Position Bar Control----------------
     // Changes the class of the divs based on the position of the character, setting the background color of the div to white to indicate the current position of the player from the monster.
     let positionOne = "notInPosition";
@@ -172,7 +173,7 @@ class CombatCelestialTower extends Component {
     return (
       <div id="combat">
         <div id="leftImage">
-          <img alt="left combat" id="combatLeft" src={combatLeft} />
+          <img alt="left combat" id="combatLeft" src={this.state.imageLeft} />
         </div>
         <div id="mainCombatDiv">
           <div id="playerPosition">
@@ -184,7 +185,7 @@ class CombatCelestialTower extends Component {
             <div id="positionSix" className={positionSix}></div>
           </div>
           <div id="combatWrapper">
-            <img id="combatImage" alt="monster" src={skeleton} />
+            <img id="combatImage" alt="monster" src={this.state.monsterImage} />
             <div id="combatInteractibles">
               <div id="buttonsLeft">
                 <button>Text</button>
@@ -270,7 +271,11 @@ class CombatCelestialTower extends Component {
           </button>
         </div>
         <div id="rightImage">
-          <img alt="right combat" id="combatRight" src={combatRight} />
+          <img
+            alt="right combat"
+            id="combatRight"
+            src={this.state.imageRight}
+          />
         </div>
       </div>
     );

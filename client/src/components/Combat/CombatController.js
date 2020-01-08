@@ -3,13 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 // Import Combat Components
-import CombatCelestialTower from "./CombatComponents/CombatCelestialTower";
+import Combat from "./CombatComponents/Combat";
 
 // Import Combat Types
 import { CELESTIAL_TOWER } from "./CombatFunctions/CombatTypes";
 
 // Import Calculate Initial Abilities function
 import calculateAbilityPosition from "./CombatFunctions/CalculateAbilityPosition";
+
+// Import Calculate Combat Images function
+import calculateCombatImages from "./CombatFunctions/CalculateCombatImages";
+
+// Import Calculate Combat Enemies function
+import calculateCombatEnemies from "./CombatFunctions/CalculateCombatEnemies";
 
 // Temp Abilities Import, Will be removed once I implement user abilities.
 import { abilities } from "./CombatFunctions/AbilitiesTemp";
@@ -31,6 +37,8 @@ class CombatController extends Component {
       abilities.damageAbilities,
       abilities.repositionAbilities
     );
+    let images = calculateCombatImages(user.character.location);
+    let monster = calculateCombatEnemies(user.character.location);
     this.state = {
       completedCombat: false,
       hasWon: false,
@@ -39,7 +47,10 @@ class CombatController extends Component {
       repositionAbilities: abilities.repositionAbilities,
       enemy: enemies.skeleton,
       playerLocation: user.character.location,
-      initialAbilities: initialAbilities
+      initialAbilities: initialAbilities,
+      imageLeft: images.left,
+      imageRight: images.right,
+      monsterImage: monster.image
     };
   }
 
@@ -78,10 +89,7 @@ class CombatController extends Component {
     switch (this.state.playerLocation) {
       case CELESTIAL_TOWER:
         return (
-          <CombatCelestialTower
-            winCombat={this.winCombat}
-            controllerState={this.state}
-          />
+          <Combat winCombat={this.winCombat} controllerState={this.state} />
         );
       default:
         return (
