@@ -5,6 +5,7 @@ const keys = require("../../config/keys");
 // Save the User's Location in the Token
 const saveLocalUser = (req, res) => {
   const { userData } = req.body;
+  console.log(userData);
   const payload = {
     id: userData.id,
     name: userData.name,

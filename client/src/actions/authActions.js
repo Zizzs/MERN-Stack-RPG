@@ -98,6 +98,25 @@ export const saveUser = userData => {
     });
 };
 
+export const saveLocalUser = userData => {
+  console.log(userData);
+  let data = {
+    userData: { ...userData }
+  };
+  axios({
+    method: "post",
+    url: "/api/saveLocalUser",
+    headers: { "Content-Type": "application/json" },
+    data: data
+  })
+    .then(function(response) {
+      //console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+};
+
 export const getUser = userData => dispatch => {
   //console.log(userData);
   axios

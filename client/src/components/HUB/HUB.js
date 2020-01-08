@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import HubImage from "../../images/cosmicCity.png";
 
-import { saveUser } from "../../actions/authActions";
+import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { logoutUser } from "../../actions/authActions";
 import { giveUserItem } from "../../actions/itemActions";
 import { getUser } from "../../actions/authActions";
@@ -29,16 +29,13 @@ class HUB extends Component {
     if (user.character.location !== this.state.location) {
       this.props.history.push(user.character.location);
     }
-    if (this.state.saved === false) {
-      saveUser(user);
-      this.setState({ saved: true });
-    }
   }
 
   redirectLocation = location => {
     const { user } = this.props.auth;
     console.log(`Sending ${user.name} to ${location}.`);
     setLocation(user, location);
+    saveUser(user);
     this.props.history.push(location);
   };
 

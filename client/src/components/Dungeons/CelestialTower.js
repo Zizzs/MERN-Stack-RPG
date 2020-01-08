@@ -8,8 +8,7 @@ import celestialTowerLeft from "../../images/celestialTower.png";
 import celestialTowerRight from "../../images/celestialTowerRight.png";
 
 import { setLocation } from "../../actions/locationActions";
-import { getUser } from "../../actions/authActions";
-import { saveUser } from "../../actions/authActions";
+import { saveUser, saveLocalUser } from "../../actions/authActions";
 
 class CelestialTower extends Component {
   state = {
@@ -27,10 +26,6 @@ class CelestialTower extends Component {
     if (user.character.location !== this.state.location) {
       this.props.history.push(user.character.location);
     }
-    if (this.state.saved === false) {
-      saveUser(user);
-      this.setState({ saved: true });
-    }
   }
 
   redirectLocation = location => {
@@ -39,6 +34,7 @@ class CelestialTower extends Component {
     if (location !== "/HUB/CelestialTower/Combat") {
       setLocation(user, location);
     }
+    saveUser(user);
     this.props.history.push(location);
   };
 
@@ -110,7 +106,6 @@ class CelestialTower extends Component {
 
 CelestialTower.propTypes = {
   auth: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired,
   saveUser: PropTypes.func.isRequired
 };
 
@@ -118,6 +113,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getUser, saveUser })(
+export default connect(mapStateToProps, { saveUser })(
   withRouter(CelestialTower)
 );
