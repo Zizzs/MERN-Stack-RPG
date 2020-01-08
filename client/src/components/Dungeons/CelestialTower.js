@@ -20,7 +20,7 @@ class CelestialTower extends Component {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
     console.log(user);
-    if (!this.props.auth.isAuthenticated) {
+    if (!this.props.auth.isAuthenticated || !user) {
       this.props.history.push("/");
     }
     if (user.character.location !== this.state.location) {
