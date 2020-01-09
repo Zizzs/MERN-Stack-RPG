@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { setLocation } from "../../actions/locationActions";
+
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
-import { setLocation } from "../../actions/locationActions";
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -27,6 +28,7 @@ class Navbar extends Component {
       this.state = {
         isCharacterPanelOpen: false,
         isChatPanelOpen: false,
+        isMenuPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         healthPercent: 100,
@@ -55,6 +57,17 @@ class Navbar extends Component {
       this.setState({ isCharacterPanelOpen: false });
     } else {
       this.setState({ isCharacterPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
+    }
+  };
+
+  toggleMenuPanel = () => {
+    if (this.state.isMenuPanelOpen) {
+      this.setState({ isMenuPanelOpen: false });
+      document.getElementById("navOverlay").style.width = "0%";
+    } else {
+      this.setState({ isMenuPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "15%";
     }
   };
 
@@ -63,6 +76,7 @@ class Navbar extends Component {
       this.setState({ isChatPanelOpen: false });
     } else {
       this.setState({ isChatPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
     }
   };
 
@@ -81,8 +95,8 @@ class Navbar extends Component {
         <div className="navbarContainer">
           <div className="topNavContainer">
             <div className="topNavCharacterButton">
-              <button className="button" onClick={this.toggleCharacterPanel}>
-                Character
+              <button className="button" onClick={this.toggleMenuPanel}>
+                Menu
               </button>
             </div>
             <div className="navTitle">
@@ -96,10 +110,16 @@ class Navbar extends Component {
                 </i>
               </div>
             </div>
-            <div className="topNavChatButton">
-              <button className="button" onClick={this.toggleChatPanel}>
-                Chat
-              </button>
+            <div id="navOverlay">
+              <div id="navOverlay-content">
+                <div>
+                  <button onClick={this.toggleMenuPanel} id="navOverlay-close">
+                    X
+                  </button>
+                </div>
+                <p onClick={this.toggleCharacterPanel}>Character</p>
+                <p onClick={this.toggleChatPanel}>Chat</p>
+              </div>
             </div>
           </div>
           <div id="navbarCharacterStatsWrapper">
@@ -155,8 +175,14 @@ class Navbar extends Component {
               </div>
             </div>
           </div>
-          <CharacterPanel panelOpen={this.state.isCharacterPanelOpen} />
-          <ChatPanel panelOpen={this.state.isChatPanelOpen} />
+          <CharacterPanel
+            togglePanel={this.toggleCharacterPanel}
+            panelOpen={this.state.isCharacterPanelOpen}
+          />
+          <ChatPanel
+            togglePanel={this.toggleChatPanel}
+            panelOpen={this.state.isChatPanelOpen}
+          />
         </div>
       );
     } else {
