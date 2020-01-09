@@ -2,24 +2,6 @@
   background-color: #0b0a46;
 }
 
-#voidHeader {
-  margin-top: 0px;
-  font-weight: bold;
-}
-#voidHeader:hover {
-  color: gray;
-  cursor: default;
-}
-
-#chevRight {
-  float: right;
-  margin-left: 10px;
-}
-
-#chevLeft {
-  float: left;
-}
-
 #navbarCharacterStatsWrapper {
   position: fixed;
   width: 100%;
@@ -72,4 +54,53 @@
 
 #energyBarOutline {
   border: 1px solid gray;
+}
+
+/* New CSS Design */
+
+.navbarContainer {
+  background-color: #0b0a46;
+  min-width: 100%;
+  position: fixed;
+  z-index: 5;
+}
+
+.topNavContainer {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  height: 65px;
+}
+
+.navTitle {
+  display: flex;
+  min-width: 100%;
+  text-align: center;
+}
+
+.topNavCharacterButton {
+  margin: auto auto;
+  padding: 15px;
+}
+
+.topNavChatButton {
+  margin: auto auto;
+  padding: 15px;
+}
+
+#voidHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-weight: bold;
+  padding-top: 5px;
+  margin: 0px auto;
+}
+
+#voidHeader:hover {
+  color: gray;
+  cursor: default;
+}
+
+#voidText {
+  font-size: 30px;
+  padding-top: 10px;
 }

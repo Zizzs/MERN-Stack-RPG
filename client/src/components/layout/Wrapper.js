@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import "./Wrapper.css";
+
+import PrivateRoute from "../private-route/PrivateRoute";
 import Navbar from "../layout/Navbar";
 import Landing from "../layout/Landing";
 import Register from "../auth/Register";
 import Login from "../auth/Login";
-import PrivateRoute from "../private-route/PrivateRoute";
 import HUB from "../HUB/HUB";
 import CelestialTower from "../Dungeons/CelestialTower";
 import CombatController from "../Combat/CombatController";
@@ -16,24 +18,28 @@ class Wrapper extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
-          <Navbar />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Switch>
-            <PrivateRoute exact path="/HUB" component={HUB} />
-            <PrivateRoute
-              exact
-              path="/HUB/CelestialTower"
-              component={CelestialTower}
-            />
-            <PrivateRoute
-              exact
-              path="/HUB/CelestialTower/Combat"
-              component={CombatController}
-            />
-          </Switch>
+        <div className="container">
+          <div>
+            <Navbar />
+          </div>
+          <div>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Switch>
+              <PrivateRoute exact path="/HUB" component={HUB} />
+              <PrivateRoute
+                exact
+                path="/HUB/CelestialTower"
+                component={CelestialTower}
+              />
+              <PrivateRoute
+                exact
+                path="/HUB/CelestialTower/Combat"
+                component={CombatController}
+              />
+            </Switch>
+          </div>
         </div>
       </Router>
     );

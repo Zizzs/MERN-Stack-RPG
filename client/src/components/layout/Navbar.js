@@ -78,54 +78,30 @@ class Navbar extends Component {
 
     if (this.checkObj(user)) {
       return (
-        <div>
-          <div className="navbar-fixed">
-            <nav className="z-depth-0">
-              <div id="navbarDiv" className="nav-wrapper">
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginLeft: "1.5rem"
-                  }}
-                  onClick={this.toggleCharacterPanel}
-                  className="btn btn-small waves-effect hoverable #1a237e indigo darken-4"
-                >
-                  Character
-                </button>
-                <p
-                  to="/HUB"
-                  id="voidHeader"
-                  className="col s5 brand-logo center"
-                >
-                  <i className="material-icons" id="chevLeft">
-                    chevron_left
-                  </i>
-                  VOID
-                  <i className="material-icons" id="chevRight">
-                    chevron_right
-                  </i>
-                </p>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    float: "right",
-                    marginRight: "1.5rem",
-                    marginTop: "15px"
-                  }}
-                  onClick={this.toggleChatPanel}
-                  className="btn btn-small waves-effect hoverable #1a237e indigo darken-4"
-                >
-                  Chat
-                </button>
+        <div className="navbarContainer">
+          <div className="topNavContainer">
+            <div className="topNavCharacterButton">
+              <button className="button" onClick={this.toggleCharacterPanel}>
+                Character
+              </button>
+            </div>
+            <div className="navTitle">
+              <div to="/HUB" id="voidHeader">
+                <i className="material-icons medium" id="chevLeft">
+                  chevron_left
+                </i>
+                <b id="voidText">VOID</b>
+                <i className="material-icons medium" id="chevRight">
+                  chevron_right
+                </i>
               </div>
-            </nav>
+            </div>
+            <div className="topNavChatButton">
+              <button className="button" onClick={this.toggleChatPanel}>
+                Chat
+              </button>
+            </div>
           </div>
-          <CharacterPanel panelOpen={this.state.isCharacterPanelOpen} />
-          <ChatPanel panelOpen={this.state.isChatPanelOpen} />
           <div id="navbarCharacterStatsWrapper">
             <div id="navbarCharacterStats">
               <div>Stats Left</div>
@@ -179,6 +155,8 @@ class Navbar extends Component {
               </div>
             </div>
           </div>
+          <CharacterPanel panelOpen={this.state.isCharacterPanelOpen} />
+          <ChatPanel panelOpen={this.state.isChatPanelOpen} />
         </div>
       );
     } else {

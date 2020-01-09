@@ -80,7 +80,7 @@ class HUB extends Component {
     //console.log(this.props.auth);
     const { user } = this.props.auth;
     return (
-      <div id="hubMainDiv">
+      <div id="hubContainer">
         <div id="hubTitleLogoutDiv">
           <div id="hubTitleDiv">
             <h4>
