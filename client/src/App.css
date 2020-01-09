@@ -21,10 +21,10 @@ input {
   border-radius: 0.1em;
   box-shadow: -2px -2px 2px 0px rgba(162, 143, 230, 0.336),
     2px 2px 2px 0 rgba(9, 2, 48, 0.336);
-  user-select: none;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
   background-color: #252d81;
 }
 
