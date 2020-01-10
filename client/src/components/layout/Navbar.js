@@ -117,8 +117,21 @@ class Navbar extends Component {
                     X
                   </button>
                 </div>
-                <p onClick={this.toggleCharacterPanel}>Character</p>
-                <p onClick={this.toggleChatPanel}>Chat</p>
+                <div className="navLink" onClick={this.toggleCharacterPanel}>
+                  <p>CHARACTER</p>
+                </div>
+                <div className="navLink">
+                  <p>INVENTORY</p>
+                </div>
+                <div className="navLink">
+                  <p>COMBAT PREFS</p>
+                </div>
+                <div className="navLink">
+                  <p>ABILITIES</p>
+                </div>
+                <div className="navLink" onClick={this.toggleChatPanel}>
+                  <p>CHAT</p>
+                </div>
               </div>
             </div>
           </div>
@@ -186,31 +199,7 @@ class Navbar extends Component {
         </div>
       );
     } else {
-      return (
-        <div>
-          <div className="navbar-fixed">
-            <nav className="z-depth-0">
-              <div id="navbarDiv" className="nav-wrapper">
-                <Link
-                  to="/HUB"
-                  style={{
-                    fontFamily: "monospace"
-                  }}
-                  className="col s5 brand-logo center white-text"
-                >
-                  <i className="material-icons" id="chevLeft">
-                    chevron_left
-                  </i>
-                  VOID
-                  <i className="material-icons" id="chevRight">
-                    chevron_right
-                  </i>
-                </Link>
-              </div>
-            </nav>
-          </div>
-        </div>
-      );
+      return <div></div>;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway|Roboto|Merienda&display=swap");
 body {
   background-color: #050617;
   color: white;
@@ -25,6 +25,7 @@ input {
 
 .button:hover {
   background-color: #252d81;
+  cursor: pointer;
 }
 
 .button:focus {

@@ -105,6 +105,18 @@
   padding-top: 10px;
 }
 
+.navLink {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  height: 100%;
+}
+
+.navLink:hover {
+  background-color: rgba(255, 255, 255, 0.096);
+  cursor: pointer;
+}
+
 #navOverlay {
   height: 100%;
   width: 0;
@@ -120,7 +132,7 @@
 
 #navOverlay-content {
   display: grid;
-  grid-template-rows: 5fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr;
   position: relative;
   width: 100%;
   text-align: center;

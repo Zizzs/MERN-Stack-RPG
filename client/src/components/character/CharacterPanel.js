@@ -51,7 +51,7 @@ class CharacterPanel extends Component {
             <p>Item Count: {user.character.items.length}</p>
             <p>Equipped Items: {user.character.equippedItems.length}</p>
           </div>
-          <button onClick={this.props.togglePanel} class="closePanelButton">
+          <button onClick={this.props.togglePanel} className="closePanelButton">
             X
           </button>
         </div>

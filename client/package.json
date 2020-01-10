@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "framer": "^1.1.6",
     "jwt-decode": "^2.2.0",
     "materialize-css": "^1.0.0-rc.2",
     "react": "^16.6.3",
