@@ -108,7 +108,9 @@ const UserSchema = new Schema({
       type: String,
       default: "/HUB"
     }
-  }
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

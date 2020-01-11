@@ -13,6 +13,8 @@ import Login from "../auth/Login";
 import HUB from "../HUB/HUB";
 import CelestialTower from "../Dungeons/CelestialTower";
 import CombatController from "../Combat/CombatController";
+import ForgotPassword from "../auth/ForgotPassword";
+import ResetPassword from "../auth/ResetPassword";
 
 class Wrapper extends Component {
   render() {
@@ -26,6 +28,8 @@ class Wrapper extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/emailreset" component={ForgotPassword} />
+            <Route path="/reset/:token" component={ResetPassword} />
             <Switch>
               <PrivateRoute exact path="/HUB" component={HUB} />
               <PrivateRoute

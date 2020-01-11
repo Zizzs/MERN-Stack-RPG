@@ -39,6 +39,10 @@ class Login extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  forgotPasswordPage = () => {
+    this.props.history.push("/emailreset");
+  };
+
   onSubmit = e => {
     e.preventDefault();
 
@@ -110,6 +114,9 @@ class Login extends Component {
                   {errors.passwordincorrect}
                 </span>
               </div>
+              <p onClick={() => this.forgotPasswordPage()}>
+                Forgot Password...
+              </p>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
                   style={{
