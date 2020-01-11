@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { setLocation } from "../../actions/locationActions";
+
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
-import { setLocation } from "../../actions/locationActions";
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -27,6 +28,7 @@ class Navbar extends Component {
       this.state = {
         isCharacterPanelOpen: false,
         isChatPanelOpen: false,
+        isMenuPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         healthPercent: 100,
@@ -55,6 +57,17 @@ class Navbar extends Component {
       this.setState({ isCharacterPanelOpen: false });
     } else {
       this.setState({ isCharacterPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
+    }
+  };
+
+  toggleMenuPanel = () => {
+    if (this.state.isMenuPanelOpen) {
+      this.setState({ isMenuPanelOpen: false });
+      document.getElementById("navOverlay").style.width = "0%";
+    } else {
+      this.setState({ isMenuPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "15%";
     }
   };
 
@@ -63,6 +76,7 @@ class Navbar extends Component {
       this.setState({ isChatPanelOpen: false });
     } else {
       this.setState({ isChatPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
     }
   };
 
@@ -78,54 +92,49 @@ class Navbar extends Component {
 
     if (this.checkObj(user)) {
       return (
-        <div>
-          <div className="navbar-fixed">
-            <nav className="z-depth-0">
-              <div id="navbarDiv" className="nav-wrapper">
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginLeft: "1.5rem"
-                  }}
-                  onClick={this.toggleCharacterPanel}
-                  className="btn btn-small waves-effect hoverable #1a237e indigo darken-4"
-                >
-                  Character
-                </button>
-                <p
-                  to="/HUB"
-                  id="voidHeader"
-                  className="col s5 brand-logo center"
-                >
-                  <i className="material-icons" id="chevLeft">
-                    chevron_left
-                  </i>
-                  VOID
-                  <i className="material-icons" id="chevRight">
-                    chevron_right
-                  </i>
-                </p>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    float: "right",
-                    marginRight: "1.5rem",
-                    marginTop: "15px"
-                  }}
-                  onClick={this.toggleChatPanel}
-                  className="btn btn-small waves-effect hoverable #1a237e indigo darken-4"
-                >
-                  Chat
-                </button>
+        <div className="navbarContainer">
+          <div className="topNavContainer">
+            <div className="topNavCharacterButton">
+              <button className="button" onClick={this.toggleMenuPanel}>
+                Menu
+              </button>
+            </div>
+            <div className="navTitle">
+              <div to="/HUB" id="voidHeader">
+                <i className="material-icons medium" id="chevLeft">
+                  chevron_left
+                </i>
+                <b id="voidText">VOID</b>
+                <i className="material-icons medium" id="chevRight">
+                  chevron_right
+                </i>
               </div>
-            </nav>
+            </div>
+            <div id="navOverlay">
+              <div id="navOverlay-content">
+                <div>
+                  <button onClick={this.toggleMenuPanel} id="navOverlay-close">
+                    X
+                  </button>
+                </div>
+                <div className="navLink" onClick={this.toggleCharacterPanel}>
+                  <p>CHARACTER</p>
+                </div>
+                <div className="navLink">
+                  <p>INVENTORY</p>
+                </div>
+                <div className="navLink">
+                  <p>COMBAT PREFS</p>
+                </div>
+                <div className="navLink">
+                  <p>ABILITIES</p>
+                </div>
+                <div className="navLink" onClick={this.toggleChatPanel}>
+                  <p>CHAT</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <CharacterPanel panelOpen={this.state.isCharacterPanelOpen} />
-          <ChatPanel panelOpen={this.state.isChatPanelOpen} />
           <div id="navbarCharacterStatsWrapper">
             <div id="navbarCharacterStats">
               <div>Stats Left</div>
@@ -179,34 +188,18 @@ class Navbar extends Component {
               </div>
             </div>
           </div>
+          <CharacterPanel
+            togglePanel={this.toggleCharacterPanel}
+            panelOpen={this.state.isCharacterPanelOpen}
+          />
+          <ChatPanel
+            togglePanel={this.toggleChatPanel}
+            panelOpen={this.state.isChatPanelOpen}
+          />
         </div>
       );
     } else {
-      return (
-        <div>
-          <div className="navbar-fixed">
-            <nav className="z-depth-0">
-              <div id="navbarDiv" className="nav-wrapper">
-                <Link
-                  to="/HUB"
-                  style={{
-                    fontFamily: "monospace"
-                  }}
-                  className="col s5 brand-logo center white-text"
-                >
-                  <i className="material-icons" id="chevLeft">
-                    chevron_left
-                  </i>
-                  VOID
-                  <i className="material-icons" id="chevRight">
-                    chevron_right
-                  </i>
-                </Link>
-              </div>
-            </nav>
-          </div>
-        </div>
-      );
+      return <div></div>;
     }
   }
 }

@@ -1,0 +1,17 @@
+#landingGridContainer {
+  display: grid;
+  grid-template-rows: 5fr, 2fr, 2fr;
+  text-align: center;
+}
+
+#voidAnimation {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#welcomeDiv {
+  margin-top: 25%;
+}
+
+#loginButton {
+  margin-left: 25px;
+}

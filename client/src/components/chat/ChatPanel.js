@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Draggable from "react-draggable";
 import "./ChatPanel.css";
 
 class ChatPanel extends Component {
@@ -12,9 +13,12 @@ class ChatPanel extends Component {
     }
 
     return (
-      <div id="chatPanel" className={visibility}>
-        Chat
-      </div>
+      <Draggable>
+        <div id="chatPanel" className={visibility}>
+          Chat
+          <button onClick={this.props.togglePanel}>Toggle</button>
+        </div>
+      </Draggable>
     );
   }
 }
