@@ -41,6 +41,7 @@ class Landing extends Component {
 
           <Link
             to="/login"
+            id="loginButton"
             style={{
               width: "140px",
               borderRadius: "3px",

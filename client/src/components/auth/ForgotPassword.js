@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import axios from "axios";
 import "./ForgotPassword.css";
 
@@ -7,6 +10,7 @@ class ForgotPassword extends Component {
     super();
     this.state = {
       email: "",
+      emailSent: false,
       showError: false,
       messageFromServer: ""
     };
@@ -16,6 +20,11 @@ class ForgotPassword extends Component {
     this.setState({
       [name]: event.target.value
     });
+  };
+
+  goHome = e => {
+    e.preventDefault();
+    this.props.history.push("/");
   };
 
   sendEmail = e => {
@@ -42,7 +51,8 @@ class ForgotPassword extends Component {
           } else if (res.data === "recovery email sent") {
             this.setState({
               showError: false,
-              messageFromServer: "recovery email sent"
+              emailSent: true,
+              messageFromServer: "Recovery Email Sent"
             });
           }
         })
@@ -53,19 +63,42 @@ class ForgotPassword extends Component {
   };
 
   render() {
-    const { email, messageFromServer, showNullError, showError } = this.state;
-    return (
-      <div>
-        <p>Enter Email...</p>
-        <input
-          type="text"
-          id="emailInput"
-          value={email}
-          onChange={this.handleChange("email")}
-        />
-        <button onClick={e => this.sendEmail(e)}>Send Reset Email</button>
-      </div>
-    );
+    const {
+      email,
+      emailSent,
+      messageFromServer,
+      showNullError,
+      showError
+    } = this.state;
+    if (emailSent) {
+      return (
+        <div className="forgotPasswordContainer">
+          <p>
+            Email has been sent. Please check for the email and use the link to
+            reset your password...
+          </p>
+          <button className="button" onClick={e => this.goHome(e)}>
+            <i className="material-icons left">keyboard_backspace</i> Back to
+            home
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="forgotPasswordContainer">
+          <h4>Enter Email...</h4>
+          <input
+            type="text"
+            id="emailInput"
+            value={email}
+            onChange={this.handleChange("email")}
+          />
+          <button className="button" onClick={e => this.sendEmail(e)}>
+            Send Reset Email
+          </button>
+        </div>
+      );
+    }
   }
 }
 

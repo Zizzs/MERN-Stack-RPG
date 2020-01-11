@@ -79,38 +79,63 @@ class ResetPassword extends Component {
       });
   };
 
+  redirectLocation = location => {
+    this.props.history.push(location);
+  };
+
   render() {
     const { password, error, isLoading, updated } = this.state;
     console.log(this.state);
     if (error) {
       return (
-        <div>
+        <div className="resetPageContainer">
           <p>Problem Resetting Password... Send another link.</p>
+          <button className="button" onClick={() => this.redirectLocation("/")}>
+            Home
+          </button>
+          <button
+            className="button loginButton"
+            onClick={() => this.redirectLocation("/login")}
+          >
+            Login
+          </button>
         </div>
       );
     } else if (isLoading) {
       return (
-        <div>
+        <div className="resetPageContainer">
           <p>Loading User Data...</p>
         </div>
       );
     } else if (updated) {
       return (
-        <div>
+        <div className="resetPageContainer">
           <p>Password has been reset.</p>
+          <button className="button" onClick={() => this.redirectLocation("/")}>
+            Home
+          </button>
+          <button
+            className="button loginButton"
+            onClick={() => this.redirectLocation("/login")}
+          >
+            Login
+          </button>
         </div>
       );
     } else {
       return (
-        <div>
-          <p>{this.state.username} Enter New Password...</p>
+        <div className="resetPageContainer">
+          <h4>Username: {this.state.username}</h4>
+          <p>Enter New Password...</p>
           <input
             type="text"
             id="passwordInputs"
             value={password}
             onChange={this.handleChange("password")}
           />
-          <button onClick={e => this.updatePassword(e)}>Reset Password</button>
+          <button className="button" onClick={e => this.updatePassword(e)}>
+            Reset Password
+          </button>
         </div>
       );
     }
