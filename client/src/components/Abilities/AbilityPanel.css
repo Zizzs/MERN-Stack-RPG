@@ -1,0 +1,54 @@
+#abilityPanel {
+  color: white;
+  width: 70vw;
+  margin-top: 15%;
+  margin-bottom: 15%;
+  margin-left: 2%;
+  height: 70%;
+  overflow-y: scroll;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  overflow-y: scroll;
+  z-index: 1000;
+
+  border: 3px solid white;
+  background-color: #0b0a46;
+
+  display: grid;
+}
+
+#abilityPanel.hide {
+  transform: translate3d(-100vw, 0, 0);
+}
+
+#abilityPanel.show {
+  transform: translate3d(0vw, 0, 0);
+  overflow: hidden;
+}
+
+.closePanelButton {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 60px;
+  background-color: #1a227e00;
+  border: none;
+  color: rgba(255, 255, 255, 0.438);
+  padding: 10px 20px;
+  min-width: 120px;
+  text-align: center;
+  display: inline-block;
+  font-size: 50px;
+}
+
+.closePanelButton:hover {
+  color: rgba(255, 255, 255, 0.767);
+  cursor: pointer;
+}
+
+.closePanelButton:focus {
+  background-color: rgba(255, 255, 255, 0);
+}

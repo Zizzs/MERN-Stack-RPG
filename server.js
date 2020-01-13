@@ -9,6 +9,7 @@ const saveUserModule = require("./routes/api/saveuser");
 const getUserModule = require("./routes/api/getuser");
 const saveLocal = require("./routes/api/saveLocalUser");
 const resetPassModule = require("./routes/api/resetPassword");
+const abilitiesModule = require("./routes/api/GameData/Abilities/GetAbilities");
 
 const app = express();
 // Bodyparser middleware
@@ -31,6 +32,9 @@ app.use("/api/saveLocalUser", saveLocal.saveLocalUser);
 
 // Save Database User Data
 app.post("/api/saveUser", saveUserModule.saveUser);
+
+// Abilities Routes
+app.get("/api/abilities/getAllAbilities", abilitiesModule.getAllAbilities);
 
 // User Routes
 app.use("/api/users", users);

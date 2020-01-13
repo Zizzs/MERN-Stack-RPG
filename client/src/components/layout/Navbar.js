@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setLocation } from "../../actions/locationActions";
 
+import AbilityPanel from "../Abilities/AbilityPanel";
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
 import "./Navbar.css";
@@ -29,6 +30,7 @@ class Navbar extends Component {
         isCharacterPanelOpen: false,
         isChatPanelOpen: false,
         isMenuPanelOpen: false,
+        isAbilityPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         healthPercent: 100,
@@ -52,6 +54,16 @@ class Navbar extends Component {
     this.props.history.push(location);
   };
 
+  toggleMenuPanel = () => {
+    if (this.state.isMenuPanelOpen) {
+      this.setState({ isMenuPanelOpen: false });
+      document.getElementById("navOverlay").style.width = "0%";
+    } else {
+      this.setState({ isMenuPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "15%";
+    }
+  };
+
   toggleCharacterPanel = () => {
     if (this.state.isCharacterPanelOpen) {
       this.setState({ isCharacterPanelOpen: false });
@@ -61,13 +73,12 @@ class Navbar extends Component {
     }
   };
 
-  toggleMenuPanel = () => {
-    if (this.state.isMenuPanelOpen) {
-      this.setState({ isMenuPanelOpen: false });
-      document.getElementById("navOverlay").style.width = "0%";
+  toggleAbilityPanel = () => {
+    if (this.state.isAbilityPanelOpen) {
+      this.setState({ isAbilityPanelOpen: false });
     } else {
-      this.setState({ isMenuPanelOpen: true });
-      document.getElementById("navOverlay").style.width = "15%";
+      this.setState({ isAbilityPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
     }
   };
 
@@ -126,7 +137,7 @@ class Navbar extends Component {
                 <div className="navLink">
                   <p>COMBAT PREFS</p>
                 </div>
-                <div className="navLink">
+                <div className="navLink" onClick={this.toggleAbilityPanel}>
                   <p>ABILITIES</p>
                 </div>
                 <div className="navLink" onClick={this.toggleChatPanel}>
@@ -195,6 +206,10 @@ class Navbar extends Component {
           <ChatPanel
             togglePanel={this.toggleChatPanel}
             panelOpen={this.state.isChatPanelOpen}
+          />
+          <AbilityPanel
+            togglePanel={this.toggleAbilityPanel}
+            panelOpen={this.state.isAbilityPanelOpen}
           />
         </div>
       );
