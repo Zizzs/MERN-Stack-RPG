@@ -397,7 +397,7 @@ const Abilities = {
           energyHealAmountMax: 0
         }
       },
-      UHLesserHeal: {
+      UHHeal: {
         info: {
           id: "UHHeal",
           name: "Heal",

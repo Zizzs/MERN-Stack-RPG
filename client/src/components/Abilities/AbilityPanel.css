@@ -69,6 +69,7 @@
 #abilities_weapon,
 #abilities_utility {
   margin: 5%;
+  overflow-y: scroll;
 }
 
 .abilityPanel {
