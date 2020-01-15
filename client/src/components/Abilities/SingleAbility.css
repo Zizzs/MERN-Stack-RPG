@@ -1,0 +1,8 @@
+#singleAbility {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  color: black;
+  z-index: 50;
+  position: fixed;
+}

@@ -7,6 +7,7 @@ import { setLocation } from "../../actions/locationActions";
 import AbilityPanel from "../Abilities/AbilityPanel";
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
+import SingleAbility from "../Abilities/SingleAbility";
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -15,6 +16,13 @@ class Navbar extends Component {
     const { user } = this.props.auth;
     if (this.checkObj(user)) {
       this.state = {
+        isCharacterPanelOpen: false,
+        isChatPanelOpen: false,
+        isMenuPanelOpen: false,
+        isAbilityPanelOpen: false,
+        isAbilityTooltipPanelOpen: false,
+        isCharacterInCombat: false,
+        updatedStats: false,
         health: user.character.health,
         maxHealth: user.character.maxHealth,
         mana: user.character.mana,
@@ -23,7 +31,10 @@ class Navbar extends Component {
         maxEnergy: user.character.maxEnergy,
         healthPercent: (user.character.health / user.character.maxHealth) * 100,
         manaPercent: (user.character.mana / user.character.maxMana) * 100,
-        energyPercent: user.character.energy / user.character.maxEnergy
+        energyPercent: user.character.energy / user.character.maxEnergy,
+        boundFragments: user.character.boundFragments,
+        unboundFragments: user.character.unboundFragments,
+        abilityForTooltip: {}
       };
     } else {
       this.state = {
@@ -31,6 +42,7 @@ class Navbar extends Component {
         isChatPanelOpen: false,
         isMenuPanelOpen: false,
         isAbilityPanelOpen: false,
+        isAbilityTooltipPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         healthPercent: 100,
@@ -43,7 +55,8 @@ class Navbar extends Component {
         energy: 50,
         maxEnergy: 50,
         boundFragments: 0,
-        unboundFragments: 0
+        unboundFragments: 0,
+        abilityForTooltip: {}
       };
     }
   }
@@ -79,6 +92,31 @@ class Navbar extends Component {
     } else {
       this.setState({ isAbilityPanelOpen: true });
       document.getElementById("navOverlay").style.width = "0%";
+    }
+  };
+
+  toggleAbilityTooltipPanelFromTooltip = () => {
+    this.setState({
+      isAbilityTooltipPanelOpen: false,
+      abilityForTooltip: {}
+    });
+  };
+
+  toggleAbilityTooltipPanel = ability => {
+    console.log(ability);
+    if (
+      this.state.isAbilityTooltipPanelOpen &&
+      ability.info.id === this.state.abilityForTooltip.info.name
+    ) {
+      this.setState({
+        isAbilityTooltipPanelOpen: false,
+        abilityForTooltip: {}
+      });
+    } else {
+      this.setState({
+        isAbilityTooltipPanelOpen: true,
+        abilityForTooltip: ability
+      });
     }
   };
 
@@ -207,7 +245,13 @@ class Navbar extends Component {
             togglePanel={this.toggleChatPanel}
             panelOpen={this.state.isChatPanelOpen}
           />
+          <SingleAbility
+            ability={this.state.abilityForTooltip}
+            togglePanel={this.toggleAbilityTooltipPanelFromTooltip}
+            panelOpen={this.state.isAbilityTooltipPanelOpen}
+          />
           <AbilityPanel
+            toggleAbilityTooltipPanel={this.toggleAbilityTooltipPanel}
             togglePanel={this.toggleAbilityPanel}
             panelOpen={this.state.isAbilityPanelOpen}
           />

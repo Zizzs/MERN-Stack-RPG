@@ -7,13 +7,18 @@ import "./AbilityPanel.css";
 import { getAllAbilities } from "../../actions/abilitiesActions";
 
 class AbilityPanel extends Component {
-  state = {
-    hasUpdatedAbilities: false,
-    showDaggers: false,
-    showUtility: false,
-    currentWeaponAbilities: {},
-    abilities: {}
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isToolTipOpen: false,
+      toolTipAbility: {},
+      hasUpdatedAbilities: false,
+      showDaggers: false,
+      showUtility: false,
+      currentWeaponAbilities: {},
+      abilities: {}
+    };
+  }
 
   componentDidUpdate = () => {
     if (this.state.hasUpdatedAbilities === false) {
@@ -23,22 +28,70 @@ class AbilityPanel extends Component {
     }
   };
 
+  getButtonElements = () => {
+    let daggersButton = document.getElementById("daggersButton");
+    let bowsButton = document.getElementById("bowsButton");
+    let stavesButton = document.getElementById("stavesButton");
+    let wandsButton = document.getElementById("wandsButton");
+    let swordsButton = document.getElementById("swordsButton");
+    let utilityButton = document.getElementById("utilityButton");
+    let buttonList = [
+      daggersButton,
+      bowsButton,
+      stavesButton,
+      wandsButton,
+      swordsButton,
+      utilityButton
+    ];
+    return buttonList;
+  };
+
+  focusButton = index => {
+    let buttonList = this.getButtonElements();
+    for (let button of buttonList) {
+      button.className = "weaponButtonText";
+    }
+
+    if (!buttonList[index].className.includes("focusdButton")) {
+      buttonList[index].className = "focusedButton";
+    }
+  };
+
+  // toggleAbilityTooltip = (e, ability) => {
+  //   e.preventDefault();
+
+  //   if (this.state.isToolTipOpen) {
+  //     console.log("Closing Tooltip");
+  //     this.setState({ isToolTipOpen: false, toolTipAbility: {} });
+  //   } else {
+  //     console.log("Opening Tooltip");
+  //     this.setState({ isToolTipOpen: true, toolTipAbility: ability });
+  //   }
+  // };
+
   showDaggers = () => {
     let daggerAbilities = this.state.abilities.dagger;
-    console.log(daggerAbilities);
+    //console.log(daggerAbilities);
     this.setState({
       currentWeaponAbilities: daggerAbilities,
       showUtility: false
     });
+    this.focusButton(0);
+  };
+
+  toggleTooltip = (e, ability) => {
+    e.preventDefault();
+    this.props.toggleAbilityTooltipPanel(ability);
   };
 
   showUtility = () => {
     let utilityAbilities = this.state.abilities.utility;
-    console.log(utilityAbilities);
+    //console.log(utilityAbilities);
     this.setState({
       currentWeaponAbilities: utilityAbilities,
       showUtility: true
     });
+    this.focusButton(5);
   };
 
   render() {
@@ -53,7 +106,7 @@ class AbilityPanel extends Component {
 
     let abilities = this.state.abilities;
     let currentAbilities = this.state.currentWeaponAbilities;
-    console.log(this.state);
+    //console.log(this.state);
 
     //----------------------If Utility is being shown-------------------------
     if (
@@ -66,29 +119,37 @@ class AbilityPanel extends Component {
           <div id="abilityPanel" className={visibility}>
             <div id="abilities">
               <div id="abilityButtons">
-                <div onClick={this.showDaggers} className="weaponButton">
-                  <p className="weaponButtonText">DAGGERS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">BOWS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">STAVES</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">WANDS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">SWORDS</p>
-                </div>
-                <div onClick={this.showUtility} className="weaponButton">
-                  <p className="weaponButtonText">UTLITY</p>
-                </div>
+                <p
+                  id="daggersButton"
+                  className="weaponButtonText"
+                  onClick={this.showDaggers}
+                >
+                  DAGGERS
+                </p>
+                <p id="bowsButton" className="weaponButtonText">
+                  BOWS
+                </p>
+                <p id="stavesButton" className="weaponButtonText">
+                  STAVES
+                </p>
+                <p id="wandsButton" className="weaponButtonText">
+                  WANDS
+                </p>
+                <p id="swordsButton" className="weaponButtonText">
+                  SWORDS
+                </p>
+                <p
+                  id="utilityButton"
+                  className="weaponButtonText"
+                  onClick={this.showUtility}
+                >
+                  UTLITY
+                </p>
               </div>
               <div id="abilities_utility">
                 <div id="abilities_utility_reposition">
                   <div className="abilityPanel">
-                    <p>Reposition</p>
+                    <p className="abilityType">Reposition</p>
                   </div>
                   <div
                     style={{ marginLeft: "5%", width: "95%" }}
@@ -228,24 +289,32 @@ class AbilityPanel extends Component {
           <div id="abilityPanel" className={visibility}>
             <div id="abilities">
               <div id="abilityButtons">
-                <div onClick={this.showDaggers} className="weaponButton">
-                  <p className="weaponButtonText">DAGGERS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">BOWS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">STAVES</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">WANDS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">SWORDS</p>
-                </div>
-                <div onClick={this.showUtility} className="weaponButton">
-                  <p className="weaponButtonText">UTLITY</p>
-                </div>
+                <p
+                  id="daggersButton"
+                  className="weaponButtonText"
+                  onClick={this.showDaggers}
+                >
+                  DAGGERS
+                </p>
+                <p id="bowsButton" className="weaponButtonText">
+                  BOWS
+                </p>
+                <p id="stavesButton" className="weaponButtonText">
+                  STAVES
+                </p>
+                <p id="wandsButton" className="weaponButtonText">
+                  WANDS
+                </p>
+                <p id="swordsButton" className="weaponButtonText">
+                  SWORDS
+                </p>
+                <p
+                  id="utilityButton"
+                  className="weaponButtonText"
+                  onClick={this.showUtility}
+                >
+                  UTLITY
+                </p>
               </div>
               <div id="abilities_weapon">
                 <div id="abilities_weapon_basic">
@@ -258,6 +327,12 @@ class AbilityPanel extends Component {
                         <div
                           style={{ marginLeft: "5%", width: "95%" }}
                           className="abilityPanel"
+                          onClick={e =>
+                            this.toggleTooltip(
+                              e,
+                              this.state.currentWeaponAbilities.basic[ability]
+                            )
+                          }
                           key={
                             this.state.currentWeaponAbilities.basic[ability]
                               .info.id
@@ -351,24 +426,32 @@ class AbilityPanel extends Component {
           <div id="abilityPanel" className={visibility}>
             <div id="abilities">
               <div id="abilityButtons">
-                <div onClick={this.showDaggers} className="weaponButton">
-                  <p className="weaponButtonText">DAGGERS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">BOWS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">STAVES</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">WANDS</p>
-                </div>
-                <div className="weaponButton">
-                  <p className="weaponButtonText">SWORDS</p>
-                </div>
-                <div onClick={this.showUtility} className="weaponButton">
-                  <p className="weaponButtonText">UTLITY</p>
-                </div>
+                <p
+                  id="daggersButton"
+                  className="weaponButtonText"
+                  onClick={this.showDaggers}
+                >
+                  DAGGERS
+                </p>
+                <p id="bowsButton" className="weaponButtonText">
+                  BOWS
+                </p>
+                <p id="stavesButton" className="weaponButtonText">
+                  STAVES
+                </p>
+                <p id="wandsButton" className="weaponButtonText">
+                  WANDS
+                </p>
+                <p id="swordsButton" className="weaponButtonText">
+                  SWORDS
+                </p>
+                <p
+                  id="utilityButton"
+                  className="weaponButtonText"
+                  onClick={this.showUtility}
+                >
+                  UTLITY
+                </p>
               </div>
               <div id="abilities_weapon">
                 <p>Choose a Weapon to preview abilities...</p>
@@ -407,7 +490,8 @@ class AbilityPanel extends Component {
 }
 
 AbilityPanel.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  toggleAbilityTooltipPanel: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
