@@ -3,6 +3,9 @@ import Draggable from "react-draggable";
 import "./SingleAbility.css";
 
 class SingleAbility extends Component {
+  componentDidUpdate = () => {
+    console.log(this.props);
+  };
   render() {
     let { panelOpen } = this.props;
     let visibility = "hide";

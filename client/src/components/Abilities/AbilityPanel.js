@@ -57,18 +57,6 @@ class AbilityPanel extends Component {
     }
   };
 
-  // toggleAbilityTooltip = (e, ability) => {
-  //   e.preventDefault();
-
-  //   if (this.state.isToolTipOpen) {
-  //     console.log("Closing Tooltip");
-  //     this.setState({ isToolTipOpen: false, toolTipAbility: {} });
-  //   } else {
-  //     console.log("Opening Tooltip");
-  //     this.setState({ isToolTipOpen: true, toolTipAbility: ability });
-  //   }
-  // };
-
   showDaggers = () => {
     let daggerAbilities = this.state.abilities.dagger;
     //console.log(daggerAbilities);
@@ -77,6 +65,16 @@ class AbilityPanel extends Component {
       showUtility: false
     });
     this.focusButton(0);
+  };
+
+  toggleAbilityCollapse = (e, targetId) => {
+    e.preventDefault();
+    let skillDiv = document.getElementById(targetId);
+    if (skillDiv.classList.contains("hide")) {
+      skillDiv.classList.remove("hide");
+    } else {
+      skillDiv.classList.add("hide");
+    }
   };
 
   toggleTooltip = (e, ability) => {
@@ -116,7 +114,10 @@ class AbilityPanel extends Component {
     ) {
       return (
         <Draggable>
-          <div id="abilityPanel" className={visibility}>
+          <div id="abilitiesPanel" className={visibility}>
+            <div className="abilitiesHeader">
+              <p>Abilities</p>
+            </div>
             <div id="abilities">
               <div id="abilityButtons">
                 <p
@@ -148,121 +149,178 @@ class AbilityPanel extends Component {
               </div>
               <div id="abilities_utility">
                 <div id="abilities_utility_reposition">
-                  <div className="abilityPanel">
+                  <div
+                    className="abilityPanel"
+                    onClick={e =>
+                      this.toggleAbilityCollapse(e, "repositionUtilitySkills")
+                    }
+                  >
                     <p className="abilityType">Reposition</p>
                   </div>
-                  <div
-                    style={{ marginLeft: "5%", width: "95%" }}
-                    className="abilityPanel"
-                  >
-                    <p>Forward</p>
+                  <div id="repositionUtilitySkills">
+                    <div
+                      style={{ marginLeft: "5%", width: "95%" }}
+                      className="abilityPanel"
+                      onClick={e =>
+                        this.toggleAbilityCollapse(e, "repositionForwardSkills")
+                      }
+                    >
+                      <p>Forward</p>
+                    </div>
+                    <div id="repositionForwardSkills">
+                      {Object.keys(
+                        this.state.currentWeaponAbilities.reposition.forward
+                      ).map(ability => {
+                        return (
+                          <div
+                            style={{ marginLeft: "10%", width: "90%" }}
+                            className="abilityPanel"
+                            onClick={e =>
+                              this.toggleTooltip(
+                                e,
+                                this.state.currentWeaponAbilities.reposition
+                                  .forward[ability]
+                              )
+                            }
+                            key={
+                              this.state.currentWeaponAbilities.reposition
+                                .forward[ability].info.id
+                            }
+                          >
+                            <p>
+                              {
+                                this.state.currentWeaponAbilities.reposition
+                                  .forward[ability].info.name
+                              }
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div
+                      style={{ marginLeft: "5%", width: "95%" }}
+                      className="abilityPanel"
+                      onClick={e =>
+                        this.toggleAbilityCollapse(
+                          e,
+                          "repositionBackwardSkills"
+                        )
+                      }
+                    >
+                      <p>Backward</p>
+                    </div>
+                    <div id="repositionBackwardSkills">
+                      {Object.keys(
+                        this.state.currentWeaponAbilities.reposition.backward
+                      ).map(ability => {
+                        return (
+                          <div
+                            style={{ marginLeft: "10%", width: "90%" }}
+                            className="abilityPanel"
+                            onClick={e =>
+                              this.toggleTooltip(
+                                e,
+                                this.state.currentWeaponAbilities.reposition
+                                  .backward[ability]
+                              )
+                            }
+                            key={
+                              this.state.currentWeaponAbilities.reposition
+                                .backward[ability].info.id
+                            }
+                          >
+                            <p>
+                              {
+                                this.state.currentWeaponAbilities.reposition
+                                  .backward[ability].info.name
+                              }
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                  {Object.keys(
-                    this.state.currentWeaponAbilities.reposition.forward
-                  ).map(ability => {
-                    return (
-                      <div
-                        style={{ marginLeft: "10%", width: "90%" }}
-                        className="abilityPanel"
-                        key={
-                          this.state.currentWeaponAbilities.reposition.forward[
-                            ability
-                          ].info.id
-                        }
-                      >
-                        <p>
-                          {
-                            this.state.currentWeaponAbilities.reposition
-                              .forward[ability].info.name
-                          }
-                        </p>
-                      </div>
-                    );
-                  })}
-                  <div
-                    style={{ marginLeft: "5%", width: "95%" }}
-                    className="abilityPanel"
-                  >
-                    <p>Backward</p>
-                  </div>
-                  {Object.keys(
-                    this.state.currentWeaponAbilities.reposition.backward
-                  ).map(ability => {
-                    return (
-                      <div
-                        style={{ marginLeft: "10%", width: "90%" }}
-                        className="abilityPanel"
-                        key={
-                          this.state.currentWeaponAbilities.reposition.backward[
-                            ability
-                          ].info.id
-                        }
-                      >
-                        <p>
-                          {
-                            this.state.currentWeaponAbilities.reposition
-                              .backward[ability].info.name
-                          }
-                        </p>
-                      </div>
-                    );
-                  })}
                 </div>
                 <div id="abilities_utility_heal">
-                  <div className="abilityPanel">
-                    <p>Healing</p>
-                  </div>
-                  {Object.keys(this.state.currentWeaponAbilities.heal).map(
-                    ability => {
-                      return (
-                        <div
-                          style={{ marginLeft: "10%", width: "90%" }}
-                          className="abilityPanel"
-                          key={
-                            this.state.currentWeaponAbilities.heal[ability].info
-                              .id
-                          }
-                        >
-                          <p>
-                            {
-                              this.state.currentWeaponAbilities.heal[ability]
-                                .info.name
-                            }
-                          </p>
-                        </div>
-                      );
+                  <div
+                    className="abilityPanel"
+                    onClick={e =>
+                      this.toggleAbilityCollapse(e, "healingUtilitySkills")
                     }
-                  )}
+                  >
+                    <p className="abilityType">Healing</p>
+                  </div>
+                  <div id="healingUtilitySkills">
+                    {Object.keys(this.state.currentWeaponAbilities.heal).map(
+                      ability => {
+                        return (
+                          <div
+                            style={{ marginLeft: "10%", width: "90%" }}
+                            className="abilityPanel"
+                            onClick={e =>
+                              this.toggleTooltip(
+                                e,
+                                this.state.currentWeaponAbilities.heal[ability]
+                              )
+                            }
+                            key={
+                              this.state.currentWeaponAbilities.heal[ability]
+                                .info.id
+                            }
+                          >
+                            <p>
+                              {
+                                this.state.currentWeaponAbilities.heal[ability]
+                                  .info.name
+                              }
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
                 </div>
                 <div id="abilities_utility_generic">
-                  <div className="abilityPanel">
-                    <p>Generic</p>
-                  </div>
-                  {Object.keys(this.state.currentWeaponAbilities.generic).map(
-                    ability => {
-                      return (
-                        <div
-                          style={{ marginLeft: "10%", width: "90%" }}
-                          className="abilityPanel"
-                          key={
-                            this.state.currentWeaponAbilities.generic[ability]
-                              .info.id
-                          }
-                        >
-                          <p>
-                            {
-                              this.state.currentWeaponAbilities.generic[ability]
-                                .info.name
-                            }
-                          </p>
-                        </div>
-                      );
+                  <div
+                    className="abilityPanel"
+                    onClick={e =>
+                      this.toggleAbilityCollapse(e, "genericUtilitySkills")
                     }
-                  )}
-                </div>
-                <div id="abilities_utility_magic">
-                  <div className="abilityPanel">
-                    <p>Magic</p>
+                  >
+                    <p className="abilityType">Generic</p>
+                  </div>
+                  <div id="genericUtilitySkills">
+                    {Object.keys(this.state.currentWeaponAbilities.generic).map(
+                      ability => {
+                        return (
+                          <div
+                            style={{ marginLeft: "10%", width: "90%" }}
+                            className="abilityPanel"
+                            onClick={e =>
+                              this.toggleTooltip(
+                                e,
+                                this.state.currentWeaponAbilities.generic[
+                                  ability
+                                ]
+                              )
+                            }
+                            key={
+                              this.state.currentWeaponAbilities.generic[ability]
+                                .info.id
+                            }
+                          >
+                            <p>
+                              {
+                                this.state.currentWeaponAbilities.generic[
+                                  ability
+                                ].info.name
+                              }
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
                   </div>
                 </div>
               </div>
@@ -286,7 +344,10 @@ class AbilityPanel extends Component {
     ) {
       return (
         <Draggable>
-          <div id="abilityPanel" className={visibility}>
+          <div id="abilitiesPanel" className={visibility}>
+            <div className="abilitiesHeader">
+              <p>Abilities</p>
+            </div>
             <div id="abilities">
               <div id="abilityButtons">
                 <p
@@ -318,11 +379,99 @@ class AbilityPanel extends Component {
               </div>
               <div id="abilities_weapon">
                 <div id="abilities_weapon_basic">
-                  <div className="abilityPanel">
-                    <p>Basic</p>
+                  <div
+                    className="abilityPanel"
+                    onClick={e =>
+                      this.toggleAbilityCollapse(e, "basicWeaponSkills")
+                    }
+                  >
+                    <p className="abilityType">Basic</p>
                   </div>
-                  {Object.keys(this.state.currentWeaponAbilities.basic).map(
-                    ability => {
+                  <div id="basicWeaponSkills">
+                    {Object.keys(this.state.currentWeaponAbilities.basic).map(
+                      ability => {
+                        return (
+                          <div
+                            style={{ marginLeft: "5%", width: "95%" }}
+                            className="abilityPanel"
+                            onClick={e =>
+                              this.toggleTooltip(
+                                e,
+                                this.state.currentWeaponAbilities.basic[ability]
+                              )
+                            }
+                            key={
+                              this.state.currentWeaponAbilities.basic[ability]
+                                .info.id
+                            }
+                          >
+                            <p>
+                              {
+                                this.state.currentWeaponAbilities.basic[ability]
+                                  .info.name
+                              }
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                </div>
+                <div id="abilities_daggers_chainer">
+                  <div
+                    className="abilityPanel"
+                    onClick={e =>
+                      this.toggleAbilityCollapse(e, "chainerWeaponSkills")
+                    }
+                  >
+                    <p className="abilityType">Chainer</p>
+                  </div>
+                  <div id="chainerWeaponSkills">
+                    {Object.keys(this.state.currentWeaponAbilities.chainer).map(
+                      ability => {
+                        return (
+                          <div
+                            style={{ marginLeft: "5%", width: "95%" }}
+                            className="abilityPanel"
+                            onClick={e =>
+                              this.toggleTooltip(
+                                e,
+                                this.state.currentWeaponAbilities.chainer[
+                                  ability
+                                ]
+                              )
+                            }
+                            key={
+                              this.state.currentWeaponAbilities.chainer[ability]
+                                .info.id
+                            }
+                          >
+                            <p>
+                              {
+                                this.state.currentWeaponAbilities.chainer[
+                                  ability
+                                ].info.name
+                              }
+                            </p>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                </div>
+                <div id="abilities_daggers_finisher">
+                  <div
+                    className="abilityPanel"
+                    onClick={e =>
+                      this.toggleAbilityCollapse(e, "finisherWeaponSkills")
+                    }
+                  >
+                    <p className="abilityType">Finisher</p>
+                  </div>
+                  <div id="finisherWeaponSkills">
+                    {Object.keys(
+                      this.state.currentWeaponAbilities.finisher
+                    ).map(ability => {
                       return (
                         <div
                           style={{ marginLeft: "5%", width: "95%" }}
@@ -330,61 +479,11 @@ class AbilityPanel extends Component {
                           onClick={e =>
                             this.toggleTooltip(
                               e,
-                              this.state.currentWeaponAbilities.basic[ability]
+                              this.state.currentWeaponAbilities.finisher[
+                                ability
+                              ]
                             )
                           }
-                          key={
-                            this.state.currentWeaponAbilities.basic[ability]
-                              .info.id
-                          }
-                        >
-                          <p>
-                            {
-                              this.state.currentWeaponAbilities.basic[ability]
-                                .info.name
-                            }
-                          </p>
-                        </div>
-                      );
-                    }
-                  )}
-                </div>
-                <div id="abilities_daggers_chainer">
-                  <div className="abilityPanel">
-                    <p>Chainer</p>
-                  </div>
-                  {Object.keys(this.state.currentWeaponAbilities.chainer).map(
-                    ability => {
-                      return (
-                        <div
-                          style={{ marginLeft: "5%", width: "95%" }}
-                          className="abilityPanel"
-                          key={
-                            this.state.currentWeaponAbilities.chainer[ability]
-                              .info.id
-                          }
-                        >
-                          <p>
-                            {
-                              this.state.currentWeaponAbilities.chainer[ability]
-                                .info.name
-                            }
-                          </p>
-                        </div>
-                      );
-                    }
-                  )}
-                </div>
-                <div id="abilities_daggers_finisher">
-                  <div className="abilityPanel">
-                    <p>Finisher</p>
-                  </div>
-                  {Object.keys(this.state.currentWeaponAbilities.finisher).map(
-                    ability => {
-                      return (
-                        <div
-                          style={{ marginLeft: "5%", width: "95%" }}
-                          className="abilityPanel"
                           key={
                             this.state.currentWeaponAbilities.finisher[ability]
                               .info.id
@@ -399,8 +498,8 @@ class AbilityPanel extends Component {
                           </p>
                         </div>
                       );
-                    }
-                  )}
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -423,7 +522,10 @@ class AbilityPanel extends Component {
     ) {
       return (
         <Draggable>
-          <div id="abilityPanel" className={visibility}>
+          <div id="abilitiesPanel" className={visibility}>
+            <div className="abilitiesHeader">
+              <p>Abilities</p>
+            </div>
             <div id="abilities">
               <div id="abilityButtons">
                 <p
@@ -472,7 +574,7 @@ class AbilityPanel extends Component {
     if (Object.keys(this.state.abilities).length === 0) {
       return (
         <Draggable>
-          <div id="abilityPanel" className={visibility}>
+          <div id="abilitiesPanel" className={visibility}>
             <div>
               <p>Loading Abilities...</p>
             </div>

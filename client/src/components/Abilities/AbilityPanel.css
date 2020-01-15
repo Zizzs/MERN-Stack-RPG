@@ -1,6 +1,6 @@
-#abilityPanel {
+#abilitiesPanel {
   color: white;
-  width: 70vw;
+  width: 40vw;
   margin-top: 15%;
   margin-bottom: 15%;
   margin-left: 2%;
@@ -16,8 +16,14 @@
 
   border: 3px solid white;
   background-color: #0b0a46;
+}
 
-  display: grid;
+.abilitiesHeader {
+  transform: translateY(-28px);
+  font-family: "Fredoka One", cursive;
+  font-size: 35px;
+  text-align: center;
+  max-height: 5%;
 }
 
 #abilityPanel.hide {
@@ -31,9 +37,8 @@
 
 .closePanelButton {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  font-size: 60px;
+  left: 82%;
+  margin-top: -2%;
   background-color: #1a227e00;
   border: none;
   color: rgba(255, 255, 255, 0.438);
@@ -56,7 +61,8 @@
 #abilities {
   border: 2px solid white;
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 1fr 2fr;
+  height: 90%;
 }
 
 #abilityButtons {
