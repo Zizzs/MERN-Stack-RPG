@@ -125,26 +125,26 @@ class AbilityPanel extends Component {
                   className="weaponButtonText"
                   onClick={this.showDaggers}
                 >
-                  DAGGERS
+                  DAGGERS | {user.character.experience.daggers}xp
                 </p>
                 <p id="bowsButton" className="weaponButtonText">
-                  BOWS
+                  BOWS | {user.character.experience.bows}xp
                 </p>
                 <p id="stavesButton" className="weaponButtonText">
-                  STAVES
+                  STAVES | {user.character.experience.staves}xp
                 </p>
                 <p id="wandsButton" className="weaponButtonText">
-                  WANDS
+                  WANDS | {user.character.experience.wands}xp
                 </p>
                 <p id="swordsButton" className="weaponButtonText">
-                  SWORDS
+                  SWORDS | {user.character.experience.swords}xp
                 </p>
                 <p
                   id="utilityButton"
                   className="weaponButtonText"
                   onClick={this.showUtility}
                 >
-                  UTLITY
+                  UTLITY | {user.character.experience.utility}xp
                 </p>
               </div>
               <div id="abilities_utility">
@@ -192,6 +192,10 @@ class AbilityPanel extends Component {
                                 this.state.currentWeaponAbilities.reposition
                                   .forward[ability].info.name
                               }
+                              {user.character.unlockedAbilities.includes(
+                                this.state.currentWeaponAbilities.reposition
+                                  .forward[ability].info.id
+                              ) && <span> // Unlocked</span>}
                             </p>
                           </div>
                         );
@@ -235,6 +239,10 @@ class AbilityPanel extends Component {
                                 this.state.currentWeaponAbilities.reposition
                                   .backward[ability].info.name
                               }
+                              {user.character.unlockedAbilities.includes(
+                                this.state.currentWeaponAbilities.reposition
+                                  .backward[ability].info.id
+                              ) && <span> // Unlocked</span>}
                             </p>
                           </div>
                         );
@@ -274,6 +282,10 @@ class AbilityPanel extends Component {
                                 this.state.currentWeaponAbilities.heal[ability]
                                   .info.name
                               }
+                              {user.character.unlockedAbilities.includes(
+                                this.state.currentWeaponAbilities.heal[ability]
+                                  .info.id
+                              ) && <span> // Unlocked</span>}
                             </p>
                           </div>
                         );
@@ -316,6 +328,11 @@ class AbilityPanel extends Component {
                                   ability
                                 ].info.name
                               }
+                              {user.character.unlockedAbilities.includes(
+                                this.state.currentWeaponAbilities.generic[
+                                  ability
+                                ].info.id
+                              ) && <span> // Unlocked</span>}
                             </p>
                           </div>
                         );
@@ -355,26 +372,26 @@ class AbilityPanel extends Component {
                   className="weaponButtonText"
                   onClick={this.showDaggers}
                 >
-                  DAGGERS
+                  DAGGERS | {user.character.experience.daggers}xp
                 </p>
                 <p id="bowsButton" className="weaponButtonText">
-                  BOWS
+                  BOWS | {user.character.experience.bows}xp
                 </p>
                 <p id="stavesButton" className="weaponButtonText">
-                  STAVES
+                  STAVES | {user.character.experience.staves}xp
                 </p>
                 <p id="wandsButton" className="weaponButtonText">
-                  WANDS
+                  WANDS | {user.character.experience.wands}xp
                 </p>
                 <p id="swordsButton" className="weaponButtonText">
-                  SWORDS
+                  SWORDS | {user.character.experience.swords}xp
                 </p>
                 <p
                   id="utilityButton"
                   className="weaponButtonText"
                   onClick={this.showUtility}
                 >
-                  UTLITY
+                  UTLITY | {user.character.experience.utility}xp
                 </p>
               </div>
               <div id="abilities_weapon">
@@ -410,6 +427,10 @@ class AbilityPanel extends Component {
                                 this.state.currentWeaponAbilities.basic[ability]
                                   .info.name
                               }
+                              {user.character.unlockedAbilities.includes(
+                                this.state.currentWeaponAbilities.basic[ability]
+                                  .info.id
+                              ) && <span> // Unlocked</span>}
                             </p>
                           </div>
                         );
@@ -452,6 +473,11 @@ class AbilityPanel extends Component {
                                   ability
                                 ].info.name
                               }
+                              {user.character.unlockedAbilities.includes(
+                                this.state.currentWeaponAbilities.chainer[
+                                  ability
+                                ].info.id
+                              ) && <span> // Unlocked</span>}
                             </p>
                           </div>
                         );
@@ -495,6 +521,11 @@ class AbilityPanel extends Component {
                                 ability
                               ].info.name
                             }
+                            {user.character.unlockedAbilities.includes(
+                              this.state.currentWeaponAbilities.finisher[
+                                ability
+                              ].info.id
+                            ) && <span> // Unlocked</span>}
                           </p>
                         </div>
                       );
@@ -533,26 +564,26 @@ class AbilityPanel extends Component {
                   className="weaponButtonText"
                   onClick={this.showDaggers}
                 >
-                  DAGGERS
+                  DAGGERS | {user.character.experience.daggers}xp
                 </p>
                 <p id="bowsButton" className="weaponButtonText">
-                  BOWS
+                  BOWS | {user.character.experience.bows}xp
                 </p>
                 <p id="stavesButton" className="weaponButtonText">
-                  STAVES
+                  STAVES | {user.character.experience.staves}xp
                 </p>
                 <p id="wandsButton" className="weaponButtonText">
-                  WANDS
+                  WANDS | {user.character.experience.wands}xp
                 </p>
                 <p id="swordsButton" className="weaponButtonText">
-                  SWORDS
+                  SWORDS | {user.character.experience.swords}xp
                 </p>
                 <p
                   id="utilityButton"
                   className="weaponButtonText"
                   onClick={this.showUtility}
                 >
-                  UTLITY
+                  UTLITY | {user.character.experience.utility}xp
                 </p>
               </div>
               <div id="abilities_weapon">

@@ -115,6 +115,35 @@ const UserSchema = new Schema({
     combatAbilities: {
       type: Object,
       default: false
+    },
+    experience: {
+      type: Object,
+      default: {
+        daggers: {
+          type: Number,
+          default: 0
+        },
+        bows: {
+          type: Number,
+          default: 0
+        },
+        staves: {
+          type: Number,
+          default: 0
+        },
+        wands: {
+          type: Number,
+          default: 0
+        },
+        swords: {
+          type: Number,
+          default: 0
+        },
+        utility: {
+          type: Number,
+          default: 0
+        }
+      }
     }
   },
   resetPasswordToken: String,

@@ -3,7 +3,7 @@ import Draggable from "react-draggable";
 import { unlockAbility } from "../../actions/abilitiesActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { saveUser } from "../../actions/authActions";
+import { saveUser, saveLocalUser } from "../../actions/authActions";
 import "./SingleAbility.css";
 
 class SingleAbility extends Component {
@@ -11,13 +11,16 @@ class SingleAbility extends Component {
     console.log(this.props);
   };
 
-  learnAbility = (e, id) => {
+  learnAbility = (e, ability) => {
     e.preventDefault();
-    unlockAbility(this.props.auth.user, id);
-    saveUser(this.props.auth.user);
+    let { user } = this.props.auth;
+    unlockAbility(user, ability);
+    saveLocalUser(user);
+    saveUser(user);
   };
 
   render() {
+    let { user } = this.props.auth;
     let { panelOpen } = this.props;
     let visibility = "hide";
     if (panelOpen) {
@@ -85,11 +88,13 @@ class SingleAbility extends Component {
               <hr />
             </div>
             <div id="abilityButtons">
-              <button
-                onClick={e => this.learnAbility(e, this.props.ability.info.id)}
-              >
-                Learn
-              </button>
+              {!user.character.unlockedAbilities.includes(
+                this.props.ability.info.id
+              ) && (
+                <button onClick={e => this.learnAbility(e, this.props.ability)}>
+                  Learn
+                </button>
+              )}
 
               <button onClick={this.props.togglePanel}>Close</button>
             </div>
@@ -114,7 +119,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveUser
+    saveUser,
+    saveLocalUser: user => {
+      dispatch(saveLocalUser(user));
+    }
   };
 };
 

@@ -16,12 +16,38 @@ export const getAllAbilities = () => {
 };
 
 // Unlock ability for the user
-export const unlockAbility = (userData, id) => {
+export const unlockAbility = (userData, ability) => {
   let data = {
     userData: userData
   };
 
-  data.userData.character.unlockedAbilities.push(id);
+  if (!data.userData.character.unlockedAbilities.includes(ability.info.id)) {
+    console.log("Learned");
+    data.userData.character.unlockedAbilities.push(ability.info.id);
+    if (ability.info.weapon === "Dagger") {
+      data.userData.character.experience.daggers -= ability.cost.experience;
+    }
+
+    if (ability.info.weapon === "Bow") {
+      data.userData.character.experience.bows -= ability.cost.experience;
+    }
+
+    if (ability.info.weapon === "Staff") {
+      data.userData.character.experience.staves -= ability.cost.experience;
+    }
+
+    if (ability.info.weapon === "Wand") {
+      data.userData.character.experience.wands -= ability.cost.experience;
+    }
+
+    if (ability.info.weapon === "Sword") {
+      data.userData.character.experience.swords -= ability.cost.experience;
+    }
+
+    if (ability.info.weapon === "Utility") {
+      data.userData.character.experience.utility -= ability.cost.experience;
+    }
+  }
 
   axios({
     method: "post",

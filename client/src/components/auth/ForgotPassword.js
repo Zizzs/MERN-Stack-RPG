@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import axios from "axios";
 import "./ForgotPassword.css";
 
@@ -65,10 +62,10 @@ class ForgotPassword extends Component {
   render() {
     const {
       email,
-      emailSent,
-      messageFromServer,
-      showNullError,
-      showError
+      emailSent
+      // messageFromServer,
+      // showNullError,
+      // showError
     } = this.state;
     if (emailSent) {
       return (
