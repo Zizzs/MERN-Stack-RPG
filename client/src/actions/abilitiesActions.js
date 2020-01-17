@@ -14,3 +14,25 @@ export const getAllAbilities = () => {
       console.log(error);
     });
 };
+
+// Unlock ability for the user
+export const unlockAbility = (userData, id) => {
+  let data = {
+    userData: userData
+  };
+
+  data.userData.character.unlockedAbilities.push(id);
+
+  axios({
+    method: "post",
+    url: "/api/saveLocalUser",
+    headers: { "Content-Type": "application/json" },
+    data: data
+  })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+};

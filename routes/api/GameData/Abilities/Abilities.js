@@ -94,8 +94,7 @@ const Abilities = {
           name: "Throw",
           weapon: "Dagger",
           type: "Basic",
-          description:
-            "A ranged attack, in which the dagger is thrown. And somehow thrown again. Ask the wizards.",
+          description: "A ranged attack, in which the dagger is thrown. ",
           combatText: ["throw the", "chuck the"]
         },
         cost: {

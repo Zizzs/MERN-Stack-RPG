@@ -24,7 +24,7 @@ class HUB extends Component {
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
-    console.log(user);
+    //console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
@@ -67,7 +67,7 @@ class HUB extends Component {
       type: "Sword"
     });
     user = this.props.auth.user;
-    console.log(user);
+    //console.log(user);
     saveUser(user);
   };
 

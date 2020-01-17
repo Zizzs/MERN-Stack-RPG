@@ -1,8 +1,39 @@
 #singleAbility {
-  width: 150px;
-  height: 150px;
-  background-color: white;
-  color: black;
+  width: 400px;
+  height: 500px;
+  background-color: #0b0a46;
+  color: white;
   z-index: 50;
   position: fixed;
+  border: 3px solid white;
+  text-align: center;
+}
+
+#abilityName {
+  text-align: center;
+  font-family: "Fredoka One", cursive;
+  font-size: 25px;
+  margin-bottom: -10px;
+  margin-top: 0px;
+}
+
+#abilityDescription {
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+}
+
+#nameAndCostDiv {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+#abilityHealingDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.descriptionHeader {
+  font-size: 17px;
+  font-family: "Patua One", cursive;
 }

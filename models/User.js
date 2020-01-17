@@ -107,6 +107,14 @@ const UserSchema = new Schema({
     location: {
       type: String,
       default: "/HUB"
+    },
+    unlockedAbilities: {
+      type: Array,
+      default: false
+    },
+    combatAbilities: {
+      type: Object,
+      default: false
     }
   },
   resetPasswordToken: String,

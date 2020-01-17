@@ -103,7 +103,7 @@ class Navbar extends Component {
   };
 
   toggleAbilityTooltipPanel = ability => {
-    console.log(ability);
+    //console.log(ability);
     if (
       this.state.isAbilityTooltipPanelOpen &&
       ability.info.id === this.state.abilityForTooltip.info.name
@@ -138,6 +138,7 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
+    //console.log(user);
 
     if (this.checkObj(user)) {
       return (
