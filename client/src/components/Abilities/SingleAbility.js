@@ -16,7 +16,6 @@ class SingleAbility extends Component {
     let { user } = this.props.auth;
     unlockAbility(user, ability);
     saveLocalUser(user);
-    saveUser(user);
   };
 
   render() {

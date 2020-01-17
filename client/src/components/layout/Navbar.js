@@ -9,6 +9,7 @@ import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
 import SingleAbility from "../Abilities/SingleAbility";
 import "./Navbar.css";
+import { saveUser } from "../../actions/authActions";
 
 class Navbar extends Component {
   constructor(props) {
@@ -89,6 +90,8 @@ class Navbar extends Component {
   toggleAbilityPanel = () => {
     if (this.state.isAbilityPanelOpen) {
       this.setState({ isAbilityPanelOpen: false });
+      const { user } = this.props.auth;
+      saveUser(user);
     } else {
       this.setState({ isAbilityPanelOpen: true });
       document.getElementById("navOverlay").style.width = "0%";
