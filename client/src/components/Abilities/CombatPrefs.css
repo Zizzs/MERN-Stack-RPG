@@ -1,0 +1,56 @@
+#combatPrefs {
+  width: 700px;
+  height: 500px;
+  background-color: #0b0a46;
+  color: white;
+  z-index: 50;
+  position: fixed;
+  border: 3px solid white;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 3fr 8fr 1fr;
+}
+
+#combatPrefsHeader {
+  transform: translateY(-28px);
+  font-family: "Fredoka One", cursive;
+  font-size: 35px;
+  text-align: center;
+  max-height: 5%;
+}
+
+#combatPrefsContent {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  column-gap: 5px;
+}
+
+hr {
+  transform: translateY(-20px);
+}
+
+.focusedButton {
+  font-family: "Patua One", cursive;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  background-color: rgba(165, 162, 0, 0.514);
+  cursor: pointer;
+}
+
+.focusedButton:hover {
+  background-color: rgba(165, 162, 0, 0.658);
+}
+
+.weaponButtonText:hover {
+  background-color: rgba(165, 162, 0, 0.514);
+}
+
+.weaponButtonText {
+  font-family: "Patua One", cursive;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  background-color: rgb(165, 162, 0);
+  cursor: pointer;
+}

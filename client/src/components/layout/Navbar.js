@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setLocation } from "../../actions/locationActions";
+import { saveUser } from "../../actions/authActions";
 
 import AbilityPanel from "../Abilities/AbilityPanel";
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
 import SingleAbility from "../Abilities/SingleAbility";
+import CombatPrefs from "../Abilities/CombatPrefs";
+
 import "./Navbar.css";
-import { saveUser } from "../../actions/authActions";
 
 class Navbar extends Component {
   constructor(props) {
@@ -44,6 +46,7 @@ class Navbar extends Component {
         isMenuPanelOpen: false,
         isAbilityPanelOpen: false,
         isAbilityTooltipPanelOpen: false,
+        isCombatPrefsPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         healthPercent: 100,
@@ -94,6 +97,17 @@ class Navbar extends Component {
       saveUser(user);
     } else {
       this.setState({ isAbilityPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
+    }
+  };
+
+  toggleCombatPrefsPanel = () => {
+    if (this.state.isCombatPrefsPanelOpen) {
+      this.setState({ isCombatPrefsPanelOpen: false });
+      // const { user } = this.props.auth;
+      // saveUser(user);
+    } else {
+      this.setState({ isCombatPrefsPanelOpen: true });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -176,7 +190,7 @@ class Navbar extends Component {
                 <div className="navLink">
                   <p>INVENTORY</p>
                 </div>
-                <div className="navLink">
+                <div className="navLink" onClick={this.toggleCombatPrefsPanel}>
                   <p>COMBAT PREFS</p>
                 </div>
                 <div className="navLink" onClick={this.toggleAbilityPanel}>
@@ -258,6 +272,11 @@ class Navbar extends Component {
             toggleAbilityTooltipPanel={this.toggleAbilityTooltipPanel}
             togglePanel={this.toggleAbilityPanel}
             panelOpen={this.state.isAbilityPanelOpen}
+          />
+          <CombatPrefs
+            toggleCombatPrefsTooltipPanel={this.toggleCombatPrefsTooltipPanel}
+            togglePanel={this.toggleCombatPrefsPanel}
+            panelOpen={this.state.isCombatPrefsPanelOpen}
           />
         </div>
       );

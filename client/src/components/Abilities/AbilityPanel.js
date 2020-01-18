@@ -5,7 +5,6 @@ import Draggable from "react-draggable";
 import "./AbilityPanel.css";
 
 import { getAllAbilities } from "../../actions/abilitiesActions";
-import { saveUser } from "../../actions/authActions";
 
 class AbilityPanel extends Component {
   constructor(props) {
