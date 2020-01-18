@@ -59,7 +59,7 @@ class AbilityPanel extends Component {
 
   showDaggers = () => {
     let daggerAbilities = this.state.abilities.dagger;
-    //console.log(daggerAbilities);
+
     this.setState({
       currentWeaponAbilities: daggerAbilities,
       showUtility: false
@@ -84,7 +84,7 @@ class AbilityPanel extends Component {
 
   showUtility = () => {
     let utilityAbilities = this.state.abilities.utility;
-    //console.log(utilityAbilities);
+
     this.setState({
       currentWeaponAbilities: utilityAbilities,
       showUtility: true
@@ -104,9 +104,8 @@ class AbilityPanel extends Component {
 
     let abilities = this.state.abilities;
     let currentAbilities = this.state.currentWeaponAbilities;
-    //console.log(this.state);
 
-    //----------------------If Utility is being shown-------------------------
+    /*----------------------If Utility is being shown-------------------------*/
     if (
       Object.keys(abilities).length > 0 &&
       Object.keys(currentAbilities).length > 0 &&
@@ -195,7 +194,7 @@ class AbilityPanel extends Component {
                               {user.character.unlockedAbilities.includes(
                                 this.state.currentWeaponAbilities.reposition
                                   .forward[ability].info.id
-                              ) && <span> // Unlocked</span>}
+                              ) && " // Unlocked"}
                             </p>
                           </div>
                         );
@@ -242,7 +241,7 @@ class AbilityPanel extends Component {
                               {user.character.unlockedAbilities.includes(
                                 this.state.currentWeaponAbilities.reposition
                                   .backward[ability].info.id
-                              ) && <span> // Unlocked</span>}
+                              ) && " // Unlocked"}
                             </p>
                           </div>
                         );
@@ -285,7 +284,7 @@ class AbilityPanel extends Component {
                               {user.character.unlockedAbilities.includes(
                                 this.state.currentWeaponAbilities.heal[ability]
                                   .info.id
-                              ) && <span> // Unlocked</span>}
+                              ) && " // Unlocked"}
                             </p>
                           </div>
                         );
@@ -332,7 +331,7 @@ class AbilityPanel extends Component {
                                 this.state.currentWeaponAbilities.generic[
                                   ability
                                 ].info.id
-                              ) && <span> // Unlocked</span>}
+                              ) && " // Unlocked"}
                             </p>
                           </div>
                         );
@@ -354,7 +353,7 @@ class AbilityPanel extends Component {
       );
     }
 
-    // ---------------If Weapon Abilities are being shown------------------
+    /* ---------------If Weapon Abilities are being shown------------------*/
     if (
       Object.keys(abilities).length > 0 &&
       Object.keys(currentAbilities).length > 0
@@ -430,7 +429,7 @@ class AbilityPanel extends Component {
                               {user.character.unlockedAbilities.includes(
                                 this.state.currentWeaponAbilities.basic[ability]
                                   .info.id
-                              ) && <span> // Unlocked</span>}
+                              ) && " // Unlocked"}
                             </p>
                           </div>
                         );
@@ -477,7 +476,7 @@ class AbilityPanel extends Component {
                                 this.state.currentWeaponAbilities.chainer[
                                   ability
                                 ].info.id
-                              ) && <span> // Unlocked</span>}
+                              ) && " // Unlocked"}
                             </p>
                           </div>
                         );
@@ -525,7 +524,7 @@ class AbilityPanel extends Component {
                               this.state.currentWeaponAbilities.finisher[
                                 ability
                               ].info.id
-                            ) && <span> // Unlocked</span>}
+                            ) && " // Unlocked"}
                           </p>
                         </div>
                       );
@@ -546,7 +545,7 @@ class AbilityPanel extends Component {
       );
     }
 
-    // --------------If no skills are being shown---------------------
+    /* --------------If no skills are being shown---------------------*/
     if (
       Object.keys(abilities).length > 0 &&
       Object.keys(currentAbilities).length === 0
@@ -601,7 +600,7 @@ class AbilityPanel extends Component {
         </Draggable>
       );
     }
-    // -----------------If Abilities are being Loaded---------------------
+    /* -----------------If Abilities are being Loaded---------------------*/
     if (Object.keys(this.state.abilities).length === 0) {
       return (
         <Draggable>
@@ -632,14 +631,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(AbilityPanel);
-
-// //console.log(this.state.abilities[weapon]);
-// Object.keys(this.state.abilities[weapon]).map(type => {
-//   //console.log(this.state.abilities[weapon][type]);
-//   Object.keys(this.state.abilities[weapon][type]).map(ability => {
-//     //console.log(this.state.abilities[weapon][type][ability]);
-//     let tempAbility = this.state.abilities[weapon][type][ability];
-//     console.log(tempAbility);
-//     return <div>{tempAbility.info.name}</div>;
-//   });
-// });
