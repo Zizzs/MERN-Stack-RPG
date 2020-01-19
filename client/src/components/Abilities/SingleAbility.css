@@ -21,6 +21,7 @@
   text-align: center;
   font-size: 12px;
   font-style: italic;
+  margin-bottom: 25px;
 }
 
 #nameAndCostDiv {
@@ -36,4 +37,13 @@
 .descriptionHeader {
   font-size: 17px;
   font-family: "Patua One", cursive;
+  margin-top: -15px;
+}
+
+#damageDiv {
+  margin-bottom: 30px;
+}
+
+#positionDiv {
+  margin-bottom: 30px;
 }

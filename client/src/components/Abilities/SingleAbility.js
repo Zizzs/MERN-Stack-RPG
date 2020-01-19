@@ -47,14 +47,14 @@ class SingleAbility extends Component {
               </p>
               <hr />
               <p className="descriptionHeader">Damage</p>
-              <div>
+              <div id="damageDiv">
                 Min: {this.props.ability.damage.damageMin} | Max:{" "}
                 {this.props.ability.damage.damageMax} | Attack Count:{" "}
                 {this.props.ability.damage.attackCount}
               </div>
               <hr />
               <p className="descriptionHeader">Position</p>
-              <div>
+              <div id="positionDiv">
                 Min: {this.props.ability.position.minPosition} | Max:{" "}
                 {this.props.ability.position.maxPosition} | Reposition:{" "}
                 {this.props.ability.position.doesReposition.toString()}
