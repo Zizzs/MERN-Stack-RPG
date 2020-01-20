@@ -75,6 +75,9 @@ const mapDispatchToProps = dispatch => {
     saveUser,
     saveLocalUser: user => {
       dispatch(saveLocalUser(user));
+    },
+    saveAbilityAtPosition: user => {
+      dispatch(saveAbilityAtPosition(user));
     }
   };
 };

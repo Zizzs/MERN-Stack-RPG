@@ -121,6 +121,9 @@ const mapDispatchToProps = dispatch => {
     saveUser,
     saveLocalUser: user => {
       dispatch(saveLocalUser(user));
+    },
+    unlockAbility: user => {
+      dispatch(unlockAbility(user));
     }
   };
 };

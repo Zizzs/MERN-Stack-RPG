@@ -555,6 +555,9 @@ const mapDispatchToProps = dispatch => {
     saveUser,
     saveLocalUser: user => {
       dispatch(saveLocalUser(user));
+    },
+    saveWeapon: user => {
+      dispatch(saveWeapon(user));
     }
   };
 };

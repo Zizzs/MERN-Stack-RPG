@@ -100,24 +100,7 @@ export const saveUser = userData => {
 
 // Figure this out!
 export const saveLocalUser = userData => {
-  axios
-    .post("/api/saveLocalUser", userData)
-    .then(response => {
-      // Save to localStorage
-      // Set token to localStorage
-      console.log("User Saved Locally!");
-      const { token } = response.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      return setCurrentUser(decoded);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  return updateCurrentUser(userData);
 };
 
 export const getUser = userData => dispatch => {

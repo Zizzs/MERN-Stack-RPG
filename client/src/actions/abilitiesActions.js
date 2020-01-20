@@ -1,4 +1,5 @@
 import axios from "axios";
+import { updateCurrentUser } from "./authActions";
 
 // Give the user an item
 export const getAllAbilities = () => {
@@ -72,18 +73,7 @@ export const unlockAbility = (userData, ability) => {
     }
   }
 
-  axios({
-    method: "post",
-    url: "/api/saveLocalUser",
-    headers: { "Content-Type": "application/json" },
-    data: data
-  })
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  return updateCurrentUser(data.userData);
 };
 
 export const saveWeapon = (weapon, weaponPosition, userData) => {
@@ -99,18 +89,7 @@ export const saveWeapon = (weapon, weaponPosition, userData) => {
     data.userData.character.combatPrefs.weaponTwo.type = weapon;
   }
 
-  axios({
-    method: "post",
-    url: "/api/saveLocalUser",
-    headers: { "Content-Type": "application/json" },
-    data: data
-  })
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  return updateCurrentUser(data.userData);
 };
 
 // Unlock ability for the user
@@ -219,18 +198,7 @@ export const saveAbilityAtPosition = (
     data.userData.character.combatPrefs.utility.generic = ability;
   }
 
-  axios({
-    method: "post",
-    url: "/api/saveLocalUser",
-    headers: { "Content-Type": "application/json" },
-    data: data
-  })
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  return updateCurrentUser(data.userData);
 };
 
 export const filterAbilities = (
