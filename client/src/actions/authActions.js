@@ -80,7 +80,6 @@ export const logoutUser = () => {
 };
 
 export const saveUser = userData => {
-  //console.log(location);
   let data = {
     userData: userData
   };
@@ -103,8 +102,7 @@ export const saveLocalUser = userData => {
   return updateCurrentUser(userData);
 };
 
-export const getUser = userData => dispatch => {
-  //console.log(userData);
+export const getUser = userData => {
   axios
     .get("/api/getUser", {
       params: {
@@ -112,22 +110,17 @@ export const getUser = userData => dispatch => {
       }
     })
     .then(res => {
-      console.log(res);
-      // Save to localStorage
-      // Set token to localStorage
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      dispatch(setCurrentUser(decoded));
-    })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+      console.log(res.data.user);
+      if (res.data.user !== null && !checkObj(userData.character)) {
+        userData.character = res.data.user.character;
+      }
+      return updateCurrentUser(userData);
+    });
+};
+
+const checkObj = obj => {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) return true;
+  }
+  return false;
 };

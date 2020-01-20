@@ -16,16 +16,40 @@ class AbilityPanel extends Component {
       showDaggers: false,
       showUtility: false,
       currentWeaponAbilities: {},
-      abilities: {}
+      abilities: {},
+      experience: {
+        daggers: 0,
+        bows: 0,
+        staves: 0,
+        wands: 0,
+        swords: 0,
+        utility: 0
+      },
+      hasUpdatedExperience: false
     };
   }
 
   componentDidUpdate = () => {
+    let { user } = this.props.auth;
     if (this.state.hasUpdatedAbilities === false) {
       getAllAbilities().then(abilities => {
         this.setState({ abilities: abilities, hasUpdatedAbilities: true });
       });
     }
+
+    if (this.checkObj(user) && this.state.hasUpdatedExperience === false) {
+      this.setState({
+        experience: user.character.experience,
+        hasUpdatedExperience: true
+      });
+    }
+  };
+
+  checkObj = obj => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
   };
 
   getButtonElements = () => {
@@ -57,7 +81,8 @@ class AbilityPanel extends Component {
     }
   };
 
-  showDaggers = () => {
+  showDaggers = e => {
+    e.preventDefault();
     let daggerAbilities = this.state.abilities.dagger;
 
     this.setState({
@@ -561,7 +586,9 @@ class AbilityPanel extends Component {
                 <p
                   id="daggersButton"
                   className="weaponButtonText"
-                  onClick={this.showDaggers}
+                  onClick={e => {
+                    this.showDaggers(e);
+                  }}
                 >
                   DAGGERS | {user.character.experience.daggers}xp
                 </p>

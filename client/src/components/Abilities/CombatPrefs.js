@@ -27,60 +27,74 @@ class CombatPrefs extends Component {
   };
 
   componentDidUpdate = () => {
-    if (this.state.hasUpdatedAbilities === false) {
-      getAllAbilities().then(abilities => {
-        this.setState({ abilities: abilities, hasUpdatedAbilities: true });
-      });
-    }
     let { user } = this.props.auth;
-    if (this.props.needUpdate === true) {
-      this.setState({ combatPrefsUpdated: false });
-    }
-    if (this.state.combatPrefsUpdated === false) {
-      this.setState({
-        combatPrefs: user.character.combatPrefs,
-        combatPrefsUpdated: true
-      });
-    }
-    let weaponOneLength = Object.keys(user.character.equipment.weaponOne)
-      .length;
-    let weaponTwoLength = Object.keys(user.character.equipment.weaponTwo)
-      .length;
-
-    if (weaponOneLength !== 0 && this.state.weapons.weaponOne === "") {
-      this.setState({
-        weapons: {
-          weaponOne: user.character.equipment.weaponOne.type
-        },
-        shownWeapon: user.character.equipment.weaponOne.type,
-        weaponOne: true,
-        weaponTwo: false
-      });
-
-      if (
-        user.character.combatPrefs.weaponOne.type !==
-        user.character.equipment.weaponOne.type
-      ) {
-        saveWeapon(user.character.equipment.weaponOne.type, "Weapon One", user);
+    if (this.checkObj(user.character)) {
+      if (this.state.hasUpdatedAbilities === false) {
+        getAllAbilities().then(abilities => {
+          this.setState({ abilities: abilities, hasUpdatedAbilities: true });
+        });
       }
-    }
+      if (this.props.needUpdate === true) {
+        this.setState({ combatPrefsUpdated: false });
+      }
+      if (this.state.combatPrefsUpdated === false) {
+        this.setState({
+          combatPrefs: user.character.combatPrefs,
+          combatPrefsUpdated: true
+        });
+      }
+      let weaponOneLength = Object.keys(user.character.equipment.weaponOne)
+        .length;
 
-    if (weaponTwoLength !== 0 && this.state.weapons.weaponTwo === "") {
-      this.setState({
-        weapons: {
-          weaponTwo: user.character.equipment.weaponTwo.type
+      let weaponTwoLength = 0;
+      if (this.checkObj(user.character.equipment.weaponTwo)) {
+        weaponTwoLength = Object.keys(user.character.equipment.weaponTwo)
+          .length;
+      }
+
+      if (weaponOneLength !== 0 && this.state.weapons.weaponOne === "") {
+        this.setState({
+          weapons: {
+            weaponOne: user.character.equipment.weaponOne.type
+          },
+          shownWeapon: user.character.equipment.weaponOne.type,
+          weaponOne: true,
+          weaponTwo: false
+        });
+
+        if (
+          user.character.combatPrefs.weaponOne.weaponType !==
+          user.character.equipment.weaponOne.type
+        ) {
+          saveWeapon(
+            user.character.equipment.weaponOne.type,
+            "Weapon One",
+            user
+          );
         }
-      });
-      if (
-        user.character.combatPrefs.weaponTwo.type !==
-        user.character.equipment.weaponTwo.type
-      ) {
-        saveWeapon(user.character.equipment.weaponTwo.type, "Weapon Two", user);
       }
-    }
 
-    saveLocalUser(user);
-    console.log(this.state, user);
+      if (weaponTwoLength !== 0 && this.state.weapons.weaponTwo === "") {
+        this.setState({
+          weapons: {
+            weaponTwo: user.character.equipment.weaponTwo.type
+          }
+        });
+        if (
+          user.character.combatPrefs.weaponTwo.weaponType !==
+          user.character.equipment.weaponTwo.type
+        ) {
+          saveWeapon(
+            user.character.equipment.weaponTwo.type,
+            "Weapon Two",
+            user
+          );
+        }
+      }
+
+      saveLocalUser(user);
+      console.log(this.state, user);
+    }
   };
 
   reloadPage = e => {
@@ -206,6 +220,13 @@ class CombatPrefs extends Component {
       this.state.weaponOne,
       this.state.weaponTwo
     );
+  };
+
+  checkObj = obj => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
   };
 
   render() {

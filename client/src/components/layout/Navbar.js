@@ -18,7 +18,7 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     const { user } = this.props.auth;
-    if (this.checkObj(user)) {
+    if (this.checkObj(user.character)) {
       this.state = {
         isCharacterPanelOpen: false,
         isChatPanelOpen: false,
@@ -284,8 +284,8 @@ class Navbar extends Component {
                 </div>
               </div>
               <div>
-                <p>Unbound Fragments: {user.character.unboundFragments}</p>
-                <p>Bound Fragments: {user.character.boundFragments}</p>
+                <p>Unbound Fragments: {this.state.unboundFragments}</p>
+                <p>Bound Fragments: {this.state.boundFragments}</p>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ export const getAllAbilities = () => {
     headers: { "Content-Type": "application/json" }
   })
     .then(function(response) {
+      console.log(response.data.abilities);
       return response.data.abilities;
     })
     .catch(function(error) {
@@ -82,11 +83,11 @@ export const saveWeapon = (weapon, weaponPosition, userData) => {
   };
 
   if (weaponPosition === "Weapon One") {
-    data.userData.character.combatPrefs.weaponOne.type = weapon;
+    data.userData.character.combatPrefs.weaponOne.weaponType = weapon;
   }
 
   if (weaponPosition === "Weapon Two") {
-    data.userData.character.combatPrefs.weaponTwo.type = weapon;
+    data.userData.character.combatPrefs.weaponTwo.weaponType = weapon;
   }
 
   return updateCurrentUser(data.userData);

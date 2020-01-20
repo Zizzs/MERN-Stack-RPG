@@ -84,22 +84,28 @@ const UserSchema = new Schema({
     equipment: {
       type: Object,
       default: {
-        weaponOne: {},
-        weaponTwo: {},
-        helm: {},
-        chest: {},
-        shoulder: {},
-        bracer: {},
-        gloves: {},
-        boots: {},
-        belt: {},
-        ringOne: {},
-        ringTwo: {},
-        ringThree: {},
-        ringFour: {},
-        earringOne: {},
-        earringTwo: {},
-        necklace: {}
+        weaponOne: {
+          type: Object,
+          default: {}
+        },
+        weaponTwo: {
+          type: Object,
+          default: {}
+        },
+        helm: { type: Object, default: {} },
+        chest: { type: Object, default: {} },
+        shoulder: { type: Object, default: {} },
+        bracer: { type: Object, default: {} },
+        gloves: { type: Object, default: {} },
+        boots: { type: Object, default: {} },
+        belt: { type: Object, default: {} },
+        ringOne: { type: Object, default: {} },
+        ringTwo: { type: Object, default: {} },
+        ringThree: { type: Object, default: {} },
+        ringFour: { type: Object, default: {} },
+        earringOne: { type: Object, default: {} },
+        earringTwo: { type: Object, default: {} },
+        necklace: { type: Object, default: {} }
       }
     },
     bankItems: Array,
@@ -130,85 +136,141 @@ const UserSchema = new Schema({
     },
     unlockedAbilities: {
       type: Array,
-      default: false
-    },
-    combatAbilities: {
-      type: Object,
-      default: false
+      default: []
     },
     combatPrefs: {
       type: Object,
       default: {
         ready: false,
         weaponOne: {
-          type: "",
+          type: Object,
+          weaponType: "",
           position: {
-            one: {},
-            two: {},
-            three: {},
-            four: {},
-            five: {},
-            six: {}
+            type: Object,
+            one: {
+              type: Object,
+              default: {}
+            },
+            two: {
+              type: Object,
+              default: {}
+            },
+            three: {
+              type: Object,
+              default: {}
+            },
+            four: {
+              type: Object,
+              default: {}
+            },
+            five: {
+              type: Object,
+              default: {}
+            },
+            six: {
+              type: Object,
+              default: {}
+            }
           },
           chainers: {
-            forward: {},
-            backward: {}
+            type: Object,
+
+            forward: {
+              type: Object,
+              default: {}
+            },
+            backward: {
+              type: Object,
+              default: {}
+            }
           },
-          finisher: {}
+          finisher: {
+            type: Object,
+            default: {}
+          }
         },
         weaponTwo: {
-          type: "",
+          type: Object,
+          weaponType: "",
           position: {
-            one: {},
-            two: {},
-            three: {},
-            four: {},
-            five: {},
-            six: {}
+            type: Object,
+            one: {
+              type: Object,
+              default: {}
+            },
+            two: {
+              type: Object,
+              default: {}
+            },
+            three: {
+              type: Object,
+              default: {}
+            },
+            four: {
+              type: Object,
+              default: {}
+            },
+            five: {
+              type: Object,
+              default: {}
+            },
+            six: {
+              type: Object,
+              default: {}
+            }
           },
           chainers: {
-            forward: {},
-            backward: {}
+            type: Object,
+
+            forward: {
+              type: Object,
+              default: {}
+            },
+            backward: {
+              type: Object,
+              default: {}
+            }
           },
-          finisher: {}
+          finisher: {
+            type: Object,
+            default: {}
+          }
         },
         utility: {
-          heal: {},
-          reposition: {
-            forward: {},
-            backward: {}
+          type: Object,
+
+          heal: {
+            type: Object,
+            default: {}
           },
-          generic: {}
+          reposition: {
+            type: Object,
+
+            forward: {
+              type: Object,
+              default: {}
+            },
+            backward: {
+              type: Object,
+              default: {}
+            }
+          },
+          generic: {
+            type: Object,
+            default: {}
+          }
         }
       }
     },
     experience: {
       type: Object,
       default: {
-        daggers: {
-          type: Number,
-          default: 0
-        },
-        bows: {
-          type: Number,
-          default: 0
-        },
-        staves: {
-          type: Number,
-          default: 0
-        },
-        wands: {
-          type: Number,
-          default: 0
-        },
-        swords: {
-          type: Number,
-          default: 0
-        },
-        utility: {
-          type: Number,
-          default: 0
-        }
+        daggers: 0,
+        bows: 0,
+        staves: 0,
+        wands: 0,
+        swords: 0,
+        utility: 0
       }
     }
   },
