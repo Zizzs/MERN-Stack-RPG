@@ -20,6 +20,7 @@
 }
 
 #combatPrefsContent {
+  transform: translateY(-50px);
   display: grid;
   grid-template-columns: 2fr 2fr 1fr;
   column-gap: 5px;
@@ -53,4 +54,16 @@ hr {
   color: black;
   background-color: rgb(165, 162, 0);
   cursor: pointer;
+}
+
+.specificSkillDiv {
+  background-color: rgb(165, 162, 0);
+  margin: 2px;
+  color: black;
+  font-family: "Patua One", cursive;
+}
+
+.specificSkillDiv:hover {
+  cursor: pointer;
+  background-color: rgba(165, 162, 0, 0.603);
 }

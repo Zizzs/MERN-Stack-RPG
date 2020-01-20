@@ -3,13 +3,14 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setLocation } from "../../actions/locationActions";
-import { saveUser } from "../../actions/authActions";
+import { saveUser, saveLocalUser } from "../../actions/authActions";
 
 import AbilityPanel from "../Abilities/AbilityPanel";
 import CharacterPanel from "../character/CharacterPanel";
 import ChatPanel from "../chat/ChatPanel";
 import SingleAbility from "../Abilities/SingleAbility";
 import CombatPrefs from "../Abilities/CombatPrefs";
+import CombatPrefPopup from "../Abilities/CombatPrefPopup";
 
 import "./Navbar.css";
 
@@ -24,6 +25,7 @@ class Navbar extends Component {
         isMenuPanelOpen: false,
         isAbilityPanelOpen: false,
         isAbilityTooltipPanelOpen: false,
+        isCombatPrefPopupPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         health: user.character.health,
@@ -37,7 +39,12 @@ class Navbar extends Component {
         energyPercent: user.character.energy / user.character.maxEnergy,
         boundFragments: user.character.boundFragments,
         unboundFragments: user.character.unboundFragments,
-        abilityForTooltip: {}
+        abilityForTooltip: {},
+        abilitiesForCombatPrefPopup: [],
+        skillForCombatPrefPopup: "",
+        weaponOne: false,
+        weaponTwo: false,
+        combatPrefsUpdated: false
       };
     } else {
       this.state = {
@@ -46,6 +53,7 @@ class Navbar extends Component {
         isMenuPanelOpen: false,
         isAbilityPanelOpen: false,
         isAbilityTooltipPanelOpen: false,
+        isCombatPrefPopupPanelOpen: false,
         isCombatPrefsPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
@@ -60,7 +68,12 @@ class Navbar extends Component {
         maxEnergy: 50,
         boundFragments: 0,
         unboundFragments: 0,
-        abilityForTooltip: {}
+        abilityForTooltip: {},
+        abilitiesForCombatPrefPopup: [],
+        skillForCombatPrefPopup: "",
+        weaponOne: false,
+        weaponTwo: false,
+        combatPrefsUpdated: false
       };
     }
   }
@@ -104,8 +117,8 @@ class Navbar extends Component {
   toggleCombatPrefsPanel = () => {
     if (this.state.isCombatPrefsPanelOpen) {
       this.setState({ isCombatPrefsPanelOpen: false });
-      // const { user } = this.props.auth;
-      // saveUser(user);
+      const { user } = this.props.auth;
+      saveUser(user);
     } else {
       this.setState({ isCombatPrefsPanelOpen: true });
       document.getElementById("navOverlay").style.width = "0%";
@@ -116,6 +129,27 @@ class Navbar extends Component {
     this.setState({
       isAbilityTooltipPanelOpen: false,
       abilityForTooltip: {}
+    });
+  };
+
+  toggleCombatPrefPopupPanelFromTooltip = () => {
+    this.setState({
+      isCombatPrefPopupPanelOpen: false,
+      abilitiesForCombatPrefPopup: [],
+      combatPrefsUpdated: true
+    });
+    const { user } = this.props.auth;
+    saveLocalUser(user);
+  };
+
+  toggleCombatPrefPopupPanel = (skill, abilityList, weaponOne, weaponTwo) => {
+    this.setState({
+      isCombatPrefPopupPanelOpen: true,
+      abilitiesForCombatPrefPopup: abilityList,
+      skillForCombatPrefPopup: skill,
+      weaponOne: weaponOne,
+      weaponTwo: weaponTwo,
+      combatPrefsUpdated: false
     });
   };
 
@@ -268,6 +302,15 @@ class Navbar extends Component {
             togglePanel={this.toggleAbilityTooltipPanelFromTooltip}
             panelOpen={this.state.isAbilityTooltipPanelOpen}
           />
+          <CombatPrefPopup
+            abilityList={this.state.abilitiesForCombatPrefPopup}
+            panelOpen={this.state.isCombatPrefPopupPanelOpen}
+            togglePanel={this.toggleCombatPrefPopupPanelFromTooltip}
+            skill={this.state.skillForCombatPrefPopup}
+            weaponOne={this.state.weaponOne}
+            weaponTwo={this.state.weaponTwo}
+            needUpdate={this.state.combatPrefsUpdated}
+          />
           <AbilityPanel
             toggleAbilityTooltipPanel={this.toggleAbilityTooltipPanel}
             togglePanel={this.toggleAbilityPanel}
@@ -275,6 +318,7 @@ class Navbar extends Component {
           />
           <CombatPrefs
             toggleCombatPrefsTooltipPanel={this.toggleCombatPrefsTooltipPanel}
+            togglePopupPanel={this.toggleCombatPrefPopupPanel}
             togglePanel={this.toggleCombatPrefsPanel}
             panelOpen={this.state.isCombatPrefsPanelOpen}
           />

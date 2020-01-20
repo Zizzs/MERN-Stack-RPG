@@ -81,7 +81,27 @@ const UserSchema = new Schema({
     },
 
     items: Array,
-    equippedItems: Array,
+    equipment: {
+      type: Object,
+      default: {
+        weaponOne: {},
+        weaponTwo: {},
+        helm: {},
+        chest: {},
+        shoulder: {},
+        bracer: {},
+        gloves: {},
+        boots: {},
+        belt: {},
+        ringOne: {},
+        ringTwo: {},
+        ringThree: {},
+        ringFour: {},
+        earringOne: {},
+        earringTwo: {},
+        necklace: {}
+      }
+    },
     bankItems: Array,
     bankSlots: {
       type: Number,
@@ -115,6 +135,52 @@ const UserSchema = new Schema({
     combatAbilities: {
       type: Object,
       default: false
+    },
+    combatPrefs: {
+      type: Object,
+      default: {
+        ready: false,
+        weaponOne: {
+          type: "",
+          position: {
+            one: {},
+            two: {},
+            three: {},
+            four: {},
+            five: {},
+            six: {}
+          },
+          chainers: {
+            forward: {},
+            backward: {}
+          },
+          finisher: {}
+        },
+        weaponTwo: {
+          type: "",
+          position: {
+            one: {},
+            two: {},
+            three: {},
+            four: {},
+            five: {},
+            six: {}
+          },
+          chainers: {
+            forward: {},
+            backward: {}
+          },
+          finisher: {}
+        },
+        utility: {
+          heal: {},
+          reposition: {
+            forward: {},
+            backward: {}
+          },
+          generic: {}
+        }
+      }
     },
     experience: {
       type: Object,

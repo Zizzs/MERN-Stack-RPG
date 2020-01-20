@@ -47,10 +47,7 @@ class CharacterPanel extends Component {
             <p>Bound Fragments: {user.character.boundFragments}</p>
             <p>Unbound Fragments: {user.character.unboundFragments}</p>
           </div>
-          <div id="itemStats">
-            <p>Item Count: {user.character.items.length}</p>
-            <p>Equipped Items: {user.character.equippedItems.length}</p>
-          </div>
+
           <button onClick={this.props.togglePanel} className="closePanelButton">
             X
           </button>

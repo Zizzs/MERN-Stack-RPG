@@ -219,7 +219,7 @@ const Abilities = {
           id: "DFThousandHits",
           name: "Thousand Hits",
           weapon: "Dagger",
-          type: "Chainer",
+          type: "Finisher",
           description:
             "A widly known skill, praised for its quick succession attacks.",
           combatText: [
