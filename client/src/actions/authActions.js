@@ -29,7 +29,7 @@ export const loginUser = userData => dispatch => {
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
-      console.log(res);
+      //console.log(res);
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
@@ -80,7 +80,6 @@ export const logoutUser = () => {
 };
 
 export const saveUser = userData => {
-  //console.log(location);
   let data = {
     userData: userData
   };
@@ -94,34 +93,16 @@ export const saveUser = userData => {
       //console.log(response);
     })
     .catch(function(error) {
-      console.log(error);
+      //console.log(error);
     });
 };
 
 // Figure this out!
 export const saveLocalUser = userData => {
-  axios
-    .post("/api/saveLocalUser", userData)
-    .then(response => {
-      // Save to localStorage
-      // Set token to localStorage
-      console.log("User Saved Locally!");
-      const { token } = response.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      return setCurrentUser(decoded);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+  return updateCurrentUser(userData);
 };
 
-export const getUser = userData => dispatch => {
-  //console.log(userData);
+export const getUser = userData => {
   axios
     .get("/api/getUser", {
       params: {
@@ -129,22 +110,17 @@ export const getUser = userData => dispatch => {
       }
     })
     .then(res => {
-      console.log(res);
-      // Save to localStorage
-      // Set token to localStorage
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      dispatch(setCurrentUser(decoded));
-    })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+      //console.log(res.data.user);
+      if (res.data.user !== null && !checkObj(userData.character)) {
+        userData.character = res.data.user.character;
+      }
+      return updateCurrentUser(userData);
+    });
+};
+
+const checkObj = obj => {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) return true;
+  }
+  return false;
 };

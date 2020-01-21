@@ -5,31 +5,30 @@ import { withRouter } from "react-router-dom";
 import HubImage from "../../images/cosmicCity.png";
 
 import { saveUser, saveLocalUser } from "../../actions/authActions";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, getUser } from "../../actions/authActions";
 import { giveUserItem } from "../../actions/itemActions";
 import { setLocation } from "../../actions/locationActions";
 
 import "./HUB.css";
 
 class HUB extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showHealer: false,
-      saved: false,
-      location: "/HUB"
-    };
-  }
+  state = {
+    showHealer: false,
+    saved: false,
+    location: "/HUB"
+  };
 
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
-    //console.log(user);
+    console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    if (user.character.location !== this.state.location) {
-      this.props.history.push(user.character.location);
+    if (this.checkObj(user.character)) {
+      if (user.character.location !== this.state.location) {
+        this.props.history.push(user.character.location);
+      }
     }
   }
 
@@ -73,7 +72,19 @@ class HUB extends Component {
 
   consoleLogUser = () => {
     let user = this.props.auth.user;
-    console.log(user.character.items);
+    console.log(user);
+  };
+
+  saveTempUser = () => {
+    let user = this.props.auth.user;
+    saveUser(user);
+  };
+
+  checkObj = obj => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
   };
 
   render() {
@@ -148,7 +159,7 @@ class HUB extends Component {
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={this.giveItem}
+                    onClick={this.saveTempUser}
                   >
                     Merchant Ring
                   </button>
@@ -266,6 +277,9 @@ const mapDispatchToProps = dispatch => {
     saveUser,
     saveLocalUser: user => {
       dispatch(saveLocalUser(user));
+    },
+    getUser: user => {
+      dispatch(getUser(user));
     }
   };
 };

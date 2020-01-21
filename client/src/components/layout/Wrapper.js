@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { getUser } from "../../actions/authActions";
 
 import "./Wrapper.css";
 
@@ -17,6 +18,35 @@ import ForgotPassword from "../auth/ForgotPassword";
 import ResetPassword from "../auth/ResetPassword";
 
 class Wrapper extends Component {
+  state = {
+    characterUploaded: false
+  };
+
+  componentDidMount() {
+    const { user } = this.props.auth;
+    //console.log(user);
+    if (!this.checkObj(user.character)) {
+      console.log("Getting User");
+      getUser(user);
+    }
+  }
+
+  componentDidUpdate() {
+    const { user } = this.props.auth;
+    //console.log(user);
+    if (!this.checkObj(user.character)) {
+      console.log("Getting User");
+      getUser(user);
+    }
+  }
+
+  checkObj = obj => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
+  };
+
   render() {
     return (
       <Router>

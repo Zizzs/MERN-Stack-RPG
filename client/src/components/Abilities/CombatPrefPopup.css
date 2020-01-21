@@ -1,0 +1,29 @@
+#combatPrefPopup {
+  width: 250px;
+  height: 300px;
+  background-color: #0b0a46;
+  color: white;
+  z-index: 100;
+  position: fixed;
+  border: 3px solid white;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 1fr 7fr 1fr;
+}
+
+#skillSelection {
+  text-align: center;
+  font-family: "Patua One", cursive;
+  font-size: 24px;
+}
+
+.combatPrefsShownAbilities {
+  text-align: center;
+  font-family: "Fredoka One", cursive;
+  font-size: 16px;
+}
+
+.combatPrefsShownAbilities:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.349);
+}
