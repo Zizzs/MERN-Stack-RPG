@@ -9,7 +9,7 @@ import "./CombatPrefPopup.css";
 
 class CombatPrefPopup extends Component {
   componentDidUpdate = () => {
-    console.log(this.props);
+    //console.log(this.props);
   };
 
   setAbility = (e, skill, ability, user) => {

@@ -120,7 +120,7 @@ class CombatPrefs extends Component {
       user.character.unlockedAbilities,
       this.state.abilities,
       "Dagger",
-      0
+      "Any"
     );
     this.setState({
       shownAbilities: daggerAbilities

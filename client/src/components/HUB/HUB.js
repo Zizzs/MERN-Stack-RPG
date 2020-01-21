@@ -12,14 +12,11 @@ import { setLocation } from "../../actions/locationActions";
 import "./HUB.css";
 
 class HUB extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showHealer: false,
-      saved: false,
-      location: "/HUB"
-    };
-  }
+  state = {
+    showHealer: false,
+    saved: false,
+    location: "/HUB"
+  };
 
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.

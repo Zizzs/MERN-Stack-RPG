@@ -29,7 +29,7 @@ export const loginUser = userData => dispatch => {
     .then(res => {
       // Save to localStorage
       // Set token to localStorage
-      console.log(res);
+      //console.log(res);
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
@@ -93,7 +93,7 @@ export const saveUser = userData => {
       //console.log(response);
     })
     .catch(function(error) {
-      console.log(error);
+      //console.log(error);
     });
 };
 
@@ -110,7 +110,7 @@ export const getUser = userData => {
       }
     })
     .then(res => {
-      console.log(res.data.user);
+      //console.log(res.data.user);
       if (res.data.user !== null && !checkObj(userData.character)) {
         userData.character = res.data.user.character;
       }

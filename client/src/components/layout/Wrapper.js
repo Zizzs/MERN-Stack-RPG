@@ -18,11 +18,24 @@ import ForgotPassword from "../auth/ForgotPassword";
 import ResetPassword from "../auth/ResetPassword";
 
 class Wrapper extends Component {
+  state = {
+    characterUploaded: false
+  };
+
   componentDidMount() {
     const { user } = this.props.auth;
     //console.log(user);
     if (!this.checkObj(user.character)) {
-      //console.log("Getting User");
+      console.log("Getting User");
+      getUser(user);
+    }
+  }
+
+  componentDidUpdate() {
+    const { user } = this.props.auth;
+    //console.log(user);
+    if (!this.checkObj(user.character)) {
+      console.log("Getting User");
       getUser(user);
     }
   }

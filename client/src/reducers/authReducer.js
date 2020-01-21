@@ -4,6 +4,8 @@ import {
   UPDATE_CURRENT_USER
 } from "../actions/types";
 
+import cloneDeep from "lodash/cloneDeep";
+
 const isEmpty = require("is-empty");
 
 const initialState = {
@@ -13,24 +15,42 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
+  let clone = cloneDeep(state);
   switch (action.type) {
     case SET_CURRENT_USER:
-      return {
-        ...state,
-        isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
-      };
+      clone.isAuthenticated = !isEmpty(action.payload);
+      clone.user = action.payload;
+      return clone;
     case USER_LOADING:
-      return {
-        ...state,
-        loading: true
-      };
+      clone.loading = true;
+      return clone;
     case UPDATE_CURRENT_USER:
-      return {
-        ...state,
-        user: action.payload
-      };
+      clone.user = action.payload;
+      return clone;
     default:
-      return state;
+      return clone;
   }
 }
+
+// export default function(state = initialState, action) {
+//   switch (action.type) {
+//     case SET_CURRENT_USER:
+//       return {
+//         ...state,
+//         isAuthenticated: !isEmpty(action.payload),
+//         user: action.payload
+//       };
+//     case USER_LOADING:
+//       return {
+//         ...state,
+//         loading: true
+//       };
+//     case UPDATE_CURRENT_USER:
+//       return {
+//         ...state,
+//         user: action.payload
+//       };
+//     default:
+//       return state;
+//   }
+// }

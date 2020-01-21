@@ -7,9 +7,9 @@ import { saveUser, saveLocalUser } from "../../actions/authActions";
 import "./SingleAbility.css";
 
 class SingleAbility extends Component {
-  componentDidUpdate = () => {
-    console.log(this.props);
-  };
+  // componentDidUpdate = () => {
+  //   console.log(this.props);
+  // };
 
   learnAbility = (e, ability) => {
     e.preventDefault();
