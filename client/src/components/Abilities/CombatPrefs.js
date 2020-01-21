@@ -93,7 +93,7 @@ class CombatPrefs extends Component {
       }
 
       saveLocalUser(user);
-      console.log(this.state, user);
+      //console.log(this.state, user);
     }
   };
 
@@ -125,7 +125,7 @@ class CombatPrefs extends Component {
     this.setState({
       shownAbilities: daggerAbilities
     });
-    console.log(this.state.shownAbilities);
+    //console.log(this.state.shownAbilities);
     this.focusButton(0);
   };
 
@@ -159,7 +159,7 @@ class CombatPrefs extends Component {
         });
       }
 
-      if (this.state.shownWeapon === this.state.weapons.weaponTwo.type) {
+      if (this.state.shownWeapon === this.state.weapons.weaponTwo) {
         this.setState({
           shownWeapon: this.state.weapons.weaponOne,
           weaponOne: true,

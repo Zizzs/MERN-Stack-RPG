@@ -9,11 +9,11 @@ export const getAllAbilities = () => {
     headers: { "Content-Type": "application/json" }
   })
     .then(function(response) {
-      console.log(response.data.abilities);
+      //console.log(response.data.abilities);
       return response.data.abilities;
     })
     .catch(function(error) {
-      console.log(error);
+      //console.log(error);
     });
 };
 
@@ -24,7 +24,7 @@ export const unlockAbility = (userData, ability) => {
   };
 
   if (!data.userData.character.unlockedAbilities.includes(ability.info.id)) {
-    console.log("Learned");
+    //console.log("Learned");
     if (
       ability.info.weapon === "Dagger" &&
       data.userData.character.experience.daggers >= ability.cost.experience
@@ -105,7 +105,7 @@ export const saveAbilityAtPosition = (
     userData: userData
   };
 
-  console.log(skill, ability, userData, updateWeaponOne, updateWeaponTwo);
+  //console.log(skill, ability, userData, updateWeaponOne, updateWeaponTwo);
 
   if (updateWeaponOne) {
     if (skill === "Position 1") {
