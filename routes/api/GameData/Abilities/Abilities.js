@@ -263,6 +263,253 @@ const Abilities = {
       }
     }
   },
+  bow: {
+    basic: {
+      BBPointBlank: {
+        info: {
+          id: "BBPointBlank",
+          name: "Point Blank",
+          weapon: "Bow",
+          type: "Basic",
+          description: "A point blank shot against an enemy.",
+          combatText: ["shoot the", "pull back your bow and shoot the"]
+        },
+        cost: {
+          experience: 0,
+          health: 0,
+          mana: 0,
+          energy: 0
+        },
+        damage: {
+          doesDamage: true,
+          attackCount: 1,
+          damageMin: 2,
+          damageMax: 5
+        },
+        position: {
+          doesReposition: false,
+          repositionDirection: "None",
+          minPosition: 1,
+          maxPosition: 2
+        },
+        heal: {
+          doesHealHealth: false,
+          healthHealAmountMin: 0,
+          healthHealAmountMax: 0,
+          doesHealMana: false,
+          manaHealAmountMin: 0,
+          manaHealAmountMax: 0,
+          doesHealEnergy: false,
+          energyHealAmountMin: 0,
+          energyHealAmountMax: 0
+        }
+      },
+      BBShoot: {
+        info: {
+          id: "BBShoot",
+          name: "Shoot",
+          weapon: "Bow",
+          type: "Basic",
+          description: "A generic shot with a bow.",
+          combatText: ["shoot with your", "shoot the arrow with your"]
+        },
+        cost: {
+          experience: 0,
+          health: 0,
+          mana: 0,
+          energy: 0
+        },
+        damage: {
+          doesDamage: true,
+          attackCount: 1,
+          damageMin: 3,
+          damageMax: 8
+        },
+        position: {
+          doesReposition: false,
+          repositionDirection: "None",
+          minPosition: 3,
+          maxPosition: 4
+        },
+        heal: {
+          doesHealHealth: false,
+          healthHealAmountMin: 0,
+          healthHealAmountMax: 0,
+          doesHealMana: false,
+          manaHealAmountMin: 0,
+          manaHealAmountMax: 0,
+          doesHealEnergy: false,
+          energyHealAmountMin: 0,
+          energyHealAmountMax: 0
+        }
+      },
+      BBLongShot: {
+        info: {
+          id: "BBLongShot",
+          name: "Long Shot",
+          weapon: "Bow",
+          type: "Basic",
+          description: "A long range bow attack that does high damage.",
+          combatText: ["shoot the"]
+        },
+        cost: {
+          experience: 0,
+          health: 0,
+          mana: 0,
+          energy: 0
+        },
+        damage: {
+          doesDamage: true,
+          attackCount: 1,
+          damageMin: 8,
+          damageMax: 11
+        },
+        position: {
+          doesReposition: false,
+          repositionDirection: "None",
+          minPosition: 5,
+          maxPosition: 6
+        },
+        heal: {
+          doesHealHealth: false,
+          healthHealAmountMin: 0,
+          healthHealAmountMax: 0,
+          doesHealMana: false,
+          manaHealAmountMin: 0,
+          manaHealAmountMax: 0,
+          doesHealEnergy: false,
+          energyHealAmountMin: 0,
+          energyHealAmountMax: 0
+        }
+      }
+    },
+    chainer: {
+      BCMirrorShot: {
+        info: {
+          id: "BCMirrorShot",
+          name: "Mirror Shot",
+          weapon: "Bow",
+          type: "Chainer",
+          description:
+            "Shoot an arrow that moves your position closer to the enemy.",
+          combatText: ["shoot the arrow, appearing closer to the enemy."]
+        },
+        cost: {
+          experience: 0,
+          health: 0,
+          mana: 1,
+          energy: 0
+        },
+        damage: {
+          doesDamage: true,
+          attackCount: 1,
+          damageMin: 6,
+          damageMax: 9
+        },
+        position: {
+          doesReposition: true,
+          repositionDirection: "Forward",
+          minPosition: 1,
+          maxPosition: 6
+        },
+        heal: {
+          doesHealHealth: false,
+          healthHealAmountMin: 0,
+          healthHealAmountMax: 0,
+          doesHealMana: false,
+          manaHealAmountMin: 0,
+          manaHealAmountMax: 0,
+          doesHealEnergy: false,
+          energyHealAmountMin: 0,
+          energyHealAmountMax: 0
+        }
+      },
+      BCDefyingLeap: {
+        info: {
+          id: "BCDefyingLeap",
+          name: "Defying Leap",
+          weapon: "Bow",
+          type: "Chainer",
+          description:
+            "A retreating skill, giving you distance from the enemy.",
+          combatText: [
+            "leap backwards, gaining space and damaging the enemy with a shower of arrows."
+          ]
+        },
+        cost: {
+          experience: 0,
+          health: 0,
+          mana: 0,
+          energy: 0
+        },
+        damage: {
+          doesDamage: true,
+          attackCount: 1,
+          damageMin: 8,
+          damageMax: 13
+        },
+        position: {
+          doesReposition: true,
+          repositionDirection: "Backward",
+          minPosition: 1,
+          maxPosition: 6
+        },
+        heal: {
+          doesHealHealth: false,
+          healthHealAmountMin: 0,
+          healthHealAmountMax: 0,
+          doesHealMana: false,
+          manaHealAmountMin: 0,
+          manaHealAmountMax: 0,
+          doesHealEnergy: false,
+          energyHealAmountMin: 0,
+          energyHealAmountMax: 0
+        }
+      }
+    },
+    finisher: {
+      BFBarrage: {
+        info: {
+          id: "BFBarrage",
+          name: "Barrage",
+          weapon: "Bow",
+          type: "Finisher",
+          description:
+            "A common finisher among bow users, deadly when used frequently.",
+          combatText: ["shoot the"]
+        },
+        cost: {
+          experience: 0,
+          health: 0,
+          mana: 5,
+          energy: 0
+        },
+        damage: {
+          doesDamage: true,
+          attackCount: 3,
+          damageMin: 15,
+          damageMax: 20
+        },
+        position: {
+          doesReposition: false,
+          repositionDirection: "None",
+          minPosition: 1,
+          maxPosition: 6
+        },
+        heal: {
+          doesHealHealth: false,
+          healthHealAmountMin: 0,
+          healthHealAmountMax: 0,
+          doesHealMana: false,
+          manaHealAmountMin: 0,
+          manaHealAmountMax: 0,
+          doesHealEnergy: false,
+          energyHealAmountMin: 0,
+          energyHealAmountMax: 0
+        }
+      }
+    }
+  },
   utility: {
     reposition: {
       forward: {

@@ -92,6 +92,17 @@ class AbilityPanel extends Component {
     this.focusButton(0);
   };
 
+  showBows = e => {
+    e.preventDefault();
+    let bowAbilities = this.state.abilities.bow;
+
+    this.setState({
+      currentWeaponAbilities: bowAbilities,
+      showUtility: false
+    });
+    this.focusButton(1);
+  };
+
   toggleAbilityCollapse = (e, targetId) => {
     e.preventDefault();
     let skillDiv = document.getElementById(targetId);
@@ -151,7 +162,11 @@ class AbilityPanel extends Component {
                 >
                   DAGGERS | {user.character.experience.daggers}xp
                 </p>
-                <p id="bowsButton" className="weaponButtonText">
+                <p
+                  id="bowsButton"
+                  className="weaponButtonText"
+                  onClick={this.showBows}
+                >
                   BOWS | {user.character.experience.bows}xp
                 </p>
                 <p id="stavesButton" className="weaponButtonText">
@@ -398,7 +413,11 @@ class AbilityPanel extends Component {
                 >
                   DAGGERS | {user.character.experience.daggers}xp
                 </p>
-                <p id="bowsButton" className="weaponButtonText">
+                <p
+                  id="bowsButton"
+                  className="weaponButtonText"
+                  onClick={this.showBows}
+                >
                   BOWS | {user.character.experience.bows}xp
                 </p>
                 <p id="stavesButton" className="weaponButtonText">
@@ -592,7 +611,11 @@ class AbilityPanel extends Component {
                 >
                   DAGGERS | {user.character.experience.daggers}xp
                 </p>
-                <p id="bowsButton" className="weaponButtonText">
+                <p
+                  id="bowsButton"
+                  className="weaponButtonText"
+                  onClick={this.showBows}
+                >
                   BOWS | {user.character.experience.bows}xp
                 </p>
                 <p id="stavesButton" className="weaponButtonText">
