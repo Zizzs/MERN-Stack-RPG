@@ -9,3 +9,5 @@ function calculateCombatEnemies(location) {
 }
 
 export default calculateCombatEnemies;
+
+// Most likely will move this to serverside, so the server can hold the monster data.

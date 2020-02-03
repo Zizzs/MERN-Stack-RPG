@@ -39,6 +39,7 @@ class CombatController extends Component {
     );
     let images = calculateCombatImages(user.character.location);
     let monster = calculateCombatEnemies(user.character.location);
+    //Position, Combat Abilities and Reposition Abilities will be pulled in from combat prefs. These will be within user.character.combatPrefs.
     this.state = {
       completedCombat: false,
       hasWon: false,
@@ -54,25 +55,25 @@ class CombatController extends Component {
     };
   }
 
-  componentDidMount() {
-    //console.log(this.state);
+  componentDidMount = () => {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
+  };
 
+  componentDidUpdate = () => {
     const { user } = this.props.auth;
     // If statement at the top to catch completed combats. If the enemy has been killed, the combat component will perform a function callback to set the this.state.hasWon variable to true. If they lost, this.state.hasWon will be false. Regardless if they have won or not, completedCombat will be true, and will redirect the user back to the location they were previously at.
     if (this.state.completedCombat) {
       if (this.state.hasWon) {
         console.log("User Has Won!");
-        // Read Monster Drops
-        // Give Monster Drops, Fragments, etc...
+        //If user has won, distribute the loot here.
       } else {
         console.log("User Has Lost!");
       }
       this.props.history.push(user.character.location);
     }
-  }
+  };
 
   // Callback function for the current combat component to pass the boolean back to combat controller.
   winCombat = () => {

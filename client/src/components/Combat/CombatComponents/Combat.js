@@ -41,6 +41,7 @@ class CombatCelestialTower extends Component {
       this.state.position === position &&
       this.state.hasUpdated === hasUpdated
     ) {
+      // Calculate Ability Position will need to take in the combat prefs opposed to combat abilities and reposition abilities.
       let newAbilityPositions = calculateAbilityPosition(
         this.state.position,
         this.state.combatAbilities,
@@ -80,6 +81,8 @@ class CombatCelestialTower extends Component {
   render() {
     // ---------Position Bar Control----------------
     // Changes the class of the divs based on the position of the character, setting the background color of the div to white to indicate the current position of the player from the monster.
+
+    // I think i'm gonna be removing the position bar, as it is a bit useless. I might just add a position counter? Will need to do some testing.
     let positionOne = "notInPosition";
     let positionTwo = "notInPosition";
     let positionThree = "notInPosition";
