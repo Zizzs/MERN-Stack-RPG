@@ -148,23 +148,27 @@ class Navbar extends Component {
   };
 
   toggleCombatPrefPopupPanel = (skill, abilityList, weaponOne, weaponTwo) => {
-    this.setState({
-      isCombatPrefPopupPanelOpen: true,
-      abilitiesForCombatPrefPopup: abilityList,
-      skillForCombatPrefPopup: skill,
-      weaponOne: weaponOne,
-      weaponTwo: weaponTwo,
-      combatPrefsUpdated: false
-    });
+    if (this.state.isCombatPrefPopupPanelOpen === true) {
+      this.setState({ isCombatPrefPopupPanelOpen: false });
+    } else {
+      this.setState({
+        isCombatPrefPopupPanelOpen: true,
+        abilitiesForCombatPrefPopup: abilityList,
+        skillForCombatPrefPopup: skill,
+        weaponOne: weaponOne,
+        weaponTwo: weaponTwo,
+        combatPrefsUpdated: false
+      });
+    }
   };
 
   toggleCombatPrefPositionPopupPanel = () => {
-    if (this.state.combatPrefPositionPopupPanelOpen === false) {
+    if (this.state.combatPrefPositionPopupPanelOpen === true) {
       this.setState({
-        combatPrefPositionPopupPanelOpen: true
+        combatPrefPositionPopupPanelOpen: false
       });
     } else {
-      this.setState({ combatPrefPositionPopupPanelOpen: false });
+      this.setState({ combatPrefPositionPopupPanelOpen: true });
     }
   };
 
