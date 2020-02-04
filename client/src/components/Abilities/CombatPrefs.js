@@ -259,6 +259,13 @@ class CombatPrefs extends Component {
               <p>Chosen Weapon: {this.state.shownWeapon}</p>
               <div
                 className="specificSkillDiv"
+                onClick={e => this.props.toggleCombatPrefPositionPopupPanel()}
+              >
+                {" "}
+                Preferred Position | {combatPrefs.preferredPosition}
+              </div>
+              <div
+                className="specificSkillDiv"
                 onClick={e => this.showSkills(e, "Position 1")}
               >
                 Position 1

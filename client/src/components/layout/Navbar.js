@@ -11,6 +11,7 @@ import ChatPanel from "../chat/ChatPanel";
 import SingleAbility from "../Abilities/SingleAbility";
 import CombatPrefs from "../Abilities/CombatPrefs";
 import CombatPrefPopup from "../Abilities/CombatPrefPopup";
+import CombatPrefPositionPopup from "../Abilities/CombatPrefPositionPopup";
 
 import "./Navbar.css";
 
@@ -26,6 +27,7 @@ class Navbar extends Component {
         isAbilityPanelOpen: false,
         isAbilityTooltipPanelOpen: false,
         isCombatPrefPopupPanelOpen: false,
+        isCombatPrefPositionPopupPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
         health: user.character.health,
@@ -42,6 +44,7 @@ class Navbar extends Component {
         abilityForTooltip: {},
         abilitiesForCombatPrefPopup: [],
         skillForCombatPrefPopup: "",
+        newPosition: 0,
         weaponOne: false,
         weaponTwo: false,
         combatPrefsUpdated: false
@@ -54,6 +57,7 @@ class Navbar extends Component {
         isAbilityPanelOpen: false,
         isAbilityTooltipPanelOpen: false,
         isCombatPrefPopupPanelOpen: false,
+        isCombatPrefPositionPopupPanelOpen: false,
         isCombatPrefsPanelOpen: false,
         isCharacterInCombat: false,
         updatedStats: false,
@@ -71,6 +75,7 @@ class Navbar extends Component {
         abilityForTooltip: {},
         abilitiesForCombatPrefPopup: [],
         skillForCombatPrefPopup: "",
+        newPosition: 0,
         weaponOne: false,
         weaponTwo: false,
         combatPrefsUpdated: false
@@ -151,6 +156,16 @@ class Navbar extends Component {
       weaponTwo: weaponTwo,
       combatPrefsUpdated: false
     });
+  };
+
+  toggleCombatPrefPositionPopupPanel = () => {
+    if (this.state.combatPrefPositionPopupPanelOpen === false) {
+      this.setState({
+        combatPrefPositionPopupPanelOpen: true
+      });
+    } else {
+      this.setState({ combatPrefPositionPopupPanelOpen: false });
+    }
   };
 
   toggleAbilityTooltipPanel = ability => {
@@ -311,12 +326,19 @@ class Navbar extends Component {
             weaponTwo={this.state.weaponTwo}
             needUpdate={this.state.combatPrefsUpdated}
           />
+          <CombatPrefPositionPopup
+            panelOpen={this.state.combatPrefPositionPopupPanelOpen}
+            togglePanel={this.toggleCombatPrefPositionPopupPanel}
+          />
           <AbilityPanel
             toggleAbilityTooltipPanel={this.toggleAbilityTooltipPanel}
             togglePanel={this.toggleAbilityPanel}
             panelOpen={this.state.isAbilityPanelOpen}
           />
           <CombatPrefs
+            toggleCombatPrefPositionPopupPanel={
+              this.toggleCombatPrefPositionPopupPanel
+            }
             toggleCombatPrefsTooltipPanel={this.toggleCombatPrefsTooltipPanel}
             togglePopupPanel={this.toggleCombatPrefPopupPanel}
             togglePanel={this.toggleCombatPrefsPanel}

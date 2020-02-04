@@ -93,6 +93,11 @@ export const saveWeapon = (weapon, weaponPosition, userData) => {
   return updateCurrentUser(data.userData);
 };
 
+export const savePreferredPosition = (newPosition, userData) => {
+  userData.character.combatPrefs.preferredPosition = newPosition;
+  return updateCurrentUser(userData);
+};
+
 // Unlock ability for the user
 export const saveAbilityAtPosition = (
   skill,
