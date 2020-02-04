@@ -143,9 +143,9 @@ const UserSchema = new Schema(
         type: Object,
         default: {
           ready: false,
+          preferredPosition: 3,
           weaponOne: {
             type: Object,
-
             weaponType: "",
             position: {
               one: {
