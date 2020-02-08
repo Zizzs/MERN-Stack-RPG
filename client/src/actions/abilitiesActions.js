@@ -245,10 +245,10 @@ export const filterAbilities = (
     }
 
     // Utility Abilities
-
+    console.log(id);
     if (id[0] === "U" && weapon === "Utility") {
       if (id[1] === "R") {
-        if (id[2] === "F") {
+        if (id[2] === "F" && skill === "Reposition Forward") {
           for (let abilityId in allAbilities.utility.reposition.forward) {
             if (id === abilityId) {
               abilityList.push(allAbilities.utility.reposition.forward[id]);
@@ -256,7 +256,7 @@ export const filterAbilities = (
           }
         }
 
-        if (id[2] === "B") {
+        if (id[2] === "B" && skill === "Reposition Backward") {
           for (let abilityId in allAbilities.utility.reposition.backward) {
             if (id === abilityId) {
               abilityList.push(allAbilities.utility.reposition.backward[id]);

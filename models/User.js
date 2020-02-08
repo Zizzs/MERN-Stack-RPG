@@ -142,7 +142,6 @@ const UserSchema = new Schema(
       combatPrefs: {
         type: Object,
         default: {
-          ready: false,
           preferredPosition: 3,
           weaponOne: {
             type: Object,
