@@ -19,24 +19,32 @@ import ResetPassword from "../auth/ResetPassword";
 
 class Wrapper extends Component {
   state = {
-    characterUploaded: false
+    characterUploaded: false,
+    characterValid: false,
+    checks: 0
   };
 
   componentDidMount() {
     const { user } = this.props.auth;
     //console.log(user);
-    if (!this.checkObj(user.character)) {
-      console.log("Getting User");
-      getUser(user);
-    }
+    console.log("Getting User");
+    getUser(user);
+    this.setState({ characterUploaded: true });
   }
 
   componentDidUpdate() {
     const { user } = this.props.auth;
-    //console.log(user);
-    if (!this.checkObj(user.character)) {
+    console.log(user);
+    if (
+      this.checkObj(user.character) === false &&
+      this.state.characterUploaded === false
+    ) {
       console.log("Getting User");
       getUser(user);
+    } else {
+      if (this.state.characterValid === false) {
+        this.setState({ characterValid: true });
+      }
     }
   }
 
@@ -48,35 +56,44 @@ class Wrapper extends Component {
   };
 
   render() {
-    return (
-      <Router>
-        <div className="container">
-          <div>
-            <Navbar />
+    const { user } = this.props.auth;
+    if (this.state.characterValid) {
+      return (
+        <Router>
+          <div className="container">
+            <div>
+              <Navbar />
+            </div>
+            <div>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/emailreset" component={ForgotPassword} />
+              <Route path="/reset/:token" component={ResetPassword} />
+              <Switch>
+                <PrivateRoute exact path="/HUB" component={HUB} />
+                <PrivateRoute
+                  exact
+                  path="/HUB/CelestialTower"
+                  component={CelestialTower}
+                />
+                <PrivateRoute
+                  exact
+                  path="/HUB/CelestialTower/Combat"
+                  component={CombatController}
+                />
+              </Switch>
+            </div>
           </div>
-          <div>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/emailreset" component={ForgotPassword} />
-            <Route path="/reset/:token" component={ResetPassword} />
-            <Switch>
-              <PrivateRoute exact path="/HUB" component={HUB} />
-              <PrivateRoute
-                exact
-                path="/HUB/CelestialTower"
-                component={CelestialTower}
-              />
-              <PrivateRoute
-                exact
-                path="/HUB/CelestialTower/Combat"
-                component={CombatController}
-              />
-            </Switch>
-          </div>
+        </Router>
+      );
+    } else {
+      return (
+        <div>
+          <p>Loading Character...</p>
         </div>
-      </Router>
-    );
+      );
+    }
   }
 }
 

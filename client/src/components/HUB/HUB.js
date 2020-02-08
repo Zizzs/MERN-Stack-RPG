@@ -25,11 +25,13 @@ class HUB extends Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    if (this.checkObj(user.character)) {
-      if (user.character.location !== this.state.location) {
-        this.props.history.push(user.character.location);
-      }
-    }
+    console.log(user.character);
+    // if (typeof user.character !== "undefined") {
+    //   console.log("User in wrong place!");
+    //   if (user.character.location !== this.state.location) {
+    //     this.props.history.push(user.character.location);
+    //   }
+    // }
   }
 
   redirectLocation = location => {

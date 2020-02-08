@@ -132,14 +132,6 @@ class CombatCelestialTower extends Component {
           <img alt="left combat" id="combatLeft" src={this.state.imageLeft} />
         </div>
         <div id="mainCombatDiv">
-          <div id="playerPosition">
-            <div id="positionOne" className={positionOne}></div>
-            <div id="positionTwo" className={positionTwo}></div>
-            <div id="positionThree" className={positionThree}></div>
-            <div id="positionFour" className={positionFour}></div>
-            <div id="positionFive" className={positionFive}></div>
-            <div id="positionSix" className={positionSix}></div>
-          </div>
           <div id="combatWrapper">
             <img id="combatImage" alt="monster" src={this.state.monsterImage} />
             <div id="combatInteractibles">
@@ -148,7 +140,7 @@ class CombatCelestialTower extends Component {
                 <button>Text</button>
                 <button>Text</button>
               </div>
-              <div id="abilitiesPanel">
+              <div id="abilityPanel">
                 <div
                   className="skillPanel"
                   onClick={() => this.clickedAbility(1)}

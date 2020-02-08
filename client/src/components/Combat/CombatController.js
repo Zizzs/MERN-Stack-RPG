@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { getUser } from "../../actions/authActions";
 
 // Import Combat Components
 import Combat from "./CombatComponents/Combat";
@@ -32,36 +33,51 @@ class CombatController extends Component {
     super(props);
     const { user } = this.props.auth;
     // Calculate Initial Abilities
-    let initialAbilities = calculateAbilityPosition(
-      2,
-      abilities.damageAbilities,
-      abilities.repositionAbilities
-    );
-    let images = calculateCombatImages(user.character.location);
-    let monster = calculateCombatEnemies(user.character.location);
-    //Position, Combat Abilities and Reposition Abilities will be pulled in from combat prefs. These will be within user.character.combatPrefs.
-    this.state = {
-      completedCombat: false,
-      hasWon: false,
-      position: 2,
-      combatAbilities: abilities.damageAbilities,
-      repositionAbilities: abilities.repositionAbilities,
-      enemy: enemies.skeleton,
-      playerLocation: user.character.location,
-      initialAbilities: initialAbilities,
-      imageLeft: images.left,
-      imageRight: images.right,
-      monsterImage: monster.image
-    };
+    if (this.checkObj(user.character)) {
+      let initialAbilities = calculateAbilityPosition(
+        2,
+        abilities.damageAbilities,
+        abilities.repositionAbilities
+      );
+      let images = calculateCombatImages(user.character.location);
+      let monster = calculateCombatEnemies(user.character.location);
+      //Position, Combat Abilities and Reposition Abilities will be pulled in from combat prefs. These will be within user.character.combatPrefs.
+      this.state = {
+        validCombat: true,
+        completedCombat: false,
+        hasWon: false,
+        position: 2,
+        combatAbilities: abilities.damageAbilities,
+        repositionAbilities: abilities.repositionAbilities,
+        enemy: enemies.skeleton,
+        playerLocation: user.character.location,
+        initialAbilities: initialAbilities,
+        imageLeft: images.left,
+        imageRight: images.right,
+        monsterImage: monster.image
+      };
+    } else {
+      this.state = {
+        validCombat: false
+      };
+    }
   }
 
   componentDidMount = () => {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
+    const { user } = this.props.auth;
+    //console.log(user);
+    // console.log("Getting User");
+    // getUser(user);
+    // this.setState({ characterLoaded: true });
+    console.log("Combat Controller Mounted");
+    console.log(user);
   };
 
   componentDidUpdate = () => {
+    console.log(this.state);
     const { user } = this.props.auth;
     // If statement at the top to catch completed combats. If the enemy has been killed, the combat component will perform a function callback to set the this.state.hasWon variable to true. If they lost, this.state.hasWon will be false. Regardless if they have won or not, completedCombat will be true, and will redirect the user back to the location they were previously at.
     if (this.state.completedCombat) {
@@ -73,6 +89,18 @@ class CombatController extends Component {
       }
       this.props.history.push(user.character.location);
     }
+  };
+
+  checkObj = obj => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
+  };
+
+  returnToLastLocation = () => {
+    const { user } = this.props.auth;
+    this.props.history.push(user.character.location);
   };
 
   // Callback function for the current combat component to pass the boolean back to combat controller.
@@ -87,18 +115,38 @@ class CombatController extends Component {
     if (this.state.hasWon === true) {
       alert("You have won the combat");
     }
-    switch (this.state.playerLocation) {
-      case CELESTIAL_TOWER:
-        return (
-          <Combat winCombat={this.winCombat} controllerState={this.state} />
-        );
-      default:
-        return (
-          <div>
-            <p>You are in the wrong place!</p>
-            <p>Click the button below to return to your current zone.</p>
-          </div>
-        );
+    const { user } = this.props.auth;
+
+    if (this.state.validCombat === true) {
+      switch (this.state.playerLocation) {
+        case CELESTIAL_TOWER:
+          return (
+            <Combat winCombat={this.winCombat} controllerState={this.state} />
+          );
+        default:
+          return (
+            <div>
+              <p>You are in the wrong place!</p>
+              <p>Click the button below to return to your current zone.</p>
+            </div>
+          );
+      }
+    } else {
+      return (
+        <div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <p>
+            Comabt is invalid, click below to return to your last known
+            location.
+          </p>
+          <button onClick={this.returnToLastLocation()}>Return</button>
+        </div>
+      );
     }
   }
 }
