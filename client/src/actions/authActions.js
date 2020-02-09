@@ -102,23 +102,7 @@ export const saveLocalUser = userData => {
   return updateCurrentUser(userData);
 };
 
-export const getUser = userData => {
-  axios
-    .get("/api/getUser", {
-      params: {
-        data: userData
-      }
-    })
-    .then(res => {
-      //console.log(res.data.user);
-      if (res.data.user !== null && !checkObj(userData.character)) {
-        userData.character = res.data.user.character;
-      }
-      return updateCurrentUser(userData);
-    });
-};
-
-export const getUserPromise = (userData, dispatch) => {
+export const getCharacterData = (userData, dispatch) => {
   console.log(userData);
   axios
     .get("/api/getUser", {

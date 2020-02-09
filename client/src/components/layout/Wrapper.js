@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getUser, getUserPromise } from "../../actions/authActions";
+import { getCharacterData } from "../../actions/authActions";
 
 import "./Wrapper.css";
 
@@ -27,7 +27,7 @@ class Wrapper extends Component {
   componentDidMount() {
     const { user } = this.props.auth;
     console.log("Getting User");
-    this.props.getUserPromise(user);
+    this.props.getCharacterData(user);
   }
 
   componentDidUpdate() {
@@ -38,7 +38,7 @@ class Wrapper extends Component {
       this.state.characterUploaded === false
     ) {
       console.log("Getting User");
-      getUser(user);
+      getCharacterData(user);
     } else {
       if (this.state.characterValid === false) {
         console.log("Valid User");
@@ -105,8 +105,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserPromise: user => {
-      getUserPromise(user, dispatch);
+    getCharacterData: user => {
+      getCharacterData(user, dispatch);
     }
   };
 };
