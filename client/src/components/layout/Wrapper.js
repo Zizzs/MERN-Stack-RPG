@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getUser } from "../../actions/authActions";
+import { getUser, getUserPromise } from "../../actions/authActions";
 
 import "./Wrapper.css";
 
@@ -26,15 +26,13 @@ class Wrapper extends Component {
 
   componentDidMount() {
     const { user } = this.props.auth;
-    //console.log(user);
     console.log("Getting User");
-    getUser(user);
-    this.setState({ characterUploaded: true });
+    this.props.getUserPromise(user);
   }
 
   componentDidUpdate() {
     const { user } = this.props.auth;
-    console.log(user);
+    //console.log(user);
     if (
       this.checkObj(user.character) === false &&
       this.state.characterUploaded === false
@@ -43,6 +41,7 @@ class Wrapper extends Component {
       getUser(user);
     } else {
       if (this.state.characterValid === false) {
+        console.log("Valid User");
         this.setState({ characterValid: true });
       }
     }
@@ -56,7 +55,6 @@ class Wrapper extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
     if (this.state.characterValid) {
       return (
         <Router>
@@ -105,4 +103,12 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(Wrapper);
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserPromise: user => {
+      getUserPromise(user, dispatch);
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wrapper);

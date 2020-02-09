@@ -23,9 +23,9 @@ class CelestialTower extends Component {
     if (!this.props.auth.isAuthenticated || !user) {
       this.props.history.push("/");
     }
-    // if (user.character.location !== this.state.location) {
-    //   this.props.history.push(user.character.location);
-    // }
+    if (user.character.location !== this.state.location) {
+      this.props.history.push(user.character.location);
+    }
   }
 
   redirectLocation = location => {

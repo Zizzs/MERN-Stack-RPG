@@ -118,6 +118,28 @@ export const getUser = userData => {
     });
 };
 
+export const getUserPromise = (userData, dispatch) => {
+  console.log(userData);
+  axios
+    .get("/api/getUser", {
+      params: {
+        data: userData
+      }
+    })
+    .then(res => {
+      if (res.data.user !== null && !checkObj(userData.character)) {
+        userData.character = res.data.user.character;
+      }
+      //console.log(userData);
+      return new Promise((resolve, reject) => {
+        dispatch({
+          type: UPDATE_CURRENT_USER,
+          payload: userData
+        });
+      });
+    });
+};
+
 const checkObj = obj => {
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) return true;

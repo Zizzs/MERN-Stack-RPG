@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import HubImage from "../../images/cosmicCity.png";
 
 import { saveUser, saveLocalUser } from "../../actions/authActions";
-import { logoutUser, getUser } from "../../actions/authActions";
+import { logoutUser } from "../../actions/authActions";
 import { giveUserItem } from "../../actions/itemActions";
 import { setLocation } from "../../actions/locationActions";
 
@@ -21,17 +21,13 @@ class HUB extends Component {
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
-    console.log(user);
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    console.log(user.character);
-    // if (typeof user.character !== "undefined") {
-    //   console.log("User in wrong place!");
-    //   if (user.character.location !== this.state.location) {
-    //     this.props.history.push(user.character.location);
-    //   }
-    // }
+    if (user.character.location !== this.state.location) {
+      console.log("User in wrong place!");
+      this.props.history.push(user.character.location);
+    }
   }
 
   redirectLocation = location => {
@@ -75,11 +71,6 @@ class HUB extends Component {
   consoleLogUser = () => {
     let user = this.props.auth.user;
     console.log(user);
-  };
-
-  saveTempUser = () => {
-    let user = this.props.auth.user;
-    saveUser(user);
   };
 
   checkObj = obj => {
@@ -161,7 +152,6 @@ class HUB extends Component {
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={this.saveTempUser}
                   >
                     Merchant Ring
                   </button>
@@ -258,12 +248,7 @@ class HUB extends Component {
 }
 
 HUB.propTypes = {
-  //logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
-  // setLocation: PropTypes.func.isRequired,
-  // saveUser: PropTypes.func.isRequired,
-  // saveLocalUser: PropTypes.func.isRequired,
-  // getUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -279,9 +264,6 @@ const mapDispatchToProps = dispatch => {
     saveUser,
     saveLocalUser: user => {
       dispatch(saveLocalUser(user));
-    },
-    getUser: user => {
-      dispatch(getUser(user));
     }
   };
 };
