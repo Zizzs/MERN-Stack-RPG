@@ -42,7 +42,7 @@ class Wrapper extends Component {
     } else {
       if (this.state.characterValid === false) {
         console.log("Valid User");
-        this.setState({ characterValid: true });
+        this.setState({ characterValid: true, characterUploaded: true });
       }
     }
   }
