@@ -217,7 +217,7 @@ export const filterAbilities = (
   let abilityList = [];
   for (let id of unlockedAbilityIds) {
     // Dagger Abilities
-    console.log(`Looking for ${id}`);
+    //console.log(`Looking for ${id}`);
     if (id[0] === "D" && weapon === "Dagger") {
       if (id[1] === "B") {
         for (let abilityId in allAbilities.dagger.basic) {
@@ -245,7 +245,7 @@ export const filterAbilities = (
     }
 
     // Utility Abilities
-    console.log(id);
+    //console.log(id);
     if (id[0] === "U" && weapon === "Utility") {
       if (id[1] === "R") {
         if (id[2] === "F" && skill === "Reposition Forward") {

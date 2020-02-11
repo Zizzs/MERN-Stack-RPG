@@ -23,7 +23,8 @@ class CombatPrefs extends Component {
     weaponOne: false,
     weaponTwo: false,
     combatPrefs: {},
-    combatPrefsUpdated: false
+    combatPrefsUpdated: false,
+    popupOpen: "Initial"
   };
 
   componentDidUpdate = () => {
@@ -34,15 +35,17 @@ class CombatPrefs extends Component {
           this.setState({ abilities: abilities, hasUpdatedAbilities: true });
         });
       }
-      if (this.props.needUpdate === true) {
-        this.setState({ combatPrefsUpdated: false });
-      }
-      if (this.state.combatPrefsUpdated === false) {
+
+      if (
+        this.state.popupOpen === "Initial" &&
+        this.state.combatPrefsUpdated === false
+      ) {
         this.setState({
           combatPrefs: user.character.combatPrefs,
           combatPrefsUpdated: true
         });
       }
+
       let weaponOneLength = Object.keys(user.character.equipment.weaponOne)
         .length;
 
@@ -94,6 +97,40 @@ class CombatPrefs extends Component {
 
       saveLocalUser(user);
       //console.log(this.state, user);
+      if (
+        (this.props.popupPanelOpen === false ||
+          this.props.positionPopupPanelOpen === false) &&
+        this.state.popupOpen === "Initial"
+      ) {
+        console.log("Initial Setup for Combat Prefs");
+        this.setState({ popupOpen: "Closed" });
+      }
+
+      if (
+        (this.props.popupPanelOpen === true ||
+          this.props.positionPopupPanelOpen === true) &&
+        this.state.popupOpen === "Closed" &&
+        this.state.popupOpen != "Open"
+      ) {
+        console.log("Combat Prefs Ability Panel is Open");
+        this.setState({ popupOpen: "Open" });
+      }
+
+      if (
+        this.props.popupPanelOpen === false &&
+        this.props.positionPopupPanelOpen === false &&
+        this.state.popupOpen === "Open"
+      ) {
+        console.log("Combat Prefs Ability Panel has been Closed");
+        this.setState({ popupOpen: "Initial" });
+      }
+
+      if (
+        this.state.popupOpen === "Closed" &&
+        this.state.combatPrefsUpdated === true
+      ) {
+        this.setState({ combatPrefsUpdated: false });
+      }
     }
   };
 
@@ -108,7 +145,7 @@ class CombatPrefs extends Component {
       button.className = "weaponButtonText";
     }
 
-    if (!buttonList[index].className.includes("focusdButton")) {
+    if (!buttonList[index].className.includes("focusedButton")) {
       buttonList[index].className = "focusedButton";
     }
   };

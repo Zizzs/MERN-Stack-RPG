@@ -163,13 +163,15 @@ class Navbar extends Component {
   };
 
   toggleCombatPrefPositionPopupPanel = () => {
-    if (this.state.combatPrefPositionPopupPanelOpen === true) {
-      this.setState({
-        combatPrefPositionPopupPanelOpen: false
-      });
-    } else {
-      this.setState({ combatPrefPositionPopupPanelOpen: true });
-    }
+    this.setState({ combatPrefPositionPopupPanelOpen: true });
+  };
+
+  toggleCombatPrefPositionPopupPanelFromTooltip = () => {
+    this.setState({
+      combatPrefPositionPopupPanelOpen: false
+    });
+    const { user } = this.props.auth;
+    saveLocalUser(user);
   };
 
   toggleAbilityTooltipPanel = ability => {
@@ -332,7 +334,7 @@ class Navbar extends Component {
           />
           <CombatPrefPositionPopup
             panelOpen={this.state.combatPrefPositionPopupPanelOpen}
-            togglePanel={this.toggleCombatPrefPositionPopupPanel}
+            togglePanel={this.toggleCombatPrefPositionPopupPanelFromTooltip}
           />
           <AbilityPanel
             toggleAbilityTooltipPanel={this.toggleAbilityTooltipPanel}
@@ -347,6 +349,8 @@ class Navbar extends Component {
             togglePopupPanel={this.toggleCombatPrefPopupPanel}
             togglePanel={this.toggleCombatPrefsPanel}
             panelOpen={this.state.isCombatPrefsPanelOpen}
+            popupPanelOpen={this.state.isCombatPrefPopupPanelOpen}
+            positionPopupPanelOpen={this.state.combatPrefPositionPopupPanelOpen}
           />
         </div>
       );
