@@ -16,8 +16,4 @@ _Contact myself at Zizzs17@gmail.com if you have any questions or recommendation
 
 _React.js, Express, Node.js, MongoDB, Mongoose_
 
-### License
-
-_{Determine the license under which this application can be used. See below for more details on licensing.}_
-
 Copyright (c) 2019 **_Alex Williams_**
