@@ -1,4 +1,3 @@
-// Crit Chance is Tied to the Weapon!
 const Abilities = {
   dagger: {
     basic: {
