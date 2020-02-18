@@ -2,8 +2,8 @@ const tokens = {
   tierOne: [
     {
       name: "Skeleton Token",
-      itemType: "Token",
-      itemSubType: "Skeleton",
+      type: "Token",
+      subType: "Skeleton",
       tradeable: false,
       count: 0
     }

@@ -10,6 +10,7 @@ const getUserModule = require("./routes/api/getuser");
 const saveLocal = require("./routes/api/saveLocalUser");
 const resetPassModule = require("./routes/api/resetPassword");
 const abilitiesModule = require("./routes/api/GameData/Abilities/GetAbilities");
+const itemsModule = require("./routes/api/GameData/Items/ItemGeneration");
 
 const app = express();
 // Bodyparser middleware
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 
 // Passport middleware
 app.use(passport.initialize());
+
 // Passport config
 require("./config/passport", passport);
 
@@ -35,6 +37,11 @@ app.post("/api/saveUser", saveUserModule.saveUser);
 
 // Abilities Routes
 app.get("/api/abilities/getAllAbilities", abilitiesModule.getAllAbilities);
+
+// Item Routes
+app.post("/api/items/generateItem", (req, res) => {
+  itemsModule.generateItem(req, res);
+});
 
 // User Routes
 app.use("/api/users", users);

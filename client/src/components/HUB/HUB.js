@@ -6,7 +6,7 @@ import HubImage from "../../images/cosmicCity.png";
 
 import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { logoutUser } from "../../actions/authActions";
-import { giveUserItem } from "../../actions/itemActions";
+import { giveUserItem, generateItem } from "../../actions/itemActions";
 import { setLocation } from "../../actions/locationActions";
 
 import "./HUB.css";
@@ -56,16 +56,12 @@ class HUB extends Component {
     window.location.reload(false);
   };
 
-  giveItem = e => {
+  createItem = e => {
     e.preventDefault();
     let user = this.props.auth.user;
-    giveUserItem(user, {
-      name: "Flaming Sword",
-      type: "Sword"
+    generateItem(1, "Weapon", "Dagger", 1.0, "", "").then(response => {
+      console.log(response.data.item);
     });
-    user = this.props.auth.user;
-    //console.log(user);
-    saveUser(user);
   };
 
   consoleLogUser = () => {
@@ -152,6 +148,9 @@ class HUB extends Component {
                       marginTop: "1rem"
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                    onClick={e => {
+                      this.createItem(e);
+                    }}
                   >
                     Merchant Ring
                   </button>

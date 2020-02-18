@@ -2,8 +2,8 @@ const daggers = {
   tierOne: [
     {
       name: "Time-Worn Dagger",
-      itemType: "Weapon",
-      itemSubType: "Dagger",
+      type: "Weapon",
+      subType: "Dagger",
       tradeable: true,
       damageRangeMin: 1,
       damageRangeMax: 10,
@@ -19,8 +19,8 @@ const bows = {
   tierOne: [
     {
       name: "Time-Worn Bow",
-      itemType: "Weapon",
-      itemSubType: "Bow",
+      type: "Weapon",
+      subType: "Bow",
       tradeable: true,
       damageRangeMin: 1,
       damageRangeMax: 10,
