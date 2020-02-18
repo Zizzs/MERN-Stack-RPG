@@ -9,7 +9,8 @@ const daggers = {
       damageRangeMax: 10,
       canRollStats: true,
       canRollSkills: true,
-      canRollAuras: true
+      canRollAuras: true,
+      fragment: 100
     }
   ]
 };
@@ -25,7 +26,8 @@ const bows = {
       damageRangeMax: 10,
       canRollStats: true,
       canRollSkills: true,
-      canRollAuras: true
+      canRollAuras: true,
+      fragment: 100
     }
   ]
 };
