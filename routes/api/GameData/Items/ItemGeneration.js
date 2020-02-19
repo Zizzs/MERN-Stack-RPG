@@ -57,6 +57,12 @@ const generateItem = (itemData, res) => {
     }
   }
 
+  if (type === "Token") {
+    if (subType === "Skeleton") {
+      itemBlueprint = Tokens.tierOne.skeleton;
+    }
+  }
+
   // Build Item from Blueprint
   // Example Weapon:
   // let dagger = {
@@ -80,49 +86,57 @@ const generateItem = (itemData, res) => {
   //   auras: [{},{}],
   // }
 
+  // Tokens require these 6 variables, but they also apply to weapons.
   item.name = itemBlueprint.name;
-  item.id = uuidv1();
-  item.rarity = "";
   item.type = itemBlueprint.type;
   item.subType = itemBlueprint.subType;
+  item.img = itemBlueprint.img;
+  item.tradeable = itemBlueprint.tradeable;
+  item.id = uuidv1();
 
+  if (type === "Token") {
+    item.count = 1;
+  }
+
+  // Build
   if (type === "Weapon") {
+    item.rarity = "";
     item.damage = Math.floor(
       Math.random() *
         (itemBlueprint.damageRangeMax - itemBlueprint.damageRangeMin + 1) +
         itemBlueprint.damageRangeMin
     );
-  }
 
-  // Roll Rarity or Force Rarity and Modify Item
-  // Rarity Tiers
-  // 1-10000 Roll for each rarity. Must hit the rarity's requirement or higher.
-  // Ordinary 1 - [WHITE, Damage, One Stat]
-  // Abnormal 5000 - [BLUE, Damage+, Two Stats, Aura]
-  // Unusual 7500 - [PURPLE, Damage++, All Stats, Aura+]
-  // Exceptional 9000 - [NEON GREEN, Damage+++, All Stats+, Aura++, Skill]
-  // Peerless 9500 - [NEON PINK, Damage++++, All Stats++, Aura+++, Skill+]
-  // Fabled 9900 - [Silver/Gold, Damage+++++, All Stats+++, Aura++++, Aura++++, Skill++]
-  // Ancient 9999 - [Rainbow?, Damage++++++, All Stats++++, Aura+++++, Aura+++++, Skill+++, Skill+++]
-  item.rarity = "Ordinary";
-  let roll = Math.floor(Math.random() * 10000) + 1;
-  if (roll >= 5000) {
-    item.rarity = "Abnormal";
-    roll = Math.floor(Math.random() * 10000) + 1;
-    if (roll >= 7500) {
-      item.rarity = "Unusual";
+    // Roll Rarity or Force Rarity and Modify Item
+    // Rarity Tiers
+    // 1-10000 Roll for each rarity. Must hit the rarity's requirement or higher.
+    // Ordinary 1 - [WHITE, Damage, One Stat]
+    // Abnormal 5000 - [BLUE, Damage+, Two Stats, Aura]
+    // Unusual 7500 - [PURPLE, Damage++, All Stats, Aura+]
+    // Exceptional 9000 - [NEON GREEN, Damage+++, All Stats+, Aura++, Skill]
+    // Peerless 9500 - [NEON PINK, Damage++++, All Stats++, Aura+++, Skill+]
+    // Fabled 9900 - [Silver/Gold, Damage+++++, All Stats+++, Aura++++, Aura++++, Skill++]
+    // Ancient 9999 - [Rainbow?, Damage++++++, All Stats++++, Aura+++++, Aura+++++, Skill+++, Skill+++]
+    item.rarity = "Ordinary";
+    let roll = Math.floor(Math.random() * 10000) + 1;
+    if (roll >= 5000) {
+      item.rarity = "Abnormal";
       roll = Math.floor(Math.random() * 10000) + 1;
-      if (roll >= 9000) {
-        item.rarity = "Exceptional";
+      if (roll >= 7500) {
+        item.rarity = "Unusual";
         roll = Math.floor(Math.random() * 10000) + 1;
-        if (roll >= 9500) {
-          item.rarity = "Peerless";
+        if (roll >= 9000) {
+          item.rarity = "Exceptional";
           roll = Math.floor(Math.random() * 10000) + 1;
-          if (roll >= 9900) {
-            item.rarity = "Fabled";
+          if (roll >= 9500) {
+            item.rarity = "Peerless";
             roll = Math.floor(Math.random() * 10000) + 1;
-            if (roll >= 9999) {
-              item.rarity = "Ancient";
+            if (roll >= 9900) {
+              item.rarity = "Fabled";
+              roll = Math.floor(Math.random() * 10000) + 1;
+              if (roll >= 9999) {
+                item.rarity = "Ancient";
+              }
             }
           }
         }
@@ -134,11 +148,5 @@ const generateItem = (itemData, res) => {
     item: item
   });
 };
-
-// const getAllAbilities = (req, res) => {
-//   res.status(200).send({
-//     abilities: abilitiesModule.Abilities
-//   });
-// };
 
 exports.generateItem = generateItem;

@@ -10,7 +10,8 @@ const daggers = {
       canRollStats: true,
       canRollSkills: true,
       canRollAuras: true,
-      fragment: 100
+      fragment: 100,
+      img: ""
     }
   ]
 };
@@ -27,7 +28,8 @@ const bows = {
       canRollStats: true,
       canRollSkills: true,
       canRollAuras: true,
-      fragment: 100
+      fragment: 100,
+      img: ""
     }
   ]
 };
