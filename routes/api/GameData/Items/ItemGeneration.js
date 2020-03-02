@@ -100,7 +100,6 @@ const generateItem = (itemData, res) => {
 
   // Build
   if (type === "Weapon") {
-    item.rarity = "";
     item.damage = Math.floor(
       Math.random() *
         (itemBlueprint.damageRangeMax - itemBlueprint.damageRangeMin + 1) +
