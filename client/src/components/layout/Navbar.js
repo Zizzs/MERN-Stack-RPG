@@ -7,6 +7,7 @@ import { saveUser, saveLocalUser } from "../../actions/authActions";
 
 import AbilityPanel from "../Abilities/AbilityPanel";
 import CharacterPanel from "../character/CharacterPanel";
+import InventoryPanel from "../character/InventoryPanel";
 import ChatPanel from "../chat/ChatPanel";
 import SingleAbility from "../Abilities/SingleAbility";
 import CombatPrefs from "../Abilities/CombatPrefs";
@@ -22,6 +23,7 @@ class Navbar extends Component {
     if (this.checkObj(user.character)) {
       this.state = {
         isCharacterPanelOpen: false,
+        isInventoryPanelOpen: false,
         isChatPanelOpen: false,
         isMenuPanelOpen: false,
         isAbilityPanelOpen: false,
@@ -47,11 +49,12 @@ class Navbar extends Component {
         newPosition: 0,
         weaponOne: false,
         weaponTwo: false,
-        combatPrefsUpdated: false
+        combatPrefsUpdated: false,
       };
     } else {
       this.state = {
         isCharacterPanelOpen: false,
+        isInventoryPanelOpen: false,
         isChatPanelOpen: false,
         isMenuPanelOpen: false,
         isAbilityPanelOpen: false,
@@ -78,12 +81,12 @@ class Navbar extends Component {
         newPosition: 0,
         weaponOne: false,
         weaponTwo: false,
-        combatPrefsUpdated: false
+        combatPrefsUpdated: false,
       };
     }
   }
 
-  updateLocation = location => {
+  updateLocation = (location) => {
     const { user } = this.props.auth;
     setLocation(user, location);
     this.props.history.push(location);
@@ -104,6 +107,15 @@ class Navbar extends Component {
       this.setState({ isCharacterPanelOpen: false });
     } else {
       this.setState({ isCharacterPanelOpen: true });
+      document.getElementById("navOverlay").style.width = "0%";
+    }
+  };
+
+  toggleInventoryPanel = () => {
+    if (this.state.isInventoryPanelOpen) {
+      this.setState({ isInventoryPanelOpen: false });
+    } else {
+      this.setState({ isInventoryPanelOpen: true });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -133,7 +145,7 @@ class Navbar extends Component {
   toggleAbilityTooltipPanelFromTooltip = () => {
     this.setState({
       isAbilityTooltipPanelOpen: false,
-      abilityForTooltip: {}
+      abilityForTooltip: {},
     });
   };
 
@@ -141,7 +153,7 @@ class Navbar extends Component {
     this.setState({
       isCombatPrefPopupPanelOpen: false,
       abilitiesForCombatPrefPopup: [],
-      combatPrefsUpdated: true
+      combatPrefsUpdated: true,
     });
     const { user } = this.props.auth;
     saveLocalUser(user);
@@ -157,7 +169,7 @@ class Navbar extends Component {
         skillForCombatPrefPopup: skill,
         weaponOne: weaponOne,
         weaponTwo: weaponTwo,
-        combatPrefsUpdated: false
+        combatPrefsUpdated: false,
       });
     }
   };
@@ -168,13 +180,13 @@ class Navbar extends Component {
 
   toggleCombatPrefPositionPopupPanelFromTooltip = () => {
     this.setState({
-      combatPrefPositionPopupPanelOpen: false
+      combatPrefPositionPopupPanelOpen: false,
     });
     const { user } = this.props.auth;
     saveLocalUser(user);
   };
 
-  toggleAbilityTooltipPanel = ability => {
+  toggleAbilityTooltipPanel = (ability) => {
     //console.log(ability);
     if (
       this.state.isAbilityTooltipPanelOpen &&
@@ -182,12 +194,12 @@ class Navbar extends Component {
     ) {
       this.setState({
         isAbilityTooltipPanelOpen: false,
-        abilityForTooltip: {}
+        abilityForTooltip: {},
       });
     } else {
       this.setState({
         isAbilityTooltipPanelOpen: true,
-        abilityForTooltip: ability
+        abilityForTooltip: ability,
       });
     }
   };
@@ -201,7 +213,7 @@ class Navbar extends Component {
     }
   };
 
-  checkObj = obj => {
+  checkObj = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) return true;
     }
@@ -242,7 +254,7 @@ class Navbar extends Component {
                 <div className="navLink" onClick={this.toggleCharacterPanel}>
                   <p>CHARACTER</p>
                 </div>
-                <div className="navLink">
+                <div className="navLink" onClick={this.toggleInventoryPanel}>
                   <p>INVENTORY</p>
                 </div>
                 <div className="navLink" onClick={this.toggleCombatPrefsPanel}>
@@ -267,7 +279,7 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "#8B0000",
                         height: "100%",
-                        width: `${this.state.healthPercent}%`
+                        width: `${this.state.healthPercent}%`,
                       }}
                     ></div>
                   </div>
@@ -281,7 +293,7 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "blue",
                         height: "100%",
-                        width: `${this.state.manaPercent}%`
+                        width: `${this.state.manaPercent}%`,
                       }}
                     ></div>
                   </div>
@@ -295,7 +307,7 @@ class Navbar extends Component {
                       style={{
                         backgroundColor: "teal",
                         height: "100%",
-                        width: `${this.state.energyPercent}%`
+                        width: `${this.state.energyPercent}%`,
                       }}
                     ></div>
                   </div>
@@ -313,6 +325,10 @@ class Navbar extends Component {
           <CharacterPanel
             togglePanel={this.toggleCharacterPanel}
             panelOpen={this.state.isCharacterPanelOpen}
+          />
+          <InventoryPanel
+            togglePanel={this.toggleInventoryPanel}
+            panelOpen={this.state.isInventoryPanelOpen}
           />
           <ChatPanel
             togglePanel={this.toggleChatPanel}
@@ -361,11 +377,11 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(withRouter(Navbar));

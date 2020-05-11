@@ -14,7 +14,7 @@ import axios from "axios";
 export const giveUserItem = (userData, item) => {
   let data = {
     userData: userData,
-    item: item
+    item: item,
   };
 
   data.userData.character.items.push(item);
@@ -23,7 +23,7 @@ export const giveUserItem = (userData, item) => {
     method: "post",
     url: "/api/saveLocalUser",
     headers: { "Content-Type": "application/json" },
-    data: data
+    data: data,
   })
     .then(function(response) {
       console.log(response);
@@ -32,6 +32,8 @@ export const giveUserItem = (userData, item) => {
       console.log(error);
     });
 };
+
+// Generates an item for the user, requires tier, type, subType, rarityBonus, forceRarity, and uniqueName.
 
 export const generateItem = (
   tier,
@@ -47,14 +49,14 @@ export const generateItem = (
     subType: subType,
     rarityBonus: rarityBonus,
     forceRarity: forceRarity,
-    uniqueName: uniqueName
+    uniqueName: uniqueName,
   };
 
   return axios({
     method: "post",
     url: "/api/items/generateItem",
     headers: { "Content-Type": "application/json" },
-    data: data
+    data: data,
   })
     .then(function(response) {
       return response;

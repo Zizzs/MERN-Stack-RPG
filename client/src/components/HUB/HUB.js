@@ -15,7 +15,7 @@ class HUB extends Component {
   state = {
     showHealer: false,
     saved: false,
-    location: "/HUB"
+    location: "/HUB",
   };
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class HUB extends Component {
     }
   }
 
-  redirectLocation = location => {
+  redirectLocation = (location) => {
     let user = this.props.auth.user;
     console.log(`Sending ${user.name} to ${location}.`);
     setLocation(user, location);
@@ -50,17 +50,17 @@ class HUB extends Component {
     this.setState({ showHealer: false });
   };
 
-  onLogoutClick = e => {
+  onLogoutClick = (e) => {
     e.preventDefault();
     logoutUser();
     window.location.reload(false);
   };
 
-  createItem = e => {
+  createItem = (e) => {
     e.preventDefault();
     let user = this.props.auth.user;
-    generateItem(1, "Weapon", "Dagger", 1.0, "", "").then(response => {
-      console.log(response.data.item);
+    generateItem(1, "Weapon", "Dagger", 1.0, "", "").then((response) => {
+      giveUserItem(user, response.data.item);
     });
   };
 
@@ -69,7 +69,7 @@ class HUB extends Component {
     console.log(user);
   };
 
-  checkObj = obj => {
+  checkObj = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) return true;
     }
@@ -93,7 +93,7 @@ class HUB extends Component {
                 width: "150px",
                 borderRadius: "3px",
                 letterSpacing: "1.5px",
-                marginTop: "1rem"
+                marginTop: "1rem",
               }}
               onClick={this.onLogoutClick}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -117,7 +117,7 @@ class HUB extends Component {
                       width: "150px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                     onClick={this.consoleLogUser}
@@ -131,7 +131,7 @@ class HUB extends Component {
                       width: "150px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
@@ -145,10 +145,10 @@ class HUB extends Component {
                       width: "200px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={e => {
+                    onClick={(e) => {
                       this.createItem(e);
                     }}
                   >
@@ -160,7 +160,7 @@ class HUB extends Component {
                       width: "220px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
@@ -178,7 +178,7 @@ class HUB extends Component {
                       width: "200px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
@@ -190,7 +190,7 @@ class HUB extends Component {
                       width: "150px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
@@ -203,7 +203,7 @@ class HUB extends Component {
                       width: "170px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
@@ -215,7 +215,7 @@ class HUB extends Component {
                       width: "170px",
                       borderRadius: "3px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   >
@@ -230,7 +230,7 @@ class HUB extends Component {
                 <button
                   style={{ marginLeft: "10px" }}
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     this.redirectLocation("/HUB/CelestialTower");
                   }}
@@ -247,23 +247,23 @@ class HUB extends Component {
 }
 
 HUB.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => {
       dispatch(logoutUser());
     },
     setLocation,
     saveUser,
-    saveLocalUser: user => {
+    saveLocalUser: (user) => {
       dispatch(saveLocalUser(user));
-    }
+    },
   };
 };
 
