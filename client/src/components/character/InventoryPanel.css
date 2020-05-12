@@ -1,10 +1,10 @@
 #inventoryPanel {
   width: 600px;
   min-height: 600px;
-  color: black;
+  color: white;
   border: 1px solid white;
   position: fixed;
-  background-color: rgb(81, 102, 194);
+  background-color: #0b0a46;
 }
 
 .closePanelButton {
@@ -20,4 +20,24 @@
   text-align: center;
   display: inline-block;
   font-size: 50px;
+}
+
+#inventoryHeader {
+  border-bottom: 1px solid white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+#inventoryItems {
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.inventoryItem {
+  font-size: 12px;
+  margin-left: 25px;
+  margin-right: 25px;
+  border-top: 1px dotted white;
 }

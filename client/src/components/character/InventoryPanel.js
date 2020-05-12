@@ -23,13 +23,13 @@ class InventoryPanel extends Component {
     return (
       <Draggable>
         <div id="inventoryPanel" className={visibility}>
-          <p>Inventory</p>
+          <p id="inventoryHeader">Inventory</p>
           <button onClick={this.props.togglePanel} className="closePanelButton">
             X
           </button>
-          <div>
+          <div id="inventoryItems">
             {user.character.items.map((item) => (
-              <p>
+              <p className="inventoryItem">
                 {item.name} - {item.rarity}
               </p>
             ))}
