@@ -64,6 +64,12 @@ class HUB extends Component {
     });
   };
 
+  tempSaveUser = (e) => {
+    e.preventDefault();
+    let user = this.props.auth.user;
+    saveUser(user);
+  };
+
   consoleLogUser = () => {
     let user = this.props.auth.user;
     console.log(user);
@@ -163,6 +169,9 @@ class HUB extends Component {
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                    onClick={(e) => {
+                      this.tempSaveUser(e);
+                    }}
                   >
                     Crafting Square
                   </button>

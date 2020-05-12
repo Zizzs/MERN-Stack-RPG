@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Draggable from "react-draggable";
+import { v4 as uuidv4 } from "uuid";
 import "./InventoryPanel.css";
 
 class InventoryPanel extends Component {
@@ -28,8 +29,9 @@ class InventoryPanel extends Component {
             X
           </button>
           <div id="inventoryItems">
+            <p>Total Items: {user.character.items.length}</p>
             {user.character.items.map((item) => (
-              <p className="inventoryItem">
+              <p className="inventoryItem" key={uuidv4()}>
                 {item.name} - {item.rarity}
               </p>
             ))}
