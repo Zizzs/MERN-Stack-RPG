@@ -48,9 +48,8 @@ class SingleAbility extends Component {
               <hr />
               <p className="descriptionHeader">Damage</p>
               <div id="damageDiv">
-                Min: {this.props.ability.damage.damageMin} | Max:{" "}
-                {this.props.ability.damage.damageMax} | Attack Count:{" "}
-                {this.props.ability.damage.attackCount}
+                Multiplier: {this.props.ability.damage.damageMulti * 100}
+                {"%"} | Attack Count: {this.props.ability.damage.attackCount}
               </div>
               <hr />
               <p className="descriptionHeader">Position</p>
@@ -65,22 +64,22 @@ class SingleAbility extends Component {
                 <div>
                   <p>Health</p>
                   <p>
-                    Min: {this.props.ability.heal.healthHealAmountMin} | Max:{" "}
-                    {this.props.ability.heal.healthHealAmountMax}
+                    Multiplier: {this.props.ability.heal.healMulti}
+                    {"%"}
                   </p>
                 </div>
                 <div>
                   <p>Mana</p>
                   <p>
-                    Min: {this.props.ability.heal.manaHealAmountMin} | Max:{" "}
-                    {this.props.ability.heal.manaHealAmountMax}
+                    Multiplier: {this.props.ability.heal.manaMulti}
+                    {"%"}
                   </p>
                 </div>
                 <div>
                   <p>Energy</p>
                   <p>
-                    Min: {this.props.ability.heal.energyHealAmountMin} | Max:{" "}
-                    {this.props.ability.heal.energyHealAmountMax}
+                    Multiplier: {this.props.ability.heal.energyMulti}
+                    {"%"}
                   </p>
                 </div>
               </div>
@@ -90,7 +89,9 @@ class SingleAbility extends Component {
               {!user.character.unlockedAbilities.includes(
                 this.props.ability.info.id
               ) && (
-                <button onClick={e => this.learnAbility(e, this.props.ability)}>
+                <button
+                  onClick={(e) => this.learnAbility(e, this.props.ability)}
+                >
                   Learn
                 </button>
               )}
@@ -112,19 +113,19 @@ class SingleAbility extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     saveUser,
-    saveLocalUser: user => {
+    saveLocalUser: (user) => {
       dispatch(saveLocalUser(user));
     },
-    unlockAbility: user => {
+    unlockAbility: (user) => {
       dispatch(unlockAbility(user));
-    }
+    },
   };
 };
 

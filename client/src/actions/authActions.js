@@ -6,27 +6,27 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   USER_LOADING,
-  UPDATE_CURRENT_USER
+  UPDATE_CURRENT_USER,
 } from "./types";
 
 // Register User
-export const registerUser = (userData, history) => dispatch => {
+export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
-    .catch(err =>
+    .then((res) => history.push("/login")) // re-direct to login on successful register
+    .catch((err) =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       })
     );
 };
 
 // Login - get user token
-export const loginUser = userData => dispatch => {
+export const loginUser = (userData) => (dispatch) => {
   axios
     .post("/api/users/login", userData)
-    .then(res => {
+    .then((res) => {
       // Save to localStorage
       // Set token to localStorage
       //console.log(res);
@@ -39,33 +39,33 @@ export const loginUser = userData => dispatch => {
       // Set current user
       dispatch(setCurrentUser(decoded));
     })
-    .catch(err =>
+    .catch((err) =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       })
     );
 };
 
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: decoded,
   };
 };
 
-export const updateCurrentUser = decoded => {
+export const updateCurrentUser = (decoded) => {
   return {
     type: UPDATE_CURRENT_USER,
-    payload: decoded
+    payload: decoded,
   };
 };
 
 // User loading
 export const setUserLoading = () => {
   return {
-    type: USER_LOADING
+    type: USER_LOADING,
   };
 };
 
@@ -79,15 +79,15 @@ export const logoutUser = () => {
   return setCurrentUser({});
 };
 
-export const saveUser = userData => {
+export const saveUser = (userData) => {
   let data = {
-    userData: userData
+    userData: userData,
   };
   axios({
     method: "post",
     url: "/api/saveUser",
     headers: { "Content-Type": "application/json" },
-    data: data
+    data: data,
   })
     .then(function(response) {
       //console.log(response);
@@ -98,7 +98,7 @@ export const saveUser = userData => {
 };
 
 // Figure this out!
-export const saveLocalUser = userData => {
+export const saveLocalUser = (userData) => {
   return updateCurrentUser(userData);
 };
 
@@ -107,10 +107,10 @@ export const getCharacterData = (userData, dispatch) => {
   axios
     .get("/api/getUser", {
       params: {
-        data: userData
-      }
+        data: userData,
+      },
     })
-    .then(res => {
+    .then((res) => {
       if (res.data.user !== null && !checkObj(userData.character)) {
         userData.character = res.data.user.character;
       }
@@ -118,13 +118,14 @@ export const getCharacterData = (userData, dispatch) => {
       return new Promise((resolve, reject) => {
         dispatch({
           type: UPDATE_CURRENT_USER,
-          payload: userData
+          payload: userData,
         });
+        resolve();
       });
     });
 };
 
-const checkObj = obj => {
+const checkObj = (obj) => {
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) return true;
   }

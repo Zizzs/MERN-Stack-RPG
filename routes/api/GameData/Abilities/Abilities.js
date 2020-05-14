@@ -11,38 +11,34 @@ const Abilities = {
           combatText: [
             "thrust the",
             "lunge forward and thrust with",
-            "make rude faces and quickly thrust the"
-          ]
+            "make rude faces and quickly thrust the",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 4,
-          damageMax: 7
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 1,
-          maxPosition: 2
+          maxPosition: 2,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       DBSlice: {
         info: {
@@ -54,38 +50,34 @@ const Abilities = {
             "A quick horizontal slice attack, maybe someday itll bleed too!",
           combatText: [
             "slice with your",
-            "duck and slice with your favorite weapon,"
-          ]
+            "duck and slice with your favorite weapon,",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 2,
-          damageMax: 6
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 3,
-          maxPosition: 4
+          maxPosition: 4,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       DBThrow: {
         info: {
@@ -94,38 +86,34 @@ const Abilities = {
           weapon: "Dagger",
           type: "Basic",
           description: "A ranged attack, in which the dagger is thrown. ",
-          combatText: ["throw the", "chuck the"]
+          combatText: ["throw the", "chuck the"],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 2,
-          damageMin: 1,
-          damageMax: 3
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 5,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
+          energyMulti: 0.0,
+        },
+      },
     },
     chainer: {
       DCShadowStep: {
@@ -136,38 +124,34 @@ const Abilities = {
           type: "Chainer",
           description: "Dash forward through the shadows and stab the enemy.",
           combatText: [
-            "duck into the shadows, reappearing closer and damaging the"
-          ]
+            "duck into the shadows, reappearing closer and damaging the",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 1,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 10,
-          damageMax: 15
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: true,
           repositionDirection: "Forward",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       DCSmokeBomb: {
         info: {
@@ -178,39 +162,35 @@ const Abilities = {
           description:
             "A retreating skill, giving you distance from the enemy.",
           combatText: [
-            "throw a smoke bomb, giving you space to breathe. You hit the"
-          ]
+            "throw a smoke bomb, giving you space to breathe. You hit the",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 1,
-          damageMax: 5
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: true,
           repositionDirection: "Backward",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
-          doesHealHealth: true,
-          healthHealAmountMin: 3,
-          healthHealAmountMax: 5,
-          doesHealMana: true,
-          manaHealAmountMin: 1,
-          manaHealAmountMax: 2,
+          doesHealHealth: false,
+          healMulti: 0.0,
+          doesHealMana: false,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
+          energyMulti: 0.0,
+        },
+      },
     },
     finisher: {
       DFThousandHits: {
@@ -227,40 +207,36 @@ const Abilities = {
             "gut the",
             "slice off an unrecognizable body part from the",
             "poke a hole in the",
-            "yell really loud and thrust into the"
-          ]
+            "yell really loud and thrust into the",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 5,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 5,
-          damageMin: 7,
-          damageMax: 10
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
-    }
+          energyMulti: 0.0,
+        },
+      },
+    },
   },
   bow: {
     basic: {
@@ -271,37 +247,33 @@ const Abilities = {
           weapon: "Bow",
           type: "Basic",
           description: "A point blank shot against an enemy.",
-          combatText: ["shoot the", "pull back your bow and shoot the"]
+          combatText: ["shoot the", "pull back your bow and shoot the"],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 2,
-          damageMax: 5
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 1,
-          maxPosition: 2
+          maxPosition: 2,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       BBShoot: {
         info: {
@@ -310,37 +282,33 @@ const Abilities = {
           weapon: "Bow",
           type: "Basic",
           description: "A generic shot with a bow.",
-          combatText: ["shoot with your", "shoot the arrow with your"]
+          combatText: ["shoot with your", "shoot the arrow with your"],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 3,
-          damageMax: 8
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 3,
-          maxPosition: 4
+          maxPosition: 4,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       BBLongShot: {
         info: {
@@ -349,38 +317,34 @@ const Abilities = {
           weapon: "Bow",
           type: "Basic",
           description: "A long range bow attack that does high damage.",
-          combatText: ["shoot the"]
+          combatText: ["shoot the"],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 8,
-          damageMax: 11
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 5,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
+          energyMulti: 0.0,
+        },
+      },
     },
     chainer: {
       BCMirrorShot: {
@@ -391,37 +355,33 @@ const Abilities = {
           type: "Chainer",
           description:
             "Shoot an arrow that moves your position closer to the enemy.",
-          combatText: ["shoot the arrow, appearing closer to the enemy."]
+          combatText: ["shoot the arrow, appearing closer to the enemy."],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 1,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 6,
-          damageMax: 9
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: true,
           repositionDirection: "Forward",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       BCDefyingLeap: {
         info: {
@@ -432,39 +392,35 @@ const Abilities = {
           description:
             "A retreating skill, giving you distance from the enemy.",
           combatText: [
-            "leap backwards, gaining space and damaging the enemy with a shower of arrows."
-          ]
+            "leap backwards, gaining space and damaging the enemy with a shower of arrows.",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMin: 8,
-          damageMax: 13
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: true,
           repositionDirection: "Backward",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
+          energyMulti: 0.0,
+        },
+      },
     },
     finisher: {
       BFBarrage: {
@@ -475,39 +431,35 @@ const Abilities = {
           type: "Finisher",
           description:
             "A common finisher among bow users, deadly when used frequently.",
-          combatText: ["shoot the"]
+          combatText: ["shoot the"],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 5,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: true,
           attackCount: 3,
-          damageMin: 15,
-          damageMax: 20
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
-    }
+          energyMulti: 0.0,
+        },
+      },
+    },
   },
   utility: {
     reposition: {
@@ -520,38 +472,34 @@ const Abilities = {
             type: "Reposition",
             description:
               "A forward charging attack that moves you closer to the enemy.",
-            combatText: ["charge at", "sprint forward and charge towards"]
+            combatText: ["charge at", "sprint forward and charge towards"],
           },
           cost: {
             experience: 0,
             health: 0,
             mana: 0,
-            energy: 0
+            energy: 0,
           },
           damage: {
             doesDamage: true,
             attackCount: 1,
-            damageMin: 1,
-            damageMax: 3
+            damageMulti: 1.0,
           },
           position: {
             doesReposition: true,
             repositionDirection: "Forward",
             minPosition: 1,
-            maxPosition: 6
+            maxPosition: 6,
           },
           heal: {
             doesHealHealth: false,
-            healthHealAmountMin: 0,
-            healthHealAmountMax: 0,
+            healMulti: 0.0,
             doesHealMana: false,
-            manaHealAmountMin: 0,
-            manaHealAmountMax: 0,
+            manaMulti: 0.0,
             doesHealEnergy: false,
-            energyHealAmountMin: 0,
-            energyHealAmountMax: 0
-          }
-        }
+            energyMulti: 0.0,
+          },
+        },
       },
       backward: {
         URBDodgeBack: {
@@ -564,40 +512,36 @@ const Abilities = {
               "A retreating dodge that moves you away from the enemy.",
             combatText: [
               "dodge backwards to gain better footing.",
-              "retreat backwards in effort to gain control."
-            ]
+              "retreat backwards in effort to gain control.",
+            ],
           },
           cost: {
             experience: 0,
             health: 0,
             mana: 0,
-            energy: 0
+            energy: 0,
           },
           damage: {
             doesDamage: true,
             attackCount: 1,
-            damageMin: 1,
-            damageMax: 3
+            damageMulti: 1.0,
           },
           position: {
             doesReposition: true,
             repositionDirection: "Forward",
             minPosition: 1,
-            maxPosition: 6
+            maxPosition: 6,
           },
           heal: {
             doesHealHealth: false,
-            healthHealAmountMin: 0,
-            healthHealAmountMax: 0,
+            healMulti: 0.0,
             doesHealMana: false,
-            manaHealAmountMin: 0,
-            manaHealAmountMax: 0,
+            manaMulti: 0.0,
             doesHealEnergy: false,
-            energyHealAmountMin: 0,
-            energyHealAmountMax: 0
-          }
-        }
-      }
+            energyMulti: 0.0,
+          },
+        },
+      },
     },
     heal: {
       UHLesserHeal: {
@@ -609,38 +553,34 @@ const Abilities = {
           description: "A generic healing spell that heals your health.",
           combatText: [
             "heal yourself for",
-            "try to remember how to heal and successfully heal for"
-          ]
+            "try to remember how to heal and successfully heal for",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: false,
           attackCount: 0,
-          damageMin: 0,
-          damageMax: 0
+          damageMulti: 0.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: true,
-          healthHealAmountMin: 25,
-          healthHealAmountMax: 50,
+          healMulti: 0.35,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
+          energyMulti: 0.0,
+        },
       },
       UHHeal: {
         info: {
@@ -651,39 +591,35 @@ const Abilities = {
           description: "A generic healing spell that heals your health.",
           combatText: [
             "dodge backwards to gain better footing.",
-            "retreat backwards in effort to gain control."
-          ]
+            "retreat backwards in effort to gain control.",
+          ],
         },
         cost: {
           experience: 1000,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: false,
           attackCount: 0,
-          damageMin: 0,
-          damageMax: 0
+          damageMulti: 0.0,
         },
         position: {
           doesReposition: false,
           repositionDirection: "None",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: true,
-          healthHealAmountMin: 75,
-          healthHealAmountMax: 100,
+          healMulti: 0.7,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
+          energyMulti: 0.0,
+        },
+      },
     },
     generic: {
       UGFeint: {
@@ -699,42 +635,38 @@ const Abilities = {
             "believe in yourself, just kidding.",
             "think of a better plan and move.",
             "try your best, but at least you're in a better spot.",
-            "yell 'Hey there! Stop!', and then quickly move."
-          ]
+            "yell 'Hey there! Stop!', and then quickly move.",
+          ],
         },
         cost: {
           experience: 0,
           health: 0,
           mana: 0,
-          energy: 0
+          energy: 0,
         },
         damage: {
           doesDamage: false,
           attackCount: 0,
-          damageMin: 0,
-          damageMax: 0
+          damageMulti: 1.0,
         },
         position: {
           doesReposition: true,
           repositionDirection: "Any",
           minPosition: 1,
-          maxPosition: 6
+          maxPosition: 6,
         },
         heal: {
           doesHealHealth: false,
-          healthHealAmountMin: 0,
-          healthHealAmountMax: 0,
+          healMulti: 0.0,
           doesHealMana: false,
-          manaHealAmountMin: 0,
-          manaHealAmountMax: 0,
+          manaMulti: 0.0,
           doesHealEnergy: false,
-          energyHealAmountMin: 0,
-          energyHealAmountMax: 0
-        }
-      }
+          energyMulti: 0.0,
+        },
+      },
     },
-    magic: {}
-  }
+    magic: {},
+  },
 };
 
 exports.Abilities = Abilities;

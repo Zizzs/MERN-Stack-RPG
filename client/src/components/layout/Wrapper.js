@@ -21,7 +21,7 @@ class Wrapper extends Component {
   state = {
     characterUploaded: false,
     characterValid: false,
-    checks: 0
+    checks: 0,
   };
 
   componentDidMount() {
@@ -38,7 +38,8 @@ class Wrapper extends Component {
       this.state.characterUploaded === false
     ) {
       console.log("Getting User");
-      getCharacterData(user);
+      this.props.getCharacterData(user);
+      console.log(user);
     } else {
       if (this.state.characterValid === false) {
         console.log("Valid User");
@@ -47,7 +48,7 @@ class Wrapper extends Component {
     }
   }
 
-  checkObj = obj => {
+  checkObj = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) return true;
     }
@@ -96,18 +97,18 @@ class Wrapper extends Component {
 }
 
 Wrapper.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getCharacterData: user => {
+    getCharacterData: (user) => {
       getCharacterData(user, dispatch);
-    }
+    },
   };
 };
 
