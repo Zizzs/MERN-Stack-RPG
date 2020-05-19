@@ -19,14 +19,15 @@ import ResetPassword from "../auth/ResetPassword";
 
 class Wrapper extends Component {
   state = {
-    characterUploaded: false,
     characterValid: false,
+    userLoggedIn: false,
+    userValid: false,
     checks: 0,
   };
 
   componentDidMount() {
     const { user } = this.props.auth;
-    console.log("Getting User");
+    console.log("Getting User First");
     this.props.getCharacterData(user);
   }
 
@@ -35,16 +36,27 @@ class Wrapper extends Component {
     //console.log(user);
     if (
       this.checkObj(user.character) === false &&
-      this.state.characterUploaded === false
+      this.state.userLoggedIn === true
     ) {
-      console.log("Getting User");
+      console.log("Getting User Second");
       this.props.getCharacterData(user);
-      console.log(user);
     } else {
-      if (this.state.characterValid === false) {
+      if (
+        this.state.characterValid === false &&
+        this.state.userLoggedIn === true
+      ) {
         console.log("Valid User");
-        this.setState({ characterValid: true, characterUploaded: true });
+        this.setState({ characterValid: true });
       }
+    }
+
+    if (this.checkObj(user) === false) {
+      console.log("No user");
+      if (this.state.userLoggedIn != false) {
+        this.setState({ userLoggedIn: false });
+      }
+    } else if (this.checkObj(user) === true && this.state.userValid === false) {
+      this.setState({ userLoggedIn: true, userValid: true });
     }
   }
 
@@ -56,7 +68,18 @@ class Wrapper extends Component {
   };
 
   render() {
-    if (this.state.characterValid) {
+    console.log(this.state.characterValid);
+    console.log(this.state.userLoggedIn);
+    if (
+      this.state.characterValid === false &&
+      this.state.userLoggedIn === true
+    ) {
+      return (
+        <div>
+          <p>Loading Character...</p>
+        </div>
+      );
+    } else {
       return (
         <Router>
           <div className="container">
@@ -85,12 +108,6 @@ class Wrapper extends Component {
             </div>
           </div>
         </Router>
-      );
-    } else {
-      return (
-        <div>
-          <p>Loading Character...</p>
-        </div>
       );
     }
   }

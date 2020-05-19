@@ -21,12 +21,19 @@ class HUB extends Component {
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
+    // if (!this.props.auth.isAuthenticated) {
+    //   this.props.history.push("/");
+    // }
+
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
-    if (user.character.location !== this.state.location) {
-      console.log("User in wrong place!");
-      this.props.history.push(user.character.location);
+
+    if (this.checkObj(user.character)) {
+      if (user.character.location !== this.state.location) {
+        console.log("User in wrong place!");
+        this.props.history.push(user.character.location);
+      }
     }
   }
 

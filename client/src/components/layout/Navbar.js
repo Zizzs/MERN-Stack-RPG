@@ -86,11 +86,11 @@ class Navbar extends Component {
     }
   }
 
-  updateLocation = (location) => {
-    const { user } = this.props.auth;
-    setLocation(user, location);
-    this.props.history.push(location);
-  };
+  // updateLocation = (location) => {
+  //   const { user } = this.props.auth;
+  //   setLocation(user, location);
+  //   this.props.history.push(location);
+  // };
 
   toggleMenuPanel = () => {
     if (this.state.isMenuPanelOpen) {
@@ -222,9 +222,9 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
-    //console.log(user);
+    console.log(user);
 
-    if (this.checkObj(user)) {
+    if (this.checkObj(user) && this.checkObj(user.character)) {
       return (
         <div className="navbarContainer">
           <div className="topNavContainer">

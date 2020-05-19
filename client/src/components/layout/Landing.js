@@ -8,10 +8,20 @@ import "./Landing.css";
 class Landing extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
+    const { user } = this.props.auth;
+    console.log(user);
+    if (this.props.auth.isAuthenticated && this.checkObj(user.character)) {
       this.props.history.push("/HUB");
     }
   }
+
+  checkObj = (obj) => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
+  };
+
   render() {
     return (
       <div id="landingGridContainer">
@@ -32,7 +42,7 @@ class Landing extends Component {
             style={{
               width: "140px",
               borderRadius: "3px",
-              letterSpacing: "1.5px"
+              letterSpacing: "1.5px",
             }}
             className="btn btn-large waves-effect waves-light hoverable #1a237e indigo darken-4"
           >
@@ -45,7 +55,7 @@ class Landing extends Component {
             style={{
               width: "140px",
               borderRadius: "3px",
-              letterSpacing: "1.5px"
+              letterSpacing: "1.5px",
             }}
             className="btn btn-large btn-flat waves-effect white black-text"
           >
@@ -59,12 +69,12 @@ class Landing extends Component {
 
 Landing.propTypes = {
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps)(Landing);
