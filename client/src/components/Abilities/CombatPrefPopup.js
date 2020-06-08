@@ -35,9 +35,11 @@ class CombatPrefPopup extends Component {
       visibility = "hide";
     }
 
-    const showAbilities = this.props.abilityList.map(ability => (
+    //console.log(this.props.abilityList);
+
+    const showAbilities = this.props.abilityList.map((ability) => (
       <div
-        onClick={e => this.setAbility(e, this.props.skill, ability, user)}
+        onClick={(e) => this.setAbility(e, this.props.skill, ability, user)}
         className="combatPrefsShownAbilities"
         key={ability.info.id}
       >
@@ -66,19 +68,19 @@ class CombatPrefPopup extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     saveUser,
-    saveLocalUser: user => {
+    saveLocalUser: (user) => {
       dispatch(saveLocalUser(user));
     },
-    saveAbilityAtPosition: user => {
+    saveAbilityAtPosition: (user) => {
       dispatch(saveAbilityAtPosition(user));
-    }
+    },
   };
 };
 

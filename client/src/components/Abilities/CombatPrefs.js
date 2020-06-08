@@ -226,7 +226,7 @@ class CombatPrefs extends Component {
 
   showSkills = (e, skill) => {
     e.preventDefault();
-    //console.log(skill);
+    console.log(this.state);
     let { user } = this.props.auth;
     let abilityList = [];
 
@@ -239,7 +239,7 @@ class CombatPrefs extends Component {
       abilityList = filterAbilities(
         user.character.unlockedAbilities,
         this.state.abilities,
-        this.state.shownWeapon,
+        this.state.shownWeapon.subType,
         skill
       );
     } else {
@@ -284,6 +284,8 @@ class CombatPrefs extends Component {
     ));
     let combatPrefs = this.state.combatPrefs;
 
+    console.log(this.state);
+
     return (
       <Draggable>
         <div id="combatPrefs" className={visibility}>
@@ -293,7 +295,7 @@ class CombatPrefs extends Component {
           </div>
           <div id="combatPrefsContent">
             <div>
-              <p>Chosen Weapon: {this.state.shownWeapon}</p>
+              <p>Chosen Weapon: {this.state.shownWeapon.subType}</p>
               <div
                 className="specificSkillDiv"
                 onClick={(e) => this.props.toggleCombatPrefPositionPopupPanel()}
