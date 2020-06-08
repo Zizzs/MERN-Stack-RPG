@@ -6,7 +6,7 @@ import { saveUser, saveLocalUser } from "../../actions/authActions";
 import {
   getAllAbilities,
   filterAbilities,
-  saveWeapon
+  saveWeapon,
 } from "../../actions/abilitiesActions";
 import "./CombatPrefs.css";
 
@@ -16,7 +16,7 @@ class CombatPrefs extends Component {
     hasUpdatedAbilities: false,
     weapons: {
       weaponOne: "",
-      weaponTwo: ""
+      weaponTwo: "",
     },
     shownWeapon: "",
     shownAbilities: [],
@@ -24,14 +24,14 @@ class CombatPrefs extends Component {
     weaponTwo: false,
     combatPrefs: {},
     combatPrefsUpdated: false,
-    popupOpen: "Initial"
+    popupOpen: "Initial",
   };
 
   componentDidUpdate = () => {
     let { user } = this.props.auth;
     if (this.checkObj(user.character)) {
       if (this.state.hasUpdatedAbilities === false) {
-        getAllAbilities().then(abilities => {
+        getAllAbilities().then((abilities) => {
           this.setState({ abilities: abilities, hasUpdatedAbilities: true });
         });
       }
@@ -42,7 +42,7 @@ class CombatPrefs extends Component {
       ) {
         this.setState({
           combatPrefs: user.character.combatPrefs,
-          combatPrefsUpdated: true
+          combatPrefsUpdated: true,
         });
       }
 
@@ -58,11 +58,11 @@ class CombatPrefs extends Component {
       if (weaponOneLength !== 0 && this.state.weapons.weaponOne === "") {
         this.setState({
           weapons: {
-            weaponOne: user.character.equipment.weaponOne.type
+            weaponOne: user.character.equipment.weaponOne.type,
           },
           shownWeapon: user.character.equipment.weaponOne.type,
           weaponOne: true,
-          weaponTwo: false
+          weaponTwo: false,
         });
 
         if (
@@ -80,8 +80,8 @@ class CombatPrefs extends Component {
       if (weaponTwoLength !== 0 && this.state.weapons.weaponTwo === "") {
         this.setState({
           weapons: {
-            weaponTwo: user.character.equipment.weaponTwo.type
-          }
+            weaponTwo: user.character.equipment.weaponTwo.type,
+          },
         });
         if (
           user.character.combatPrefs.weaponTwo.weaponType !==
@@ -134,12 +134,12 @@ class CombatPrefs extends Component {
     }
   };
 
-  reloadPage = e => {
+  reloadPage = (e) => {
     e.preventDefault();
     this.forceUpdate();
   };
 
-  focusButton = index => {
+  focusButton = (index) => {
     let buttonList = this.getButtonElements();
     for (let button of buttonList) {
       button.className = "weaponButtonText";
@@ -160,7 +160,7 @@ class CombatPrefs extends Component {
       "Any"
     );
     this.setState({
-      shownAbilities: daggerAbilities
+      shownAbilities: daggerAbilities,
     });
     //console.log(this.state.shownAbilities);
     this.focusButton(0);
@@ -177,12 +177,12 @@ class CombatPrefs extends Component {
     );
     //console.log(utilityAbilities);
     this.setState({
-      shownAbilities: utilityAbilities
+      shownAbilities: utilityAbilities,
     });
     this.focusButton(5);
   };
 
-  toggleShownWeapon = e => {
+  toggleShownWeapon = (e) => {
     e.preventDefault();
     let { user } = this.props.auth;
     let weaponTwoLength = Object.keys(user.character.equipment.weaponTwo)
@@ -192,7 +192,7 @@ class CombatPrefs extends Component {
         this.setState({
           shownWeapon: this.state.weapons.weaponTwo,
           weaponOne: false,
-          weaponTwo: true
+          weaponTwo: true,
         });
       }
 
@@ -200,7 +200,7 @@ class CombatPrefs extends Component {
         this.setState({
           shownWeapon: this.state.weapons.weaponOne,
           weaponOne: true,
-          weaponTwo: false
+          weaponTwo: false,
         });
       }
     }
@@ -219,7 +219,7 @@ class CombatPrefs extends Component {
       stavesButton,
       wandsButton,
       swordsButton,
-      utilityButton
+      utilityButton,
     ];
     return buttonList;
   };
@@ -259,7 +259,7 @@ class CombatPrefs extends Component {
     );
   };
 
-  checkObj = obj => {
+  checkObj = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) return true;
     }
@@ -276,7 +276,7 @@ class CombatPrefs extends Component {
       visibility = "hide";
     }
 
-    const showAbilities = this.state.shownAbilities.map(ability => (
+    const showAbilities = this.state.shownAbilities.map((ability) => (
       <div key={ability.info.id}>
         {ability.info.name} | {ability.info.type} | P
         {ability.position.minPosition}-P{ability.position.maxPosition}
@@ -296,14 +296,14 @@ class CombatPrefs extends Component {
               <p>Chosen Weapon: {this.state.shownWeapon}</p>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.props.toggleCombatPrefPositionPopupPanel()}
+                onClick={(e) => this.props.toggleCombatPrefPositionPopupPanel()}
               >
                 {" "}
                 Preferred Position | {combatPrefs.preferredPosition}
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Position 1")}
+                onClick={(e) => this.showSkills(e, "Position 1")}
               >
                 Position 1
                 {this.state.weaponOne &&
@@ -325,7 +325,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Position 2")}
+                onClick={(e) => this.showSkills(e, "Position 2")}
               >
                 Position 2
                 {this.state.weaponOne &&
@@ -347,7 +347,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Position 3")}
+                onClick={(e) => this.showSkills(e, "Position 3")}
               >
                 Position 3
                 {this.state.weaponOne &&
@@ -369,7 +369,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Position 4")}
+                onClick={(e) => this.showSkills(e, "Position 4")}
               >
                 Position 4
                 {this.state.weaponOne &&
@@ -391,7 +391,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Position 5")}
+                onClick={(e) => this.showSkills(e, "Position 5")}
               >
                 Position 5
                 {this.state.weaponOne &&
@@ -413,7 +413,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Position 6")}
+                onClick={(e) => this.showSkills(e, "Position 6")}
               >
                 Position 6
                 {this.state.weaponOne &&
@@ -435,7 +435,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Chainer Forward")}
+                onClick={(e) => this.showSkills(e, "Chainer Forward")}
               >
                 Chainer Forward
                 {this.state.weaponOne &&
@@ -457,7 +457,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Chainer Backward")}
+                onClick={(e) => this.showSkills(e, "Chainer Backward")}
               >
                 Chainer Backward
                 {this.state.weaponOne &&
@@ -479,7 +479,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Finisher")}
+                onClick={(e) => this.showSkills(e, "Finisher")}
               >
                 Finisher
                 {this.state.weaponOne &&
@@ -493,7 +493,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Reposition Forward")}
+                onClick={(e) => this.showSkills(e, "Reposition Forward")}
               >
                 Reposition Forward
                 {this.state.weaponOne &&
@@ -515,7 +515,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Reposition Backward")}
+                onClick={(e) => this.showSkills(e, "Reposition Backward")}
               >
                 Reposition Backward
                 {this.state.weaponOne &&
@@ -537,7 +537,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Heal")}
+                onClick={(e) => this.showSkills(e, "Heal")}
               >
                 Heal
                 {this.state.weaponOne &&
@@ -551,7 +551,7 @@ class CombatPrefs extends Component {
               </div>
               <div
                 className="specificSkillDiv"
-                onClick={e => this.showSkills(e, "Generic")}
+                onClick={(e) => this.showSkills(e, "Generic")}
               >
                 Generic
                 {this.state.weaponOne &&
@@ -600,10 +600,10 @@ class CombatPrefs extends Component {
           </div>
           <div>
             <button onClick={this.props.togglePanel}>Close</button>
-            <button onClick={e => this.toggleShownWeapon(e)}>
+            <button onClick={(e) => this.toggleShownWeapon(e)}>
               Toggle Weapon
             </button>
-            <button onClick={e => this.reloadPage(e)}>Refresh Page</button>
+            <button onClick={(e) => this.reloadPage(e)}>Refresh Page</button>
           </div>
         </div>
       </Draggable>
@@ -611,19 +611,19 @@ class CombatPrefs extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     saveUser,
-    saveLocalUser: user => {
+    saveLocalUser: (user) => {
       dispatch(saveLocalUser(user));
     },
-    saveWeapon: user => {
+    saveWeapon: (user) => {
       dispatch(saveWeapon(user));
-    }
+    },
   };
 };
 

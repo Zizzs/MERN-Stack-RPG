@@ -96,3 +96,43 @@ export const fragmentItem = (userData, item) => {
       console.log(error);
     });
 };
+
+export const equipWeapon = (userData, item, weaponSlot) => {
+  let data = {
+    userData: userData,
+    item: item,
+  };
+
+  // Removes the item being equipped from the user's inventory
+  let tempItemArray = data.userData.character.items;
+  for (let i = 0; i < tempItemArray.length; i++) {
+    if (tempItemArray[i].id === data.item.id) {
+      tempItemArray.splice(i, 1);
+      break;
+    }
+  }
+  data.userData.character.items = tempItemArray;
+
+  // Adds the currently equipped weapon into the user's inventory.
+  data.userData.character.items.push(
+    data.userData.character.equipment.weaponOne.type
+  );
+
+  // Equips the item given into the user's chosen slot (Currently only one weapon in WeaponOne)
+  if (weaponSlot === "WeaponOne") {
+    data.userData.character.equipment.weaponOne.type = data.item;
+  }
+
+  axios({
+    method: "post",
+    url: "/api/saveLocalUser",
+    headers: { "Content-Type": "application/json" },
+    data: data,
+  })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+};

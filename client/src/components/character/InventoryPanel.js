@@ -3,13 +3,20 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Draggable from "react-draggable";
 import { v4 as uuidv4 } from "uuid";
-import { fragmentItem } from "../../actions/itemActions";
+import { fragmentItem, equipWeapon } from "../../actions/itemActions";
 import "./InventoryPanel.css";
 
 class InventoryPanel extends Component {
   constructor(props) {
     super(props);
   }
+
+  equipInventoryItem = (e, item) => {
+    e.preventDefault();
+    // This will contain a weapon swap string at some point. It will just be "WeaponOne" for the time being.
+    const { user } = this.props.auth;
+    equipWeapon(user, item, "WeaponOne");
+  };
 
   fragmentInventoryItem = (e, item) => {
     e.preventDefault();
@@ -27,6 +34,8 @@ class InventoryPanel extends Component {
       visibility = "hide";
     }
 
+    let equippedWeaponOne = user.character.equipment.weaponOne.type;
+    console.log(equippedWeaponOne);
     return (
       <Draggable>
         <div id="inventoryPanel" className={visibility}>
@@ -34,11 +43,25 @@ class InventoryPanel extends Component {
           <button onClick={this.props.togglePanel} className="closePanelButton">
             X
           </button>
+          <div>
+            <p>Equipped Weapon</p>
+            <p>
+              {equippedWeaponOne.name} - {equippedWeaponOne.type} -
+              {equippedWeaponOne.rarity} - {equippedWeaponOne.damage}
+            </p>
+          </div>
           <div id="inventoryItems">
             <p>Total Items: {user.character.items.length}</p>
             {user.character.items.map((item) => (
               <p className="inventoryItem" key={uuidv4()}>
-                {item.name} - {item.rarity} - {item.damage}{" "}
+                {item.name} - {item.type} - {item.rarity} - {item.damage}{" "}
+                <button
+                  onClick={(e) => {
+                    this.equipInventoryItem(e, item);
+                  }}
+                >
+                  Equip
+                </button>
                 <button
                   onClick={(e) => {
                     this.fragmentInventoryItem(e, item);
