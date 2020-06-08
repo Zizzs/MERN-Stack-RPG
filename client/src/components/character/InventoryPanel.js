@@ -3,13 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Draggable from "react-draggable";
 import { v4 as uuidv4 } from "uuid";
+import { fragmentItem } from "../../actions/itemActions";
 import "./InventoryPanel.css";
 
 class InventoryPanel extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props.auth;
   }
+
+  fragmentInventoryItem = (e, item) => {
+    e.preventDefault();
+    const { user } = this.props.auth;
+    fragmentItem(user, item);
+  };
 
   render() {
     const { user } = this.props.auth;
@@ -32,7 +38,14 @@ class InventoryPanel extends Component {
             <p>Total Items: {user.character.items.length}</p>
             {user.character.items.map((item) => (
               <p className="inventoryItem" key={uuidv4()}>
-                {item.name} - {item.rarity}
+                {item.name} - {item.rarity} - {item.damage}{" "}
+                <button
+                  onClick={(e) => {
+                    this.fragmentInventoryItem(e, item);
+                  }}
+                >
+                  Fragment [{item.fragment}]
+                </button>
               </p>
             ))}
           </div>

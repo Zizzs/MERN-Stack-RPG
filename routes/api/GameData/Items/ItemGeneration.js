@@ -19,7 +19,7 @@ const generateItem = (itemData, res) => {
     subType,
     rarityBonus,
     forceRarity,
-    uniqueName
+    uniqueName,
   } = itemData.body;
   console.log(
     `Generating Item: ${tier}, ${type}, ${subType}, ${rarityBonus}, ${forceRarity}, ${uniqueName}`
@@ -92,6 +92,7 @@ const generateItem = (itemData, res) => {
   item.subType = itemBlueprint.subType;
   item.img = itemBlueprint.img;
   item.tradeable = itemBlueprint.tradeable;
+  item.fragment = itemBlueprint.fragment;
   item.id = uuidv1();
 
   if (type === "Token") {
@@ -144,7 +145,7 @@ const generateItem = (itemData, res) => {
   }
 
   res.status(200).send({
-    item: item
+    item: item,
   });
 };
 
