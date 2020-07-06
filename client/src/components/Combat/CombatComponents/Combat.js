@@ -19,7 +19,7 @@ class CombatCelestialTower extends Component {
       abilities: this.props.controllerState.initialAbilities,
       imageLeft: this.props.controllerState.imageLeft,
       imageRight: this.props.controllerState.imageRight,
-      monsterImage: this.props.controllerState.monsterImage
+      monsterImage: this.props.controllerState.monsterImage,
     };
   }
 
@@ -49,33 +49,38 @@ class CombatCelestialTower extends Component {
       );
       this.setState({
         hasUpdated: true,
-        abilities: newAbilityPositions
+        abilities: newAbilityPositions,
       });
     }
   };
 
-  redirectLocation = location => {
+  redirectLocation = (location) => {
     const { user } = this.props.auth;
     console.log(`Sending ${user.name} to ${location}.`);
     this.props.history.push(location);
   };
 
-  clickedAbility = clickedNumber => {
+  clickedAbility = (clickedNumber) => {
     let ability = this.state.abilities[
       Object.keys(this.state.abilities)[clickedNumber - 1]
     ];
+
     if (
       this.state.position - 1 === clickedNumber &&
-      ability.direction === "forward"
+      ability.position.repositionDirection === "Forward"
     ) {
       this.setState({ position: clickedNumber, hasUpdated: false });
     }
     if (
       this.state.position + 1 === clickedNumber &&
-      ability.direction === "backwards"
+      ability.position.repositionDirection === "Backward"
     ) {
       this.setState({ position: clickedNumber, hasUpdated: false });
     }
+
+    console.log(`Clicked Ability Number ${clickedNumber}`);
+    console.log(ability);
+    console.log(this.state);
   };
 
   render() {
@@ -89,6 +94,8 @@ class CombatCelestialTower extends Component {
     let positionFour = "notInPosition";
     let positionFive = "notInPosition";
     let positionSix = "notInPosition";
+
+    console.log(this.state.abilities);
 
     if (this.state.position === 1) {
       positionOne = "inPosition";
@@ -145,37 +152,37 @@ class CombatCelestialTower extends Component {
                   className="skillPanel"
                   onClick={() => this.clickedAbility(1)}
                 >
-                  {this.state.abilities.one.name}
+                  {this.state.abilities.one.info.name}
                 </div>
                 <div
                   className="skillPanel"
                   onClick={() => this.clickedAbility(2)}
                 >
-                  {this.state.abilities.two.name}
+                  {this.state.abilities.two.info.name}
                 </div>
                 <div
                   className="skillPanel"
                   onClick={() => this.clickedAbility(3)}
                 >
-                  {this.state.abilities.three.name}
+                  {this.state.abilities.three.info.name}
                 </div>
                 <div
                   className="skillPanel"
                   onClick={() => this.clickedAbility(4)}
                 >
-                  {this.state.abilities.four.name}
+                  {this.state.abilities.four.info.name}
                 </div>
                 <div
                   className="skillPanel"
                   onClick={() => this.clickedAbility(5)}
                 >
-                  {this.state.abilities.five.name}
+                  {this.state.abilities.five.info.name}
                 </div>
                 <div
                   className="skillPanel"
                   onClick={() => this.clickedAbility(6)}
                 >
-                  {this.state.abilities.six.name}
+                  {this.state.abilities.six.info.name}
                 </div>
               </div>
               <div id="buttonsRight">
@@ -190,11 +197,11 @@ class CombatCelestialTower extends Component {
               width: "250px",
               borderRadius: "3px",
               letterSpacing: "1.5px",
-              marginTop: "1rem"
+              marginTop: "1rem",
             }}
             to="/HUB"
             className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               this.redirectLocation(this.props.auth.user.character.location);
             }}
@@ -206,11 +213,11 @@ class CombatCelestialTower extends Component {
               width: "250px",
               borderRadius: "3px",
               letterSpacing: "1.5px",
-              marginTop: "1rem"
+              marginTop: "1rem",
             }}
             to="/HUB"
             className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               this.props.winCombat();
             }}
@@ -232,11 +239,11 @@ class CombatCelestialTower extends Component {
 
 CombatCelestialTower.propTypes = {
   auth: PropTypes.object.isRequired,
-  calculateAbilityPosition: PropTypes.func.isRequired
+  calculateAbilityPosition: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { calculateAbilityPosition })(

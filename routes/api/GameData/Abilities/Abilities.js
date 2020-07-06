@@ -528,7 +528,7 @@ const Abilities = {
           },
           position: {
             doesReposition: true,
-            repositionDirection: "Forward",
+            repositionDirection: "Backward",
             minPosition: 1,
             maxPosition: 6,
           },

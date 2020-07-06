@@ -4,13 +4,15 @@ function calculateInitialAbilities(
   repositionAbilities
 ) {
   let initialAbilities = {
-    one: { name: "Feint" },
-    two: { name: "Feint" },
-    three: { name: "Feint" },
-    four: { name: "Feint" },
-    five: { name: "Feint" },
-    six: { name: "Feint" }
+    one: { info: { name: "Feint" } },
+    two: { info: { name: "Feint" } },
+    three: { info: { name: "Feint" } },
+    four: { info: { name: "Feint" } },
+    five: { info: { name: "Feint" } },
+    six: { info: { name: "Feint" } },
   };
+
+  console.log(position, combatAbilities, repositionAbilities);
 
   // I will need to redo this whole place. When a user is in combat, the position they chose determines the starting point. That position will have it's basic default ability chosen in combat prefs, and the utility repositions for forward and backward. The user will have a dodge/feint ability that will be +1 or -1 the current abilities.
 
@@ -40,53 +42,53 @@ function calculateInitialAbilities(
   if (position === 1) {
     initialAbilities.one = combatAbilities.one;
     initialAbilities.two = repositionAbilities.backward;
-    initialAbilities.three = { name: "Feint" };
-    initialAbilities.four = { name: "Feint" };
-    initialAbilities.five = { name: "Feint" };
-    initialAbilities.six = { name: "Feint" };
+    initialAbilities.three = { info: { name: "Feint" } };
+    initialAbilities.four = { info: { name: "Feint" } };
+    initialAbilities.five = { info: { name: "Feint" } };
+    initialAbilities.six = { info: { name: "Feint" } };
   }
 
   if (position === 2) {
     initialAbilities.one = repositionAbilities.forward;
     initialAbilities.two = combatAbilities.two;
     initialAbilities.three = repositionAbilities.backward;
-    initialAbilities.four = { name: "Feint" };
-    initialAbilities.five = { name: "Feint" };
-    initialAbilities.six = { name: "Feint" };
+    initialAbilities.four = { info: { name: "Feint" } };
+    initialAbilities.five = { info: { name: "Feint" } };
+    initialAbilities.six = { info: { name: "Feint" } };
   }
 
   if (position === 3) {
-    initialAbilities.one = { name: "Feint" };
+    initialAbilities.one = { info: { name: "Feint" } };
     initialAbilities.two = repositionAbilities.forward;
     initialAbilities.three = combatAbilities.three;
     initialAbilities.four = repositionAbilities.backward;
-    initialAbilities.five = { name: "Feint" };
-    initialAbilities.six = { name: "Feint" };
+    initialAbilities.five = { info: { name: "Feint" } };
+    initialAbilities.six = { info: { name: "Feint" } };
   }
 
   if (position === 4) {
-    initialAbilities.one = { name: "Feint" };
-    initialAbilities.two = { name: "Feint" };
+    initialAbilities.one = { info: { name: "Feint" } };
+    initialAbilities.two = { info: { name: "Feint" } };
     initialAbilities.three = repositionAbilities.forward;
     initialAbilities.four = combatAbilities.four;
     initialAbilities.five = repositionAbilities.backward;
-    initialAbilities.six = { name: "Feint" };
+    initialAbilities.six = { info: { name: "Feint" } };
   }
 
   if (position === 5) {
-    initialAbilities.one = { name: "Feint" };
-    initialAbilities.two = { name: "Feint" };
-    initialAbilities.three = { name: "Feint" };
+    initialAbilities.one = { info: { name: "Feint" } };
+    initialAbilities.two = { info: { name: "Feint" } };
+    initialAbilities.three = { info: { name: "Feint" } };
     initialAbilities.four = repositionAbilities.forward;
     initialAbilities.five = combatAbilities.five;
     initialAbilities.six = repositionAbilities.backward;
   }
 
   if (position === 6) {
-    initialAbilities.one = { name: "Feint" };
-    initialAbilities.two = { name: "Feint" };
-    initialAbilities.three = { name: "Feint" };
-    initialAbilities.four = { name: "Feint" };
+    initialAbilities.one = { info: { name: "Feint" } };
+    initialAbilities.two = { info: { name: "Feint" } };
+    initialAbilities.three = { info: { name: "Feint" } };
+    initialAbilities.four = { info: { name: "Feint" } };
     initialAbilities.five = repositionAbilities.forward;
     initialAbilities.six = combatAbilities.six;
   }

@@ -35,8 +35,8 @@ class CombatController extends Component {
     if (this.checkObj(user.character)) {
       let initialAbilities = calculateAbilityPosition(
         2,
-        abilities.damageAbilities,
-        abilities.repositionAbilities
+        user.character.combatPrefs.weaponOne.position,
+        user.character.combatPrefs.utility.reposition
       );
       let images = calculateCombatImages(user.character.location);
       let monster = calculateCombatEnemies(user.character.location);
@@ -46,18 +46,18 @@ class CombatController extends Component {
         completedCombat: false,
         hasWon: false,
         position: 2,
-        combatAbilities: abilities.damageAbilities,
-        repositionAbilities: abilities.repositionAbilities,
+        combatAbilities: user.character.combatPrefs.weaponOne.position,
+        repositionAbilities: user.character.combatPrefs.utility.reposition,
         enemy: enemies.skeleton,
         playerLocation: user.character.location,
         initialAbilities: initialAbilities,
         imageLeft: images.left,
         imageRight: images.right,
-        monsterImage: monster.image
+        monsterImage: monster.image,
       };
     } else {
       this.state = {
-        validCombat: false
+        validCombat: false,
       };
     }
   }
@@ -90,7 +90,7 @@ class CombatController extends Component {
     }
   };
 
-  checkObj = obj => {
+  checkObj = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) return true;
     }
@@ -152,11 +152,11 @@ class CombatController extends Component {
 
 CombatController.propTypes = {
   auth: PropTypes.object.isRequired,
-  calculateAbilityPosition: PropTypes.func.isRequired
+  calculateAbilityPosition: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { calculateAbilityPosition })(
