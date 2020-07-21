@@ -34,7 +34,7 @@ class InventoryPanel extends Component {
       visibility = "hide";
     }
 
-    let equippedWeaponOne = user.character.equipment.weaponOne.type;
+    let equippedWeaponOne = user.character.equipment.weaponOne;
     console.log(equippedWeaponOne);
     return (
       <Draggable>

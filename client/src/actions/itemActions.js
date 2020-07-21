@@ -115,12 +115,12 @@ export const equipWeapon = (userData, item, weaponSlot) => {
 
   // Adds the currently equipped weapon into the user's inventory.
   data.userData.character.items.push(
-    data.userData.character.equipment.weaponOne.type
+    data.userData.character.equipment.weaponOne
   );
 
   // Equips the item given into the user's chosen slot (Currently only one weapon in WeaponOne)
   if (weaponSlot === "WeaponOne") {
-    data.userData.character.equipment.weaponOne.type = data.item;
+    data.userData.character.equipment.weaponOne = data.item;
   }
 
   axios({

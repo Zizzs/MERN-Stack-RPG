@@ -58,40 +58,32 @@ class CombatPrefs extends Component {
       if (weaponOneLength !== 0 && this.state.weapons.weaponOne === "") {
         this.setState({
           weapons: {
-            weaponOne: user.character.equipment.weaponOne.type,
+            weaponOne: user.character.equipment.weaponOne,
           },
-          shownWeapon: user.character.equipment.weaponOne.type,
+          shownWeapon: user.character.equipment.weaponOne,
           weaponOne: true,
           weaponTwo: false,
         });
 
         if (
           user.character.combatPrefs.weaponOne.weaponType !==
-          user.character.equipment.weaponOne.type
+          user.character.equipment.weaponOne
         ) {
-          saveWeapon(
-            user.character.equipment.weaponOne.type,
-            "Weapon One",
-            user
-          );
+          saveWeapon(user.character.equipment.weaponOne, "Weapon One", user);
         }
       }
 
       if (weaponTwoLength !== 0 && this.state.weapons.weaponTwo === "") {
         this.setState({
           weapons: {
-            weaponTwo: user.character.equipment.weaponTwo.type,
+            weaponTwo: user.character.equipment.weaponTwo,
           },
         });
         if (
           user.character.combatPrefs.weaponTwo.weaponType !==
-          user.character.equipment.weaponTwo.type
+          user.character.equipment.weaponTwo
         ) {
-          saveWeapon(
-            user.character.equipment.weaponTwo.type,
-            "Weapon Two",
-            user
-          );
+          saveWeapon(user.character.equipment.weaponTwo, "Weapon Two", user);
         }
       }
 

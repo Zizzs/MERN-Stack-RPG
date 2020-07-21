@@ -114,6 +114,9 @@ class Navbar extends Component {
   toggleInventoryPanel = () => {
     if (this.state.isInventoryPanelOpen) {
       this.setState({ isInventoryPanelOpen: false });
+      const { user } = this.props.auth;
+      saveLocalUser(user);
+      saveUser(user);
     } else {
       this.setState({ isInventoryPanelOpen: true });
       document.getElementById("navOverlay").style.width = "0%";

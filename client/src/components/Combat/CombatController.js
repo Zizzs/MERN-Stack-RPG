@@ -34,7 +34,7 @@ class CombatController extends Component {
     // Calculate Initial Abilities
     if (this.checkObj(user.character)) {
       let initialAbilities = calculateAbilityPosition(
-        2,
+        user.character.combatPrefs.preferredPosition,
         user.character.combatPrefs.weaponOne.position,
         user.character.combatPrefs.utility.reposition
       );
@@ -45,7 +45,7 @@ class CombatController extends Component {
         validCombat: true,
         completedCombat: false,
         hasWon: false,
-        position: 2,
+        position: user.character.combatPrefs.preferredPosition,
         combatAbilities: user.character.combatPrefs.weaponOne.position,
         repositionAbilities: user.character.combatPrefs.utility.reposition,
         enemy: enemies.skeleton,
@@ -67,6 +67,7 @@ class CombatController extends Component {
       this.props.history.push("/");
     }
     const { user } = this.props.auth;
+
     //console.log(user);
     // console.log("Getting User");
     // getUser(user);

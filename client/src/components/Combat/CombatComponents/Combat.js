@@ -84,55 +84,6 @@ class CombatCelestialTower extends Component {
   };
 
   render() {
-    // ---------Position Bar Control----------------
-    // Changes the class of the divs based on the position of the character, setting the background color of the div to white to indicate the current position of the player from the monster.
-
-    // I think i'm gonna be removing the position bar, as it is a bit useless. I might just add a position counter? Will need to do some testing.
-    let positionOne = "notInPosition";
-    let positionTwo = "notInPosition";
-    let positionThree = "notInPosition";
-    let positionFour = "notInPosition";
-    let positionFive = "notInPosition";
-    let positionSix = "notInPosition";
-
-    console.log(this.state.abilities);
-
-    if (this.state.position === 1) {
-      positionOne = "inPosition";
-    } else {
-      positionOne = "notInPosition";
-    }
-
-    if (this.state.position === 2) {
-      positionTwo = "inPosition";
-    } else {
-      positionTwo = "notInPosition";
-    }
-
-    if (this.state.position === 3) {
-      positionThree = "inPosition";
-    } else {
-      positionThree = "notInPosition";
-    }
-
-    if (this.state.position === 4) {
-      positionFour = "inPosition";
-    } else {
-      positionFour = "notInPosition";
-    }
-
-    if (this.state.position === 5) {
-      positionFive = "inPosition";
-    } else {
-      positionFive = "notInPosition";
-    }
-
-    if (this.state.position === 6) {
-      positionSix = "inPosition";
-    } else {
-      positionSix = "notInPosition";
-    }
-    // ------------------------------------
     return (
       <div id="combat">
         <div id="leftImage">
