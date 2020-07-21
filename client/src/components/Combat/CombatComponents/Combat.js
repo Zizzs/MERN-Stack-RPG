@@ -12,6 +12,7 @@ class CombatCelestialTower extends Component {
     super(props);
     this.state = {
       hasUpdated: false,
+      userHasChained: 0,
       position: this.props.controllerState.position,
       combatAbilities: this.props.controllerState.combatAbilities,
       chainerAbilities: this.props.controllerState.chainerAbilities,
@@ -44,6 +45,7 @@ class CombatCelestialTower extends Component {
       // Calculate Ability Position will need to take in the combat prefs opposed to combat abilities and reposition abilities.
       let newAbilityPositions = calculateAbilityPosition(
         this.state.position,
+        this.state.userHasChained,
         this.state.combatAbilities,
         this.state.chainerAbilities,
         this.state.finisherAbility,
@@ -69,20 +71,72 @@ class CombatCelestialTower extends Component {
       Object.keys(this.state.abilities)[clickedNumber - 1]
     ];
 
-    if (
-      this.state.position - 1 === clickedNumber &&
-      ability.position.repositionDirection === "Forward"
-    ) {
-      this.setState({ position: clickedNumber, hasUpdated: false });
+    console.log(ability.position.doesReposition);
+    //If the ability does not reposition
+    if (ability.position.doesReposition === false) {
+      console.log("Ability Does Not Reposition");
+      if (ability.info.type === "Basic") {
+        this.setState({
+          position: clickedNumber,
+          userHasChained: 1,
+          hasUpdated: false,
+        });
+      } else if (ability.info.type === "Finisher") {
+        this.setState({
+          position: clickedNumber,
+          userHasChained: 0,
+          hasUpdated: false,
+        });
+      } else {
+        this.setState({
+          position: clickedNumber,
+          userHasChained: 0,
+          hasUpdated: false,
+        });
+      }
     }
-    if (
-      this.state.position + 1 === clickedNumber &&
-      ability.position.repositionDirection === "Backward"
-    ) {
-      this.setState({ position: clickedNumber, hasUpdated: false });
-    }
-    if (ability.position.repositionDirection === "Any") {
-      this.setState({ position: clickedNumber, hasUpdated: false });
+
+    // If the ability does reposition
+    if (ability.position.doesReposition === true) {
+      if (ability.info.type === "Generic") {
+        this.setState({
+          position: clickedNumber,
+          userHasChained: 0,
+          hasUpdated: false,
+        });
+      }
+
+      if (ability.position.repositionDirection === "Forward") {
+        if (ability.info.type === "Chainer") {
+          this.setState({
+            position: clickedNumber,
+            userHasChained: 2,
+            hasUpdated: false,
+          });
+        } else {
+          this.setState({
+            position: clickedNumber,
+            userHasChained: 0,
+            hasUpdated: false,
+          });
+        }
+      }
+
+      if (ability.position.repositionDirection === "Backward") {
+        if (ability.info.type === "Chainer") {
+          this.setState({
+            position: clickedNumber,
+            userHasChained: 2,
+            hasUpdated: false,
+          });
+        } else {
+          this.setState({
+            position: clickedNumber,
+            userHasChained: 0,
+            hasUpdated: false,
+          });
+        }
+      }
     }
 
     console.log(`Clicked Ability Number ${clickedNumber}`);

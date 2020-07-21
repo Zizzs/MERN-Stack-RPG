@@ -1,5 +1,6 @@
 function calculateAbilityPositions(
   position,
+  userHasChained,
   combatAbilities,
   chainerAbilities,
   finisherAbility,
@@ -7,7 +8,7 @@ function calculateAbilityPositions(
   genericAbility
 ) {
   console.log(genericAbility);
-  let initialAbilities = {
+  let abilities = {
     one: genericAbility,
     two: genericAbility,
     three: genericAbility,
@@ -42,61 +43,175 @@ function calculateAbilityPositions(
   // ->4 Feint
   // 5 Grayed Out
   // 6 Grayed Out
+  if (userHasChained === 0) {
+    if (position === 1) {
+      abilities.one = combatAbilities.one;
+      abilities.two = repositionAbilities.backward;
+      abilities.three = genericAbility;
+      abilities.four = { info: { name: "" } };
+      abilities.five = { info: { name: "" } };
+      abilities.six = { info: { name: "" } };
+    }
 
-  if (position === 1) {
-    initialAbilities.one = combatAbilities.one;
-    initialAbilities.two = repositionAbilities.backward;
-    initialAbilities.three = genericAbility;
-    initialAbilities.four = { info: { name: "" } };
-    initialAbilities.five = { info: { name: "" } };
-    initialAbilities.six = { info: { name: "" } };
+    if (position === 2) {
+      abilities.one = repositionAbilities.forward;
+      abilities.two = combatAbilities.two;
+      abilities.three = repositionAbilities.backward;
+      abilities.four = genericAbility;
+      abilities.five = { info: { name: "" } };
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 3) {
+      abilities.one = genericAbility;
+      abilities.two = repositionAbilities.forward;
+      abilities.three = combatAbilities.three;
+      abilities.four = repositionAbilities.backward;
+      abilities.five = genericAbility;
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 4) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = genericAbility;
+      abilities.three = repositionAbilities.forward;
+      abilities.four = combatAbilities.four;
+      abilities.five = repositionAbilities.backward;
+      abilities.six = genericAbility;
+    }
+
+    if (position === 5) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = { info: { name: "" } };
+      abilities.three = genericAbility;
+      abilities.four = repositionAbilities.forward;
+      abilities.five = combatAbilities.five;
+      abilities.six = repositionAbilities.backward;
+    }
+
+    if (position === 6) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = { info: { name: "" } };
+      abilities.three = { info: { name: "" } };
+      abilities.four = genericAbility;
+      abilities.five = repositionAbilities.forward;
+      abilities.six = combatAbilities.six;
+    }
   }
 
-  if (position === 2) {
-    initialAbilities.one = repositionAbilities.forward;
-    initialAbilities.two = combatAbilities.two;
-    initialAbilities.three = repositionAbilities.backward;
-    initialAbilities.four = genericAbility;
-    initialAbilities.five = { info: { name: "" } };
-    initialAbilities.six = { info: { name: "" } };
+  if (userHasChained === 1) {
+    if (position === 1) {
+      abilities.one = combatAbilities.one;
+      abilities.two = chainerAbilities.backward;
+      abilities.three = genericAbility;
+      abilities.four = { info: { name: "" } };
+      abilities.five = { info: { name: "" } };
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 2) {
+      abilities.one = chainerAbilities.forward;
+      abilities.two = combatAbilities.two;
+      abilities.three = chainerAbilities.backward;
+      abilities.four = genericAbility;
+      abilities.five = { info: { name: "" } };
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 3) {
+      abilities.one = genericAbility;
+      abilities.two = chainerAbilities.forward;
+      abilities.three = combatAbilities.three;
+      abilities.four = chainerAbilities.backward;
+      abilities.five = genericAbility;
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 4) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = genericAbility;
+      abilities.three = chainerAbilities.forward;
+      abilities.four = combatAbilities.four;
+      abilities.five = chainerAbilities.backward;
+      abilities.six = genericAbility;
+    }
+
+    if (position === 5) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = { info: { name: "" } };
+      abilities.three = genericAbility;
+      abilities.four = chainerAbilities.forward;
+      abilities.five = combatAbilities.five;
+      abilities.six = chainerAbilities.backward;
+    }
+
+    if (position === 6) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = { info: { name: "" } };
+      abilities.three = { info: { name: "" } };
+      abilities.four = genericAbility;
+      abilities.five = chainerAbilities.forward;
+      abilities.six = combatAbilities.six;
+    }
   }
 
-  if (position === 3) {
-    initialAbilities.one = genericAbility;
-    initialAbilities.two = repositionAbilities.forward;
-    initialAbilities.three = combatAbilities.three;
-    initialAbilities.four = repositionAbilities.backward;
-    initialAbilities.five = genericAbility;
-    initialAbilities.six = { info: { name: "" } };
+  if (userHasChained === 2) {
+    if (position === 1) {
+      abilities.one = finisherAbility;
+      abilities.two = chainerAbilities.backward;
+      abilities.three = genericAbility;
+      abilities.four = { info: { name: "" } };
+      abilities.five = { info: { name: "" } };
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 2) {
+      abilities.one = chainerAbilities.forward;
+      abilities.two = finisherAbility;
+      abilities.three = chainerAbilities.backward;
+      abilities.four = genericAbility;
+      abilities.five = { info: { name: "" } };
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 3) {
+      abilities.one = genericAbility;
+      abilities.two = chainerAbilities.forward;
+      abilities.three = finisherAbility;
+      abilities.four = chainerAbilities.backward;
+      abilities.five = genericAbility;
+      abilities.six = { info: { name: "" } };
+    }
+
+    if (position === 4) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = genericAbility;
+      abilities.three = chainerAbilities.forward;
+      abilities.four = finisherAbility;
+      abilities.five = chainerAbilities.backward;
+      abilities.six = genericAbility;
+    }
+
+    if (position === 5) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = { info: { name: "" } };
+      abilities.three = genericAbility;
+      abilities.four = chainerAbilities.forward;
+      abilities.five = finisherAbility;
+      abilities.six = chainerAbilities.backward;
+    }
+
+    if (position === 6) {
+      abilities.one = { info: { name: "" } };
+      abilities.two = { info: { name: "" } };
+      abilities.three = { info: { name: "" } };
+      abilities.four = genericAbility;
+      abilities.five = chainerAbilities.forward;
+      abilities.six = finisherAbility;
+    }
   }
 
-  if (position === 4) {
-    initialAbilities.one = { info: { name: "" } };
-    initialAbilities.two = genericAbility;
-    initialAbilities.three = repositionAbilities.forward;
-    initialAbilities.four = combatAbilities.four;
-    initialAbilities.five = repositionAbilities.backward;
-    initialAbilities.six = genericAbility;
-  }
-
-  if (position === 5) {
-    initialAbilities.one = { info: { name: "" } };
-    initialAbilities.two = { info: { name: "" } };
-    initialAbilities.three = genericAbility;
-    initialAbilities.four = repositionAbilities.forward;
-    initialAbilities.five = combatAbilities.five;
-    initialAbilities.six = repositionAbilities.backward;
-  }
-
-  if (position === 6) {
-    initialAbilities.one = { info: { name: "" } };
-    initialAbilities.two = { info: { name: "" } };
-    initialAbilities.three = { info: { name: "" } };
-    initialAbilities.four = genericAbility;
-    initialAbilities.five = repositionAbilities.forward;
-    initialAbilities.six = combatAbilities.six;
-  }
-  return initialAbilities;
+  return abilities;
 }
 
 export default calculateAbilityPositions;

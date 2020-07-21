@@ -32,6 +32,7 @@ class CombatController extends Component {
     if (this.checkObj(user.character)) {
       let initialAbilities = calculateAbilityPosition(
         user.character.combatPrefs.preferredPosition,
+        0,
         user.character.combatPrefs.weaponOne.position,
         user.character.combatPrefs.weaponOne.chainers,
         user.character.combatPrefs.weaponOne.finisher,
