@@ -14,7 +14,10 @@ class CombatCelestialTower extends Component {
       hasUpdated: false,
       position: this.props.controllerState.position,
       combatAbilities: this.props.controllerState.combatAbilities,
+      chainerAbilities: this.props.controllerState.chainerAbilities,
+      finisherAbility: this.props.controllerState.finisherAbility,
       repositionAbilities: this.props.controllerState.repositionAbilities,
+      genericAbility: this.props.controllerState.genericAbility,
       enemy: this.props.controllerState.enemy,
       abilities: this.props.controllerState.initialAbilities,
       imageLeft: this.props.controllerState.imageLeft,
@@ -26,12 +29,9 @@ class CombatCelestialTower extends Component {
   componentDidUpdate = () => {
     // ---------------Ability Position Control--------------------------
     // We will read the player's position, and if it has updated. We then recalculate the player's ability positions based off their clicked position.
-    this.setStateAbilityPositions(1, false);
-    this.setStateAbilityPositions(2, false);
-    this.setStateAbilityPositions(3, false);
-    this.setStateAbilityPositions(4, false);
-    this.setStateAbilityPositions(5, false);
-    this.setStateAbilityPositions(6, false);
+    for (let i = 1; i <= 6; i++) {
+      this.setStateAbilityPositions(i, false);
+    }
     //----------------------------------------------
   };
 
@@ -45,8 +45,12 @@ class CombatCelestialTower extends Component {
       let newAbilityPositions = calculateAbilityPosition(
         this.state.position,
         this.state.combatAbilities,
-        this.state.repositionAbilities
+        this.state.chainerAbilities,
+        this.state.finisherAbility,
+        this.state.repositionAbilities,
+        this.state.genericAbility
       );
+
       this.setState({
         hasUpdated: true,
         abilities: newAbilityPositions,
@@ -75,6 +79,9 @@ class CombatCelestialTower extends Component {
       this.state.position + 1 === clickedNumber &&
       ability.position.repositionDirection === "Backward"
     ) {
+      this.setState({ position: clickedNumber, hasUpdated: false });
+    }
+    if (ability.position.repositionDirection === "Any") {
       this.setState({ position: clickedNumber, hasUpdated: false });
     }
 

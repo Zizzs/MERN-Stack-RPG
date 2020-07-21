@@ -1,15 +1,19 @@
-function calculateInitialAbilities(
+function calculateAbilityPositions(
   position,
   combatAbilities,
-  repositionAbilities
+  chainerAbilities,
+  finisherAbility,
+  repositionAbilities,
+  genericAbility
 ) {
+  console.log(genericAbility);
   let initialAbilities = {
-    one: { info: { name: "Feint" } },
-    two: { info: { name: "Feint" } },
-    three: { info: { name: "Feint" } },
-    four: { info: { name: "Feint" } },
-    five: { info: { name: "Feint" } },
-    six: { info: { name: "Feint" } },
+    one: genericAbility,
+    two: genericAbility,
+    three: genericAbility,
+    four: genericAbility,
+    five: genericAbility,
+    six: genericAbility,
   };
 
   console.log(position, combatAbilities, repositionAbilities);
@@ -42,57 +46,57 @@ function calculateInitialAbilities(
   if (position === 1) {
     initialAbilities.one = combatAbilities.one;
     initialAbilities.two = repositionAbilities.backward;
-    initialAbilities.three = { info: { name: "Feint" } };
-    initialAbilities.four = { info: { name: "Feint" } };
-    initialAbilities.five = { info: { name: "Feint" } };
-    initialAbilities.six = { info: { name: "Feint" } };
+    initialAbilities.three = genericAbility;
+    initialAbilities.four = { info: { name: "" } };
+    initialAbilities.five = { info: { name: "" } };
+    initialAbilities.six = { info: { name: "" } };
   }
 
   if (position === 2) {
     initialAbilities.one = repositionAbilities.forward;
     initialAbilities.two = combatAbilities.two;
     initialAbilities.three = repositionAbilities.backward;
-    initialAbilities.four = { info: { name: "Feint" } };
-    initialAbilities.five = { info: { name: "Feint" } };
-    initialAbilities.six = { info: { name: "Feint" } };
+    initialAbilities.four = genericAbility;
+    initialAbilities.five = { info: { name: "" } };
+    initialAbilities.six = { info: { name: "" } };
   }
 
   if (position === 3) {
-    initialAbilities.one = { info: { name: "Feint" } };
+    initialAbilities.one = genericAbility;
     initialAbilities.two = repositionAbilities.forward;
     initialAbilities.three = combatAbilities.three;
     initialAbilities.four = repositionAbilities.backward;
-    initialAbilities.five = { info: { name: "Feint" } };
-    initialAbilities.six = { info: { name: "Feint" } };
+    initialAbilities.five = genericAbility;
+    initialAbilities.six = { info: { name: "" } };
   }
 
   if (position === 4) {
-    initialAbilities.one = { info: { name: "Feint" } };
-    initialAbilities.two = { info: { name: "Feint" } };
+    initialAbilities.one = { info: { name: "" } };
+    initialAbilities.two = genericAbility;
     initialAbilities.three = repositionAbilities.forward;
     initialAbilities.four = combatAbilities.four;
     initialAbilities.five = repositionAbilities.backward;
-    initialAbilities.six = { info: { name: "Feint" } };
+    initialAbilities.six = genericAbility;
   }
 
   if (position === 5) {
-    initialAbilities.one = { info: { name: "Feint" } };
-    initialAbilities.two = { info: { name: "Feint" } };
-    initialAbilities.three = { info: { name: "Feint" } };
+    initialAbilities.one = { info: { name: "" } };
+    initialAbilities.two = { info: { name: "" } };
+    initialAbilities.three = genericAbility;
     initialAbilities.four = repositionAbilities.forward;
     initialAbilities.five = combatAbilities.five;
     initialAbilities.six = repositionAbilities.backward;
   }
 
   if (position === 6) {
-    initialAbilities.one = { info: { name: "Feint" } };
-    initialAbilities.two = { info: { name: "Feint" } };
-    initialAbilities.three = { info: { name: "Feint" } };
-    initialAbilities.four = { info: { name: "Feint" } };
+    initialAbilities.one = { info: { name: "" } };
+    initialAbilities.two = { info: { name: "" } };
+    initialAbilities.three = { info: { name: "" } };
+    initialAbilities.four = genericAbility;
     initialAbilities.five = repositionAbilities.forward;
     initialAbilities.six = combatAbilities.six;
   }
   return initialAbilities;
 }
 
-export default calculateInitialAbilities;
+export default calculateAbilityPositions;

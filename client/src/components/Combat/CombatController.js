@@ -17,9 +17,6 @@ import calculateCombatImages from "./CombatFunctions/CalculateCombatImages";
 // Import Calculate Combat Enemies function
 import calculateCombatEnemies from "./CombatFunctions/CalculateCombatEnemies";
 
-// Temp Abilities Import, Will be removed once I implement user abilities.
-import { abilities } from "./CombatFunctions/AbilitiesTemp";
-
 // Temp Monster Import, Will be removed once I implement user abilities.
 import { enemies } from "./CombatFunctions/MonstersTemp";
 
@@ -36,7 +33,10 @@ class CombatController extends Component {
       let initialAbilities = calculateAbilityPosition(
         user.character.combatPrefs.preferredPosition,
         user.character.combatPrefs.weaponOne.position,
-        user.character.combatPrefs.utility.reposition
+        user.character.combatPrefs.weaponOne.chainers,
+        user.character.combatPrefs.weaponOne.finisher,
+        user.character.combatPrefs.utility.reposition,
+        user.character.combatPrefs.utility.generic
       );
       let images = calculateCombatImages(user.character.location);
       let monster = calculateCombatEnemies(user.character.location);
@@ -47,7 +47,10 @@ class CombatController extends Component {
         hasWon: false,
         position: user.character.combatPrefs.preferredPosition,
         combatAbilities: user.character.combatPrefs.weaponOne.position,
+        chainerAbilities: user.character.combatPrefs.weaponOne.chainers,
+        finisherAbility: user.character.combatPrefs.weaponOne.finisher,
         repositionAbilities: user.character.combatPrefs.utility.reposition,
+        genericAbility: user.character.combatPrefs.utility.generic,
         enemy: enemies.skeleton,
         playerLocation: user.character.location,
         initialAbilities: initialAbilities,
