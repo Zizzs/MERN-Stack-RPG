@@ -22,7 +22,7 @@ const generateItem = (itemData, res) => {
     uniqueName,
   } = itemData.body;
   console.log(
-    `Generating Item: ${tier}, ${type}, ${subType}, ${rarityBonus}, ${forceRarity}, ${uniqueName}`
+    `Generating Item: Tier: ${tier} Type: ${type}, SubType: ${subType}, RarityBonus: ${rarityBonus}, ForceRarity: ${forceRarity}, UniqueName: ${uniqueName}`
   );
   // Create Item Base
   let item = {};

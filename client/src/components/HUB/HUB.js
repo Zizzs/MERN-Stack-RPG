@@ -8,6 +8,7 @@ import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { logoutUser } from "../../actions/authActions";
 import { giveUserItem, generateItem } from "../../actions/itemActions";
 import { setLocation } from "../../actions/locationActions";
+import { healUser } from "../../actions/beneficialActions";
 
 import "./HUB.css";
 
@@ -21,9 +22,6 @@ class HUB extends Component {
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
-    // if (!this.props.auth.isAuthenticated) {
-    //   this.props.history.push("/");
-    // }
 
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
@@ -68,8 +66,20 @@ class HUB extends Component {
     let user = this.props.auth.user;
     generateItem(1, "Weapon", "Dagger", 1.0, "", "").then((response) => {
       giveUserItem(user, response.data.item);
+      this.props.updateWrapperAction(`Gained Item`);
     });
+
   };
+
+  healerAction = () => {
+    let user = this.props.auth.user;
+
+    healUser(user, 25);
+    saveUser(user);
+    console.log(this.props);
+    this.props.updateWrapperAction(`Heal`);
+
+  }
 
   tempSaveUser = (e) => {
     e.preventDefault();
@@ -133,7 +143,7 @@ class HUB extends Component {
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={this.consoleLogUser}
+                    onClick={() => this.healerAction()}
                   >
                     Healer
                   </button>

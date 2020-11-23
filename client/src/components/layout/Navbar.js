@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { setLocation } from "../../actions/locationActions";
+//import { setLocation } from "../../actions/locationActions";
 import { saveUser, saveLocalUser } from "../../actions/authActions";
 
 import AbilityPanel from "../Abilities/AbilityPanel";
@@ -14,6 +14,7 @@ import CombatPrefs from "../Abilities/CombatPrefs";
 import CombatPrefPopup from "../Abilities/CombatPrefPopup";
 import CombatPrefPositionPopup from "../Abilities/CombatPrefPositionPopup";
 
+import { v4 as uuidv4 } from 'uuid';
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -50,6 +51,7 @@ class Navbar extends Component {
         weaponOne: false,
         weaponTwo: false,
         combatPrefsUpdated: false,
+        previousAction: "",
       };
     } else {
       this.state = {
@@ -82,15 +84,36 @@ class Navbar extends Component {
         weaponOne: false,
         weaponTwo: false,
         combatPrefsUpdated: false,
+        previousAction: "",
       };
     }
   }
 
-  // updateLocation = (location) => {
-  //   const { user } = this.props.auth;
-  //   setLocation(user, location);
-  //   this.props.history.push(location);
-  // };
+  componentDidUpdate = () => {
+    let {user} = this.props.auth;
+    //console.log(user);
+    if(this.state.previousAction !== this.props.previousAction){
+      this.setState({
+        previousAction: this.props.previousAction,
+        health: user.character.health,
+        maxHealth: user.character.maxHealth,
+        mana: user.character.mana,
+        maxMana: user.character.maxMana,
+        energy: user.character.currentEnergy,
+        maxEnergy: user.character.maxEnergy,
+        healthPercent: (user.character.health / user.character.maxHealth) * 100,
+        manaPercent: (user.character.mana / user.character.maxMana) * 100,
+        energyPercent: user.character.energy / user.character.maxEnergy,
+        boundFragments: user.character.boundFragments,
+        unboundFragments: user.character.unboundFragments,});
+    }
+  }
+
+  updateNavbarState = (action) => {
+    console.log(`Updated action: ${action}}`)
+    let modifiedAction = `${action}:${uuidv4()}`;
+    this.setState({previousAction: modifiedAction});
+  }
 
   toggleMenuPanel = () => {
     if (this.state.isMenuPanelOpen) {
@@ -106,7 +129,7 @@ class Navbar extends Component {
     if (this.state.isCharacterPanelOpen) {
       this.setState({ isCharacterPanelOpen: false });
     } else {
-      this.setState({ isCharacterPanelOpen: true });
+      this.setState({ isCharacterPanelOpen: true, isMenuPanelOpen: false });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -118,7 +141,7 @@ class Navbar extends Component {
       saveLocalUser(user);
       saveUser(user);
     } else {
-      this.setState({ isInventoryPanelOpen: true });
+      this.setState({ isInventoryPanelOpen: true, isMenuPanelOpen: false });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -129,7 +152,7 @@ class Navbar extends Component {
       const { user } = this.props.auth;
       saveUser(user);
     } else {
-      this.setState({ isAbilityPanelOpen: true });
+      this.setState({ isAbilityPanelOpen: true, isMenuPanelOpen: false });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -140,7 +163,7 @@ class Navbar extends Component {
       const { user } = this.props.auth;
       saveUser(user);
     } else {
-      this.setState({ isCombatPrefsPanelOpen: true });
+      this.setState({ isCombatPrefsPanelOpen: true, isMenuPanelOpen: false });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -211,7 +234,7 @@ class Navbar extends Component {
     if (this.state.isChatPanelOpen) {
       this.setState({ isChatPanelOpen: false });
     } else {
-      this.setState({ isChatPanelOpen: true });
+      this.setState({ isChatPanelOpen: true, isMenuPanelOpen: false });
       document.getElementById("navOverlay").style.width = "0%";
     }
   };
@@ -225,7 +248,6 @@ class Navbar extends Component {
 
   render() {
     const { user } = this.props.auth;
-    console.log(user);
 
     if (this.checkObj(user) && this.checkObj(user.character)) {
       return (
@@ -332,6 +354,8 @@ class Navbar extends Component {
           <InventoryPanel
             togglePanel={this.toggleInventoryPanel}
             panelOpen={this.state.isInventoryPanelOpen}
+            previousAction={this.state.previousAction}
+            updateNavbarState={this.updateNavbarState}
           />
           <ChatPanel
             togglePanel={this.toggleChatPanel}

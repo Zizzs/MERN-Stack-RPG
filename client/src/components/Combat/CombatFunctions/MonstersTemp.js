@@ -1,4 +1,5 @@
 import skeletonImage from "../../../images/skeleton.png";
+
 const skeleton = {
   name: "Skeleton Warrior",
   level: 1,
@@ -9,11 +10,11 @@ const skeleton = {
     minItemCount: 1,
     maxItemCount: 2,
     minFragmentCount: 25,
-    maxFragmentCount: 50
+    maxFragmentCount: 50,
   },
-  image: skeletonImage
+  image: skeletonImage,
 };
 
 export const enemies = {
-  skeleton: skeleton
+  skeleton: skeleton,
 };

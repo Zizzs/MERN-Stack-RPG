@@ -7,8 +7,14 @@ import { fragmentItem, equipWeapon } from "../../actions/itemActions";
 import "./InventoryPanel.css";
 
 class InventoryPanel extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    previousAction: "",
+  }
+
+  componentDidUpdate = () => {
+    if(this.state.previousAction !== this.props.previousAction){
+      this.setState({previousAction: this.props.previousAction,});
+    }
   }
 
   equipInventoryItem = (e, item) => {
@@ -22,6 +28,7 @@ class InventoryPanel extends Component {
     e.preventDefault();
     const { user } = this.props.auth;
     fragmentItem(user, item);
+    this.props.updateNavbarState("Fragmented Item");
   };
 
   render() {
@@ -35,7 +42,7 @@ class InventoryPanel extends Component {
     }
 
     let equippedWeaponOne = user.character.equipment.weaponOne;
-    console.log(equippedWeaponOne);
+    //console.log(equippedWeaponOne);
     return (
       <Draggable>
         <div id="inventoryPanel" className={visibility}>

@@ -7,7 +7,6 @@ function calculateAbilityPositions(
   repositionAbilities,
   genericAbility
 ) {
-  console.log(genericAbility);
   let abilities = {
     one: genericAbility,
     two: genericAbility,
@@ -17,7 +16,7 @@ function calculateAbilityPositions(
     six: genericAbility,
   };
 
-  console.log(position, combatAbilities, repositionAbilities);
+  //console.log(position, combatAbilities, repositionAbilities);
 
   // I will need to redo this whole place. When a user is in combat, the position they chose determines the starting point. That position will have it's basic default ability chosen in combat prefs, and the utility repositions for forward and backward. The user will have a dodge/feint ability that will be +1 or -1 the current abilities.
 

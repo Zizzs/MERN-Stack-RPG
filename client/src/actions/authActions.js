@@ -103,7 +103,7 @@ export const saveLocalUser = (userData) => {
 };
 
 export const getCharacterData = (userData, dispatch) => {
-  console.log(userData);
+  //console.log(userData);
   axios
     .get("/api/getUser", {
       params: {

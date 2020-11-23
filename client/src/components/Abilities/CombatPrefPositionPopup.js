@@ -20,7 +20,7 @@ class CombatPrefPopup extends Component {
   };
 
   render() {
-    let { user } = this.props.auth;
+    //let { user } = this.props.auth;
     let { panelOpen } = this.props;
     let visibility = "hide";
     if (panelOpen) {

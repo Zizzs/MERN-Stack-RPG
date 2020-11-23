@@ -7,12 +7,13 @@ import "./../Combat.css";
 // Import Calculate Initial Abilities function
 import calculateAbilityPosition from "../CombatFunctions/CalculateAbilityPosition";
 
-class CombatCelestialTower extends Component {
+class Combat extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hasUpdated: false,
       userHasChained: 0,
+      currentWeapon: this.props.controllerState.weaponOne,
       position: this.props.controllerState.position,
       combatAbilities: this.props.controllerState.combatAbilities,
       chainerAbilities: this.props.controllerState.chainerAbilities,
@@ -27,6 +28,10 @@ class CombatCelestialTower extends Component {
     };
   }
 
+  componentDidMount = () => {
+    console.log("Combat Mounted");
+  }
+
   componentDidUpdate = () => {
     // ---------------Ability Position Control--------------------------
     // We will read the player's position, and if it has updated. We then recalculate the player's ability positions based off their clicked position.
@@ -34,7 +39,7 @@ class CombatCelestialTower extends Component {
       this.setStateAbilityPositions(i, false);
     }
     //----------------------------------------------
-  };
+  }
 
   // Ability Position Control for componentDidUpdate
   setStateAbilityPositions = (position, hasUpdated) => {
@@ -71,10 +76,10 @@ class CombatCelestialTower extends Component {
       Object.keys(this.state.abilities)[clickedNumber - 1]
     ];
 
-    console.log(ability.position.doesReposition);
+    //console.log(ability.position.doesReposition);
     //If the ability does not reposition
     if (ability.position.doesReposition === false) {
-      console.log("Ability Does Not Reposition");
+      //console.log("Ability Does Not Reposition");
       if (ability.info.type === "Basic") {
         this.setState({
           position: clickedNumber,
@@ -139,12 +144,15 @@ class CombatCelestialTower extends Component {
       }
     }
 
-    console.log(`Clicked Ability Number ${clickedNumber}`);
+    this.props.sendTurnData(ability, this.state.currentWeapon);
+
+    // console.log(`Clicked Ability Number ${clickedNumber}`);
     console.log(ability);
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   render() {
+    const { user } = this.props.auth;
     return (
       <div id="combat">
         <div id="leftImage">
@@ -154,11 +162,6 @@ class CombatCelestialTower extends Component {
           <div id="combatWrapper">
             <img id="combatImage" alt="monster" src={this.state.monsterImage} />
             <div id="combatInteractibles">
-              <div id="buttonsLeft">
-                <button>Text</button>
-                <button>Text</button>
-                <button>Text</button>
-              </div>
               <div id="abilityPanel">
                 <div
                   className="skillPanel"
@@ -203,8 +206,7 @@ class CombatCelestialTower extends Component {
                 <button>Text</button>
               </div>
             </div>
-          </div>
-          <button
+            <button
             style={{
               width: "250px",
               borderRadius: "3px",
@@ -236,6 +238,8 @@ class CombatCelestialTower extends Component {
           >
             Win
           </button>
+          </div>
+          
         </div>
         <div id="rightImage">
           <img
@@ -249,7 +253,7 @@ class CombatCelestialTower extends Component {
   }
 }
 
-CombatCelestialTower.propTypes = {
+Combat.propTypes = {
   auth: PropTypes.object.isRequired,
   calculateAbilityPosition: PropTypes.func.isRequired,
 };
@@ -259,5 +263,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { calculateAbilityPosition })(
-  withRouter(CombatCelestialTower)
+  withRouter(Combat)
 );

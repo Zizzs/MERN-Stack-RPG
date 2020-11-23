@@ -1,7 +1,4 @@
-const express = require("express");
 const User = require("../../models/User");
-const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
 
 // Get the User
 const getUser = (req, res) => {

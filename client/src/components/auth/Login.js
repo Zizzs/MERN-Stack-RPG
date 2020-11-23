@@ -24,7 +24,7 @@ class Login extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // If the user is logged in then push user to dashboard when they login
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/HUB");

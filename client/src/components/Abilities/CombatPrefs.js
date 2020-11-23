@@ -65,6 +65,8 @@ class CombatPrefs extends Component {
           weaponTwo: false,
         });
 
+        // Not too sure what this if statement here is doing. Check it out if there are any issues.
+
         if (
           user.character.combatPrefs.weaponOne.weaponType !==
           user.character.equipment.weaponOne
@@ -102,7 +104,7 @@ class CombatPrefs extends Component {
         (this.props.popupPanelOpen === true ||
           this.props.positionPopupPanelOpen === true) &&
         this.state.popupOpen === "Closed" &&
-        this.state.popupOpen != "Open"
+        this.state.popupOpen !== "Open"
       ) {
         console.log("Combat Prefs Ability Panel is Open");
         this.setState({ popupOpen: "Open" });
@@ -142,6 +144,9 @@ class CombatPrefs extends Component {
     }
   };
 
+  //--------------------------
+  // Ability Toggles
+
   showDaggers = () => {
     let daggerAbilities = [];
     let { user } = this.props.auth;
@@ -174,6 +179,9 @@ class CombatPrefs extends Component {
     this.focusButton(5);
   };
 
+  //---------------------------------
+  // Swap Weapon - Not Implemented
+
   toggleShownWeapon = (e) => {
     e.preventDefault();
     let { user } = this.props.auth;
@@ -197,6 +205,9 @@ class CombatPrefs extends Component {
       }
     }
   };
+
+  //-----------------------------------
+  // Gets the DOM elements of each ability filter button
 
   getButtonElements = () => {
     let daggersButton = document.getElementById("daggersButton");
@@ -259,7 +270,7 @@ class CombatPrefs extends Component {
   };
 
   render() {
-    let { user } = this.props.auth;
+    //let { user } = this.props.auth;
     let { panelOpen } = this.props;
     let visibility = "hide";
     if (panelOpen) {
@@ -276,7 +287,7 @@ class CombatPrefs extends Component {
     ));
     let combatPrefs = this.state.combatPrefs;
 
-    console.log(this.state);
+    //console.log(this.state);
 
     return (
       <Draggable>

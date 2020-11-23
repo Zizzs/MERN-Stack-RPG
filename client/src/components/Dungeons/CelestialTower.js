@@ -19,13 +19,21 @@ class CelestialTower extends Component {
   componentDidMount() {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
-    console.log(user);
+    //console.log(user);
     if (!this.props.auth.isAuthenticated || !user) {
       this.props.history.push("/");
     }
-    if (user.character.location !== this.state.location) {
-      this.props.history.push(user.character.location);
+
+    if (this.checkObj(user.character)) {
+      if (user.character.location !== this.state.location) {
+        console.log("User in wrong place!");
+        this.props.history.push(user.character.location);
+      }
     }
+  
+    // if (user.character.location !== this.state.location) {
+    //   this.props.history.push(user.character.location);
+    // }
   }
 
   redirectLocation = location => {
@@ -37,6 +45,13 @@ class CelestialTower extends Component {
     saveLocalUser(user);
     saveUser(user);
     this.props.history.push(location);
+  };
+
+  checkObj = (obj) => {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return true;
+    }
+    return false;
   };
 
   render() {
