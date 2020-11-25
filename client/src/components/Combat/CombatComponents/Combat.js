@@ -161,6 +161,17 @@ class Combat extends Component {
         <div id="mainCombatDiv">
           <div id="combatWrapper">
             <img id="combatImage" alt="monster" src={this.state.monsterImage} />
+              <div id="healthBarCombat">
+                  <div id="healthBarOutlineCombat">
+                    <div
+                      style={{
+                        backgroundColor: "#8B0000",
+                        height: "100%",
+                        width: `${this.props.controllerState.monsterHealthPercent}%`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
             <div id="combatInteractibles">
               <div id="abilityPanel">
                 <div
@@ -200,11 +211,7 @@ class Combat extends Component {
                   {this.state.abilities.six.info.name}
                 </div>
               </div>
-              <div id="buttonsRight">
-                <button>Text</button>
-                <button>Text</button>
-                <button>Text</button>
-              </div>
+              
             </div>
             <button
             style={{
@@ -222,6 +229,7 @@ class Combat extends Component {
           >
             Flee
           </button>
+          {/* Debug button to win combat
           <button
             style={{
               width: "250px",
@@ -238,6 +246,7 @@ class Combat extends Component {
           >
             Win
           </button>
+          */}
           </div>
           
         </div>

@@ -45,6 +45,7 @@ class CombatController extends Component {
       );
       let images = calculateCombatImages(user.character.location);
       let monster = calculateCombatEnemies(user.character.location);
+      let initiateMonsterHealthPercent = 100;
       //Position, Combat Abilities and Reposition Abilities will be pulled in from combat prefs. These will be within user.character.combatPrefs.
       this.state = {
         validCombat: true,
@@ -64,6 +65,8 @@ class CombatController extends Component {
         monsterImage: monster.image,
         weaponOne: user.character.equipment.weaponOne,
         weaponTwo: user.character.equipment.weaponTwo,
+        monsterHealthPercent: initiateMonsterHealthPercent,
+        monsterMaxHealth: monster.health,
       };
     } else {
       this.state = {
@@ -125,6 +128,9 @@ class CombatController extends Component {
     // Subtract damage from current enemy's health.
     currentEnemy.health -= totalPlayerDamage;
 
+    // Calculate the monster's percent of max health
+    let currentMonsterHealthPercent = currentEnemy.health / this.state.monsterMaxHealth * 100;
+
     // ---------------------Enemy Damage-------------------------------------
 
     let enemyDamage = 0;
@@ -144,7 +150,7 @@ class CombatController extends Component {
 
     this.props.updateWrapperAction(`Combat:E-${currentEnemy.name}:PD-${totalPlayerDamage}:ED-${enemyDamage}`);
 
-    this.setState({enemy: currentEnemy});
+    this.setState({enemy: currentEnemy, monsterHealthPercent: currentMonsterHealthPercent});
 
 
     

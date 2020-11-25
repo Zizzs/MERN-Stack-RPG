@@ -22,6 +22,7 @@ class InventoryPanel extends Component {
     // This will contain a weapon swap string at some point. It will just be "WeaponOne" for the time being.
     const { user } = this.props.auth;
     equipWeapon(user, item, "WeaponOne");
+    this.props.updateNavbarState("Equipped Item");
   };
 
   fragmentInventoryItem = (e, item) => {

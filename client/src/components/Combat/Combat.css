@@ -54,19 +54,30 @@
 
 #combatInteractibles {
   padding: 50px;
-  display: grid;
-  grid-template-columns: 2fr 8fr 2fr;
   background-color: #0b0a46;
-  text-align: center;
+  width: 100%;
 }
 
 #abilityPanel {
-  margin-left: 25%;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .skillPanel {
   border: 1px solid white;
   margin-bottom: 2.5px;
   height: 25px;
-  width: 400px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+#healthBarCombat {
+  display: grid;
+  grid-template-columns: 9fr;
+  height: 0.5vw;
+  margin-top: 5px;
+}
+
+#healthBarOutlineCombat {
+  border: 1px solid gray;
 }
