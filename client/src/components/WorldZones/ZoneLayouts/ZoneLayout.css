@@ -1,0 +1,30 @@
+#zoneMain {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  padding: 25px;
+  margin: 50px;
+  border-radius: 3px;
+}
+
+#zoneImgLeft,
+#zoneImgRight {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#mainZoneDiv {
+  padding: 25px;
+}
+
+#zoneElements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 25px;
+}
+
+i {
+  font-family: "Roboto", sans-serif;
+}

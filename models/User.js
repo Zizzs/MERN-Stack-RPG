@@ -135,6 +135,10 @@ const UserSchema = new Schema(
         type: String,
         default: "/HUB"
       },
+      subLocation: {
+        type: String,
+        default: "/"
+      },
       unlockedAbilities: {
         type: Array,
         default: []

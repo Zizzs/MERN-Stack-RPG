@@ -7,7 +7,7 @@ import HubImage from "../../images/cosmicCity.png";
 import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { logoutUser } from "../../actions/authActions";
 import { giveUserItem, generateItem } from "../../actions/itemActions";
-import { setLocation } from "../../actions/locationActions";
+import { setLocation, setSubLocation } from "../../actions/locationActions";
 import { healUser } from "../../actions/beneficialActions";
 
 import "./HUB.css";
@@ -23,17 +23,34 @@ class HUB extends Component {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
 
+    console.log(user);
+
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
 
     if (this.checkObj(user.character)) {
+      // if(user.character.subLocation != ""){
+      //   setSubLocation("");
+      // }
+
       if (user.character.location !== this.state.location) {
         console.log("User in wrong place!");
         this.props.history.push(user.character.location);
       }
     }
   }
+
+  redirectToWorldZone = (location, subLocation) => {
+    let user = this.props.auth.user;
+    console.log(`Sending ${user.name} to ${location}/${subLocation}.`);
+    setLocation(user, location);
+    setSubLocation(user, subLocation);
+    user = this.props.auth.user;
+    saveLocalUser(user);
+    saveUser(user);
+    this.props.history.push(location);
+  };
 
   redirectLocation = (location) => {
     let user = this.props.auth.user;
@@ -207,6 +224,10 @@ class HUB extends Component {
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.redirectToWorldZone("/Zone/CrystalForest", "Spire Path");
+                    }}
                   >
                     Crystal Forest
                   </button>

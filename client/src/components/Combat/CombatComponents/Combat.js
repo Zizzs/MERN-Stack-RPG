@@ -152,7 +152,6 @@ class Combat extends Component {
   };
 
   render() {
-    const { user } = this.props.auth;
     return (
       <div id="combat">
         <div id="leftImage">

@@ -14,6 +14,8 @@ import Login from "../auth/Login";
 import HUB from "../HUB/HUB";
 import CelestialTower from "../Dungeons/CelestialTower";
 import CombatController from "../Combat/CombatController";
+import ZoneController from "../WorldZones/ZoneController";
+
 import ForgotPassword from "../auth/ForgotPassword";
 import ResetPassword from "../auth/ResetPassword";
 
@@ -124,6 +126,12 @@ class Wrapper extends Component {
                   exact
                   path="/HUB/CelestialTower"
                   component={CelestialTower}
+                />
+                <PrivateRoute
+                  exact
+                  path="/Zone/*"
+                  component={ZoneController}
+                  updateWrapperAction={this.updatePreviousAction}
                 />
                 <PrivateRoute
                   exact
