@@ -34,6 +34,7 @@ i {
   padding: 15px;
 }
 
-.zoneCellMid {
+.zoneCellMidOuter {
   height: 310px;
+  width: 300px;
 }

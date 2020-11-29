@@ -116,7 +116,7 @@ class ZoneController extends Component {
 
       user = this.props.auth.user;
       saveLocalUser(user);
-      saveUser(user);
+      //saveUser(user);
       this.props.updateWrapperAction(`Moved Zone To ${location}/${subLocation}`);
       //this.props.history.push(location);
     }

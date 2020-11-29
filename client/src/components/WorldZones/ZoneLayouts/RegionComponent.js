@@ -43,18 +43,18 @@ class RegionComponent extends Component {
         <div id="mainZoneDiv">
           <div className="zoneCellTop"></div>
             <div>
-              <h2>{this.props.zoneData.name}</h2>
+              <h4>{this.props.zoneData.name}</h4>
             </div>
           <div className="zoneCellTop"></div>
-          <div className="zoneCellMid">Combat Buttons</div>
+          <div className="zoneCellMidOuter">Combat Buttons</div>
           <div className="zoneCellMid"></div>
-          <div className="zoneCellMid">Explore Buttons?</div>
+          <div className="zoneCellMidOuter">Explore Buttons?</div>
           <div className="zoneNavButtonDiv zoneCellBottom">
             {buttonOneActive && <button
               style={{
                 width: "250px",
                 borderRadius: "3px",
-                letterSpacing: "1.5px",
+                letterSpacing: "1px",
                 marginTop: "1rem"
               }}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -69,7 +69,7 @@ class RegionComponent extends Component {
               style={{
                 width: "250px",
                 borderRadius: "3px",
-                letterSpacing: "1.5px",
+                letterSpacing: "1px",
                 marginTop: "1rem"
               }}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -81,7 +81,7 @@ class RegionComponent extends Component {
               style={{
                 width: "250px",
                 borderRadius: "3px",
-                letterSpacing: "1.5px",
+                letterSpacing: "1px",
                 marginTop: "1rem"
               }}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -93,7 +93,7 @@ class RegionComponent extends Component {
               style={{
                 width: "250px",
                 borderRadius: "3px",
-                letterSpacing: "1.5px",
+                letterSpacing: "1px",
                 marginTop: "1rem"
               }}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
