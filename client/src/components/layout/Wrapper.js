@@ -112,7 +112,7 @@ class Wrapper extends Component {
         <Router>
           <div className="container">
             <div>
-              <Navbar previousAction={this.state.previousAction}/>
+              <Navbar updateWrapperAction={this.updatePreviousAction} previousAction={this.state.previousAction}/>
             </div>
             <div>
               <Route exact path="/" component={Landing} />

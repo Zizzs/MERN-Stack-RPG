@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./ZoneLayout.css";
 
-class CrystalForest extends Component {
+class RegionComponent extends Component {
 
   componentDidMount = () => {
     if (!this.props.auth.isAuthenticated) {
@@ -11,21 +11,46 @@ class CrystalForest extends Component {
     }
   };
 
-  componentDidUpdate = () => {
-    //console.log(this.props.zoneData);
-  }
-
   render() {
-    //console.log(this.props.zoneData.exitOne)
+    let buttonOneActive = true;
+    let buttonTwoActive = true;
+    let buttonThreeActive = true;
+    let buttonFourActive = true;
+
+    console.log(this.props.zoneData);
+
+    if(this.props.zoneData.exitOne === "None"){
+      buttonOneActive = false;
+    }
+
+    if(this.props.zoneData.exitTwo === "None"){
+      buttonTwoActive = false;
+    }
+
+    if(this.props.zoneData.exitThree === "None"){
+      buttonThreeActive = false;
+    }
+
+    if(this.props.zoneData.exitFour === "None"){
+      buttonFourActive = false;
+    }
+    
     return(
       <div id="zoneMain">
         <div id="zoneImgLeft">
-          <p>img</p>
+          <img alt="Photo of the Current Region Left" src={this.props.regionData.imgLeft}></img>
         </div>
         <div id="mainZoneDiv">
-          <h2>{this.props.zoneData.name}</h2>
-          <div>
-            <button
+          <div className="zoneCellTop"></div>
+            <div>
+              <h2>{this.props.zoneData.name}</h2>
+            </div>
+          <div className="zoneCellTop"></div>
+          <div className="zoneCellMid">Combat Buttons</div>
+          <div className="zoneCellMid"></div>
+          <div className="zoneCellMid">Explore Buttons?</div>
+          <div className="zoneNavButtonDiv zoneCellBottom">
+            {buttonOneActive && <button
               style={{
                 width: "250px",
                 borderRadius: "3px",
@@ -36,8 +61,11 @@ class CrystalForest extends Component {
               onClick={() => this.props.redirectToWorldZone(this.props.zoneData.location, this.props.zoneData.exitOne)}
             >
               {this.props.zoneData.exitOne}
-            </button>
-            <button
+            </button>}
+          </div>
+          <div className="zoneCellBottom"></div>
+          <div className="zoneNavButtonDiv zoneCellBottom">
+            {buttonTwoActive && <button
               style={{
                 width: "250px",
                 borderRadius: "3px",
@@ -48,8 +76,8 @@ class CrystalForest extends Component {
               onClick={() => this.props.redirectToWorldZone(this.props.zoneData.location, this.props.zoneData.exitTwo)}
             >
               {this.props.zoneData.exitTwo}
-            </button>
-            <button
+            </button>}
+            {buttonThreeActive && <button
               style={{
                 width: "250px",
                 borderRadius: "3px",
@@ -60,8 +88,8 @@ class CrystalForest extends Component {
               onClick={() => this.props.redirectToWorldZone(this.props.zoneData.location, this.props.zoneData.exitThree)}
             >
               {this.props.zoneData.exitThree}
-            </button>
-            <button
+            </button>}
+            {buttonFourActive && <button
               style={{
                 width: "250px",
                 borderRadius: "3px",
@@ -72,11 +100,11 @@ class CrystalForest extends Component {
               onClick={() => this.props.redirectToWorldZone(this.props.zoneData.location, this.props.zoneData.exitFour)}
             >
               {this.props.zoneData.exitFour}
-            </button>
+            </button>}
           </div>
         </div>
         <div id="zoneImgRight">
-          <p>img</p>
+          <img alt="Photo of the Current Region Left" src={this.props.regionData.imgRight} ></img>
         </div>
       </div>
     );
@@ -86,7 +114,7 @@ class CrystalForest extends Component {
     
 
 
-CrystalForest.propTypes = {
+RegionComponent.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
@@ -95,5 +123,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(
-  CrystalForest
+  RegionComponent
 );

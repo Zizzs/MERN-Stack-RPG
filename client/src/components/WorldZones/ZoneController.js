@@ -4,20 +4,22 @@ import { connect } from "react-redux";
 import "./ZoneController.css";
 import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { setLocation, setSubLocation } from "../../actions/locationActions";
-import { calculateCurrentZoneData } from "./CalculateZoneLocation";
+import { calculateCurrentZoneData, calculateCurrentRegionData } from "./CalculateZoneLocation";
 
 
-import CrystalForest from "./ZoneLayouts/CrystalForest";
+import RegionComponent from "./ZoneLayouts/RegionComponent";
 
 class ZoneController extends Component {
   constructor(props){
     super(props)
     this.state = {
       currentZoneData: {},
+      currentRegionData: {},
     }
   }
 
   componentDidMount = () => {
+    // Auth Check
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
@@ -25,32 +27,51 @@ class ZoneController extends Component {
 
     let user = this.props.auth.user;
     if(this.checkObj(user.character)){
-      let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
+      // Grabs the zone data from WorldZoneData --- example (/Zone/CrystalForest, Spire Path)
 
-      if(Object.keys(this.state.currentZoneData).length === 0){
-        console.log(tempZoneData);
+      // Chek if the zoneData state is empty
+      if(Object.keys(this.state.currentZoneData).length === 0 && Object.keys(this.state.currentRegionData).length === 0){
+        let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
+        let tempRegionData = calculateCurrentRegionData(user.character.location);
+        // Sets the state to the currentZoneData and currentRegionData
+        this.setState({ currentZoneData: tempZoneData, currentRegionData: tempRegionData }, () => {
+          console.log(`${user.character.location} data has been set.`);
+        }); 
+      } else if (Object.keys(this.state.currentRegionData).length === 0){
+        let tempRegionData = calculateCurrentRegionData(user.character.location);
+        console.log("Setting Current Region");
+        // Sets the state to the currentRegionData
+        this.setState({ currentRegionData: tempRegionData }, () => {
+          console.log(`${user.character.location} data has been set.`);
+        }); 
+      } else if(Object.keys(this.state.currentZoneData).length === 0){
+        let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
         console.log("Setting Current Zone");
+        // Sets the state to the currentZoneData and currentRegionData
         this.setState({ currentZoneData: tempZoneData }, () => {
-          console.log(this.state);
+          console.log(`${user.character.location} data has been set.`);
         }); 
       }
     }
   };
 
   componentDidUpdate = () => {
+    // Repeat of above, but with extra check for "/HUB" location data. 
     let user = this.props.auth.user;
-    console.log(user);
+    // Double check if user.character holds data (No character data = Something messed up in Wrapper)
     if (this.checkObj(user.character)) {
+      // If the user's location is not the current zone's location, and their location is "/HUB" due to pathing/location issue, send them back.
       if (user.character.location !== this.state.location && user.character.location === "/HUB") {
         console.log("User in wrong place!");
         this.props.history.push(user.character.location);
-      } else {
+      } else if(Object.keys(this.state.currentZoneData).length !== 0 && this.state.currentZoneData.name !== user.character.sublocation){
+        // Grab zone data from WorldZoneData
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
-        console.log("Setting Current Zone");
-        console.log(tempZoneData);
-        if(this.state.currentZoneData !== tempZoneData){
+        console.log(`Setting Current Zone: ${tempZoneData.name}`);
+        // If the current state's zone data is not the same as the retrieved data, set the state to the new zone's data
+        if(this.state.currentZoneData.name !== tempZoneData.name){
           this.setState({ currentZoneData: tempZoneData }, () => {
-            console.log(this.state);
+            console.log(`${user.character.location} data has been set.`);
           }); 
         }
       }
@@ -64,12 +85,6 @@ class ZoneController extends Component {
     return false;
   };
 
-  fixLocation = () => {
-    let user = this.props.auth.user;
-    console.log(`Fixing ${user.name} location.`);
-    this.props.history.push(user.character.location);
-  };
-
   redirectLocation = (location) => {
     let user = this.props.auth.user;
     console.log(`Sending ${user.name} to ${location}.`);
@@ -80,21 +95,25 @@ class ZoneController extends Component {
     this.props.history.push(location);
   };
 
+  // Main Zone Redirect Function
   redirectToWorldZone = (location, subLocation) => {
     let user = this.props.auth.user;
+    // If the user's location is set to the HUB, then we're sending them back and wiping their character subzone data.
     if(subLocation === "/HUB"){
       console.log("Going Back to HUB");
       setLocation(user, subLocation);
       setSubLocation(user, "");
+
       user = this.props.auth.user;
-      console.log(user);
       saveLocalUser(user);
       saveUser(user);
       this.props.history.push(location);
     } else {
+      // If the user's location is not the HUB, that means they've chosen a new subzone to go to. (Spire Path -> Vinefall)
       console.log(`Sending ${user.name} to ${location}/${subLocation}.`);
       setLocation(user, location);
       setSubLocation(user, subLocation);
+
       user = this.props.auth.user;
       saveLocalUser(user);
       saveUser(user);
@@ -105,36 +124,15 @@ class ZoneController extends Component {
 
   render() {
     const { user } = this.props.auth;
-    //console.log(user);
     if(this.checkObj(user.character)){
-      if(user.character.location === "/Zone/CrystalForest"){
-        console.log("User is in Crystal Forest");
+      
+        //console.log(`User is in ${user.character.location}`);
         return(
           <div id="zoneContainer">
-            <CrystalForest redirectToWorldZone={this.redirectToWorldZone} zoneData={this.state.currentZoneData}/>
+            <RegionComponent regionData={this.state.currentRegionData} redirectToWorldZone={this.redirectToWorldZone} zoneData={this.state.currentZoneData}/>
           </div>
         );
-      } else {
-        console.log("User is in Wrong Location");
-        return(
-        <div id="zoneContainer">
-          Wrong Location
-          <button
-            style={{
-              width: "200px",
-              borderRadius: "3px",
-              letterSpacing: "1.5px",
-              marginTop: "1rem",
-            }}
-            className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-            onClick={(e) => {
-              e.preventDefault();
-              this.redirectLocation("/HUB");
-            }}
-          > Fix My Location
-            </button>
-          </div>);
-      }
+      
     } else {
       return(<div>Loading...</div>);
     }

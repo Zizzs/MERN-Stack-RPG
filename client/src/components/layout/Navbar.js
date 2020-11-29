@@ -14,7 +14,6 @@ import CombatPrefs from "../Abilities/CombatPrefs";
 import CombatPrefPopup from "../Abilities/CombatPrefPopup";
 import CombatPrefPositionPopup from "../Abilities/CombatPrefPositionPopup";
 
-import { v4 as uuidv4 } from 'uuid';
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -107,12 +106,6 @@ class Navbar extends Component {
         boundFragments: user.character.boundFragments,
         unboundFragments: user.character.unboundFragments,});
     }
-  }
-
-  updateNavbarState = (action) => {
-    console.log(`Updated action: ${action}}`)
-    let modifiedAction = `${action}:${uuidv4()}`;
-    this.setState({previousAction: modifiedAction});
   }
 
   toggleMenuPanel = () => {
@@ -355,7 +348,7 @@ class Navbar extends Component {
             togglePanel={this.toggleInventoryPanel}
             panelOpen={this.state.isInventoryPanelOpen}
             previousAction={this.state.previousAction}
-            updateNavbarState={this.updateNavbarState}
+            updateNavbarState={this.updateWrapperAction}
           />
           <ChatPanel
             togglePanel={this.toggleChatPanel}

@@ -1,11 +1,9 @@
 #zoneMain {
   display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
+  grid-template-columns: 1fr 13fr 1fr;
   color: white;
   text-align: center;
-  border: 2px solid white;
   padding: 25px;
-  margin: 50px;
   border-radius: 3px;
 }
 
@@ -17,6 +15,9 @@
 
 #mainZoneDiv {
   padding: 25px;
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  height: 25%;
 }
 
 #zoneElements {
@@ -27,4 +28,12 @@
 
 i {
   font-family: "Roboto", sans-serif;
+}
+
+.zoneNavButtonDiv {
+  padding: 15px;
+}
+
+.zoneCellMid {
+  height: 310px;
 }

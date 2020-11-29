@@ -1,30 +1,29 @@
 import { zoneData } from "./WorldZoneData"
 
-export const calculateCurrentZoneData = (location, subLocation) => {
+export const calculateCurrentZoneData = (region, subLocation) => {
 
   let currentZoneData = {};
 
-  if(location === "/Zone/CrystalForest"){
-    if(subLocation === "Spire Path"){
-      currentZoneData = zoneData.CrystalForest.spirePath;
-    }
+  if(region === "/Zone/CrystalForest"){
+    let regionData = zoneData.CrystalForest;
 
-    if(subLocation === "VineFall"){
-      currentZoneData = zoneData.CrystalForest.vineFall;
-    }
-
-    if(subLocation === "The Ruined Stairway"){
-      currentZoneData = zoneData.CrystalForest.ruinedStairway;
-    }
-
-    if(subLocation === "The Rootway"){
-      currentZoneData = zoneData.CrystalForest.rootway;
+    for (const subZone in regionData){
+      if(regionData[subZone].name === subLocation){
+        console.log(`Found Zone Data for: ${subLocation}`);
+        currentZoneData = regionData[subZone];
+      }
     }
   }
-
-
-  //console.log(currentZoneData);
-
-
   return currentZoneData;
+}
+
+export const calculateCurrentRegionData = (region) => {
+
+  let regionData = {};
+
+  if(region === "/Zone/CrystalForest"){
+    regionData = zoneData.CrystalForest.regionSpecificData;
+  }
+
+  return regionData;
 }
