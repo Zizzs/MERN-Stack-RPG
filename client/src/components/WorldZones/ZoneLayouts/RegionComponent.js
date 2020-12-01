@@ -17,8 +17,6 @@ class RegionComponent extends Component {
     let buttonThreeActive = true;
     let buttonFourActive = true;
 
-    console.log(this.props.zoneData);
-
     if(this.props.zoneData.exitOne === "None"){
       buttonOneActive = false;
     }
@@ -38,7 +36,7 @@ class RegionComponent extends Component {
     return(
       <div id="zoneMain">
         <div id="zoneImgLeft">
-          <img alt="Photo of the Current Region Left" src={this.props.regionData.imgLeft}></img>
+          <img alt="Current Region Left" src={this.props.regionData.imgLeft}></img>
         </div>
         <div id="mainZoneDiv">
           <div className="zoneCellTop"></div>
@@ -104,7 +102,7 @@ class RegionComponent extends Component {
           </div>
         </div>
         <div id="zoneImgRight">
-          <img alt="Photo of the Current Region Left" src={this.props.regionData.imgRight} ></img>
+          <img alt="Current Region Left" src={this.props.regionData.imgRight} ></img>
         </div>
       </div>
     );

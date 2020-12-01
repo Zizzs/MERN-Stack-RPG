@@ -35,21 +35,20 @@ class ZoneController extends Component {
         let tempRegionData = calculateCurrentRegionData(user.character.location);
         // Sets the state to the currentZoneData and currentRegionData
         this.setState({ currentZoneData: tempZoneData, currentRegionData: tempRegionData }, () => {
-          console.log(`${user.character.location} data has been set.`);
+          //console.log(`${user.character.location} data has been set.`);
         }); 
       } else if (Object.keys(this.state.currentRegionData).length === 0){
         let tempRegionData = calculateCurrentRegionData(user.character.location);
-        console.log("Setting Current Region");
         // Sets the state to the currentRegionData
         this.setState({ currentRegionData: tempRegionData }, () => {
-          console.log(`${user.character.location} data has been set.`);
+          //console.log(`${user.character.location} data has been set.`);
         }); 
       } else if(Object.keys(this.state.currentZoneData).length === 0){
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
-        console.log("Setting Current Zone");
+        //console.log("Setting Current Zone");
         // Sets the state to the currentZoneData and currentRegionData
         this.setState({ currentZoneData: tempZoneData }, () => {
-          console.log(`${user.character.location} data has been set.`);
+          //console.log(`${user.character.location} data has been set.`);
         }); 
       }
     }
@@ -62,16 +61,17 @@ class ZoneController extends Component {
     if (this.checkObj(user.character)) {
       // If the user's location is not the current zone's location, and their location is "/HUB" due to pathing/location issue, send them back.
       if (user.character.location !== this.state.location && user.character.location === "/HUB") {
-        console.log("User in wrong place!");
+        saveUser(user);
+        
+
         this.props.history.push(user.character.location);
       } else if(Object.keys(this.state.currentZoneData).length !== 0 && this.state.currentZoneData.name !== user.character.sublocation){
         // Grab zone data from WorldZoneData
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
-        console.log(`Setting Current Zone: ${tempZoneData.name}`);
         // If the current state's zone data is not the same as the retrieved data, set the state to the new zone's data
         if(this.state.currentZoneData.name !== tempZoneData.name){
           this.setState({ currentZoneData: tempZoneData }, () => {
-            console.log(`${user.character.location} data has been set.`);
+            //console.log(`${user.character.location} data has been set.`);
           }); 
         }
       }
@@ -87,7 +87,6 @@ class ZoneController extends Component {
 
   redirectLocation = (location) => {
     let user = this.props.auth.user;
-    console.log(`Sending ${user.name} to ${location}.`);
     setLocation(user, location);
     user = this.props.auth.user;
     saveLocalUser(user);
@@ -100,7 +99,6 @@ class ZoneController extends Component {
     let user = this.props.auth.user;
     // If the user's location is set to the HUB, then we're sending them back and wiping their character subzone data.
     if(subLocation === "/HUB"){
-      console.log("Going Back to HUB");
       setLocation(user, subLocation);
       setSubLocation(user, "");
 
@@ -110,23 +108,23 @@ class ZoneController extends Component {
       this.props.history.push(location);
     } else {
       // If the user's location is not the HUB, that means they've chosen a new subzone to go to. (Spire Path -> Vinefall)
-      console.log(`Sending ${user.name} to ${location}/${subLocation}.`);
+      //console.log(`Sending ${user.name} to ${location}/${subLocation}.`);
       setLocation(user, location);
       setSubLocation(user, subLocation);
 
       user = this.props.auth.user;
       saveLocalUser(user);
+      // -----------
+      // Save user is commented out for now, and will use the saves from the combat controler or event controllers
       //saveUser(user);
+      // ----------
       this.props.updateWrapperAction(`Moved Zone To ${location}/${subLocation}`);
-      //this.props.history.push(location);
     }
   };
 
   render() {
     const { user } = this.props.auth;
     if(this.checkObj(user.character)){
-      
-        //console.log(`User is in ${user.character.location}`);
         return(
           <div id="zoneContainer">
             <RegionComponent regionData={this.state.currentRegionData} redirectToWorldZone={this.redirectToWorldZone} zoneData={this.state.currentZoneData}/>

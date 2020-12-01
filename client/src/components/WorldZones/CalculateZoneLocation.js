@@ -9,7 +9,7 @@ export const calculateCurrentZoneData = (region, subLocation) => {
 
     for (const subZone in regionData){
       if(regionData[subZone].name === subLocation){
-        console.log(`Found Zone Data for: ${subLocation}`);
+        //console.log(`Found Zone Data for: ${subLocation}`);
         currentZoneData = regionData[subZone];
       }
     }

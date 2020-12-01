@@ -6,6 +6,10 @@ const skeleton = {
   health: 100,
   attackMin: 1,
   attackMax: 3,
+  prefPosition: 2,
+  attackAndMove: false,
+  rangeOrMelee: "Melee",
+  movement: 1,
   drops: {
     minItemCount: 1,
     maxItemCount: 2,

@@ -51,6 +51,10 @@ class CombatController extends Component {
         validCombat: true,
         completedCombat: false,
         hasWon: false,
+        hasUpdated: false,
+        userHasChained: 0,
+        currentWeapon: user.character.equipment.weaponOne,
+
         position: user.character.combatPrefs.preferredPosition,
         combatAbilities: user.character.combatPrefs.weaponOne.position,
         chainerAbilities: user.character.combatPrefs.weaponOne.chainers,
@@ -59,10 +63,9 @@ class CombatController extends Component {
         genericAbility: user.character.combatPrefs.utility.generic,
         enemy: monster,
         playerLocation: user.character.location,
-        initialAbilities: initialAbilities,
+        abilities: initialAbilities,
         imageLeft: images.left,
         imageRight: images.right,
-        monsterImage: monster.image,
         weaponOne: user.character.equipment.weaponOne,
         weaponTwo: user.character.equipment.weaponTwo,
         monsterHealthPercent: initiateMonsterHealthPercent,
@@ -80,10 +83,23 @@ class CombatController extends Component {
       this.props.history.push("/");
     }
     console.log("Combat Controller Mounted");
+
+    let abilityPackage = {
+      hasUpdated: false,
+      newAbilityPositions: {},
+      setState: false,
+    };
+
+    for (let i = 1; i <= 6; i++) {
+      abilityPackage = this.setStateAbilityPositions(i, false, 0, false);
+      if(abilityPackage.setState){
+        console.log("Trying to set new abilities");
+        this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions})
+      }
+    }
   };
 
   componentDidUpdate = () => {
-    //console.log(this.state);
     const { user } = this.props.auth;
     // If statement at the top to catch completed combats. If the enemy has been killed, the combat component will perform a function callback to set the this.state.hasWon variable to true. If they lost, this.state.hasWon will be false. Regardless if they have won or not, completedCombat will be true, and will redirect the user back to the location they were previously at.
     if (this.state.completedCombat) {
@@ -102,8 +118,15 @@ class CombatController extends Component {
 
   // Function where turn damage will be calculated and applied. Takes in the ability used, and the weapon used by the player. Initial damage will be calculated by taking the player's weapon's damage, and multiplying it by the skill's multiplier. This will give the damage for one hit. This number will then be multiplied by the attack count.
   // This will also eventually log the combat data in a combat log.
-  calculateTurnDamage = (abilityUsed, weaponUsed) => {
+  calculateTurn = (abilityUsed, weaponUsed, clickedAbilityPackage) => {
     const { user } = this.props.auth;
+
+    // clickedAbilityPackage = {
+    //   position: clickedNumber,
+    //   userHasChained: 0,
+    //   hasUpdated: false,
+    // };
+
     // -------------------Player Damage-------------------------
     //console.log([abilityUsed, weaponUsed, this.state.enemy]);
 
@@ -134,27 +157,168 @@ class CombatController extends Component {
     // ---------------------Enemy Damage-------------------------------------
 
     let enemyDamage = 0;
+    let modifiedPosition = clickedAbilityPackage.position;
 
-    // Randomize the min/max attack values for the enemy.
+    // If the enemy's health is at zero, you win.
+
+    // For Melee:
+    // If the current state's position (Ex: 3) is greater than the enemy's preferred position (Ex: Skeleton's 2), the Skeleton will move forward (Decreasing position of the player by its movement property). The enemy can only attack while moving if it has the attackAndMove property set to true.
+    
     if(currentEnemy.health > 0){
-      enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
+      if(clickedAbilityPackage.position > currentEnemy.prefPosition && currentEnemy.rangeOrMelee === "Melee") {
+        modifiedPosition = clickedAbilityPackage.position - currentEnemy.movement;
+        if(currentEnemy.attackAndMove){
+          enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
+        }
+      } else if(clickedAbilityPackage.position < currentEnemy.prefPosition && currentEnemy.rangeOrMelee === "Ranged") {
+        modifiedPosition = clickedAbilityPackage.position + currentEnemy.movement;
+        if(currentEnemy.attackAndMove){
+          enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
+        }
+      } else {
+        // Randomize the min/max attack values for the enemy.
+        enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
+      }
+      
+
     } else {
-      this.winCombat();
+        this.winCombat();
     }
 
-    damageUser(user, enemyDamage);
+      let abilityPackage = {
+        hasUpdated: false,
+        newAbilityPositions: {},
+        setState: false,
+      };
 
-    console.log(`You have been hit for ${enemyDamage} damage!`);
+      abilityPackage = this.setStateAbilityPositions(modifiedPosition, false, clickedAbilityPackage.userHasChained, true);
 
-    saveLocalUser(user);
+      console.log(this.state);
 
-    this.props.updateWrapperAction(`Combat:E-${currentEnemy.name}:PD-${totalPlayerDamage}:ED-${enemyDamage}`);
-
-    this.setState({enemy: currentEnemy, monsterHealthPercent: currentMonsterHealthPercent});
+      damageUser(user, enemyDamage);
 
 
-    
-  }
+      console.log(`You have been hit for ${enemyDamage} damage!`);
+
+
+      saveLocalUser(user);
+
+      this.props.updateWrapperAction(`Combat:E-${currentEnemy.name}:PD-${totalPlayerDamage}:ED-${enemyDamage}`);
+
+      this.setState({enemy: currentEnemy, monsterHealthPercent: currentMonsterHealthPercent, position: modifiedPosition, hasUpdated: true, abilities: abilityPackage.newAbilityPositions});    
+    }
+  
+
+  // Ability Position Control for componentDidUpdate
+  setStateAbilityPositions = (position, hasUpdated, hasChained, positionModified) => {
+    let abilityPackage = {};
+    let chained = hasChained;
+
+    if (
+      (this.state.position === position &&
+      this.state.hasUpdated === hasUpdated) || positionModified
+    ) {
+      // Calculate Ability Position will need to take in the combat prefs opposed to combat abilities and reposition abilities.
+      let newAbilityPositions = calculateAbilityPosition(
+        position,
+        chained,
+        this.state.combatAbilities,
+        this.state.chainerAbilities,
+        this.state.finisherAbility,
+        this.state.repositionAbilities,
+        this.state.genericAbility
+      );
+
+      abilityPackage.hasUpdated = true;
+      abilityPackage.newAbilityPositions = newAbilityPositions;
+      abilityPackage.setState = true;
+    }
+
+    return abilityPackage;
+  };
+
+  clickedAbility = (clickedNumber) => {
+    let ability = this.state.abilities[
+      Object.keys(this.state.abilities)[clickedNumber - 1]
+    ];
+
+    let clickedAbilityPackage = {
+      position: 0,
+      userHasChained: 0,
+      hasUpdated: false,
+    };
+
+    console.log(ability);
+    //If the ability does not reposition
+    if (ability.position.doesReposition === false) {
+      //console.log("Ability Does Not Reposition");
+      if (ability.info.type === "Basic") {
+        clickedAbilityPackage = {
+          position: clickedNumber,
+          userHasChained: 1,
+          hasUpdated: false,
+        };
+      } else if (ability.info.type === "Finisher") {
+        clickedAbilityPackage = {
+          position: clickedNumber,
+          userHasChained: 0,
+          hasUpdated: false,
+        };
+      } else {
+        clickedAbilityPackage = {
+          position: clickedNumber,
+          userHasChained: 0,
+          hasUpdated: false,
+        };
+      }
+    }
+
+    // If the ability does reposition
+    if (ability.position.doesReposition === true) {
+      if (ability.info.type === "Generic") {
+        clickedAbilityPackage = {
+          position: clickedNumber,
+          userHasChained: 0,
+          hasUpdated: false,
+        };
+      }
+
+      if (ability.position.repositionDirection === "Forward") {
+        if (ability.info.type === "Chainer") {
+          clickedAbilityPackage = {
+            position: clickedNumber,
+            userHasChained: 2,
+            hasUpdated: false,
+          };
+        } else {
+          clickedAbilityPackage = {
+            position: clickedNumber,
+            userHasChained: 0,
+            hasUpdated: false,
+          };
+        }
+      }
+
+      if (ability.position.repositionDirection === "Backward") {
+        if (ability.info.type === "Chainer") {
+          clickedAbilityPackage = {
+            position: clickedNumber,
+            userHasChained: 2,
+            hasUpdated: false,
+          };
+        } else {
+          clickedAbilityPackage = {
+            position: clickedNumber,
+            userHasChained: 0,
+            hasUpdated: false,
+          };
+        }
+      }
+    }
+
+    this.calculateTurn(ability, this.state.currentWeapon, clickedAbilityPackage);
+   
+  };
 
   checkObj = (obj) => {
     for (let key in obj) {
@@ -163,10 +327,6 @@ class CombatController extends Component {
     return false;
   };
 
-  // returnToLastLocation = () => {
-  //   const { user } = this.props.auth;
-  //   this.props.history.push(user.character.location);
-  // };
 
   // Callback function for the current combat component to pass the boolean back to combat controller.
   winCombat = () => {
@@ -185,7 +345,7 @@ class CombatController extends Component {
       switch (this.state.playerLocation) {
         case CELESTIAL_TOWER:
           return (
-            <Combat sendTurnData={this.calculateTurnDamage} winCombat={this.winCombat} controllerState={this.state} />
+            <Combat clickedAbility={this.clickedAbility} setStateAbilityPositions={this.setStateAbilityPositions} winCombat={this.winCombat} controllerState={this.state} />
           );
         default:
           return (

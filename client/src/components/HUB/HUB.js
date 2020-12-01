@@ -23,20 +23,14 @@ class HUB extends Component {
     // ------ Location Redirect and Save ------ Required for every use.
     const { user } = this.props.auth;
 
-    console.log(user);
-
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push("/");
     }
 
     if (this.checkObj(user.character)) {
-      // if(user.character.subLocation != ""){
-      //   setSubLocation("");
-      // }
-
       if (user.character.location !== this.state.location) {
         console.log("User in wrong place!");
-        this.props.history.push(user.character.location);
+        //this.props.history.push(user.character.location);
       }
     }
   }
@@ -90,10 +84,8 @@ class HUB extends Component {
 
   healerAction = () => {
     let user = this.props.auth.user;
-
     healUser(user, 25);
     saveUser(user);
-    console.log(this.props);
     this.props.updateWrapperAction(`Heal`);
 
   }
@@ -104,11 +96,6 @@ class HUB extends Component {
     saveUser(user);
   };
 
-  consoleLogUser = () => {
-    let user = this.props.auth.user;
-    console.log(user);
-  };
-
   checkObj = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) return true;
@@ -117,7 +104,6 @@ class HUB extends Component {
   };
 
   render() {
-    //console.log(this.props.auth);
     const { user } = this.props.auth;
     return (
       <div id="hubContainer">
@@ -130,9 +116,9 @@ class HUB extends Component {
           <div>
             <button
               style={{
-                width: "150px",
+                width: "200px",
                 borderRadius: "3px",
-                letterSpacing: "1.5px",
+                letterSpacing: "1px",
                 marginTop: "1rem",
               }}
               onClick={this.onLogoutClick}
@@ -154,9 +140,9 @@ class HUB extends Component {
                   {/* Healer Button */}
                   <button
                     style={{
-                      width: "150px",
+                      width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -168,9 +154,9 @@ class HUB extends Component {
                   <br />
                   <button
                     style={{
-                      width: "150px",
+                      width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -184,7 +170,7 @@ class HUB extends Component {
                     style={{
                       width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -197,15 +183,12 @@ class HUB extends Component {
                   <br />
                   <button
                     style={{
-                      width: "220px",
+                      width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-                    onClick={(e) => {
-                      this.tempSaveUser(e);
-                    }}
                   >
                     Crafting Square
                   </button>
@@ -220,7 +203,7 @@ class HUB extends Component {
                     style={{
                       width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -234,9 +217,9 @@ class HUB extends Component {
                   <br />
                   <button
                     style={{
-                      width: "150px",
+                      width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -247,9 +230,9 @@ class HUB extends Component {
                 <div>
                   <button
                     style={{
-                      width: "170px",
+                      width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
@@ -259,9 +242,9 @@ class HUB extends Component {
                   <br />
                   <button
                     style={{
-                      width: "170px",
+                      width: "200px",
                       borderRadius: "3px",
-                      letterSpacing: "1.5px",
+                      letterSpacing: "1px",
                       marginTop: "1rem",
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"

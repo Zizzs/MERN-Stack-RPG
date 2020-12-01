@@ -20,8 +20,6 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-// DB Config
-// Connect to MongoDB
 
 // Passport middleware
 app.use(passport.initialize());
@@ -54,6 +52,10 @@ const port = process.env.PORT || 5000; // process.env.port is Heroku's port if y
 app.listen(port, () =>
   console.log(`Server is up and running on port ${port} !`)
 );
+
+
+// DB Config
+// Connect to MongoDB
 
 const db = require("./config/keys").mongoURI;
 mongoose
