@@ -15,7 +15,6 @@ import "./HUB.css";
 class HUB extends Component {
   state = {
     showHealer: false,
-    saved: false,
     location: "/HUB",
   };
 
@@ -87,14 +86,7 @@ class HUB extends Component {
     healUser(user, 25);
     saveUser(user);
     this.props.updateWrapperAction(`Heal`);
-
   }
-
-  tempSaveUser = (e) => {
-    e.preventDefault();
-    let user = this.props.auth.user;
-    saveUser(user);
-  };
 
   checkObj = (obj) => {
     for (let key in obj) {

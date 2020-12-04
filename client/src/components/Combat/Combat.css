@@ -53,6 +53,8 @@
 }
 
 #combatInteractibles {
+  display: grid;
+  grid-template-columns: 3fr 5fr 3fr;
   padding: 50px;
   background-color: #0b0a46;
   width: 100%;
@@ -60,7 +62,6 @@
 
 #abilityPanel {
   width: 50%;
-  margin: 0 auto;
 }
 
 .skillPanel {
@@ -68,7 +69,6 @@
   margin-bottom: 2.5px;
   height: 25px;
   width: 300px;
-  margin: 0 auto;
   cursor: pointer;
 }
 
@@ -81,4 +81,9 @@
 
 #healthBarOutlineCombat {
   border: 1px solid gray;
+}
+
+#relativePositionIconDiv {
+  display: flex;
+  justify-content: center;
 }

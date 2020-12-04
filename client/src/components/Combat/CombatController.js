@@ -22,7 +22,6 @@ import calculateCombatImages from "./CombatFunctions/CalculateCombatImages";
 // Import Calculate Combat Enemies function
 import calculateCombatEnemies from "./CombatFunctions/CalculateCombatEnemies";
 
-
 class CombatController extends Component {
   // Get Player's Location
   // Set Initial state for combat, importing the user's preferred starting position and abilities
@@ -31,7 +30,6 @@ class CombatController extends Component {
   constructor(props) {
     super(props);
     const { user } = this.props.auth;
-    console.log(user);
     // Calculate Initial Abilities
     if (this.checkObj(user.character)) {
       let initialAbilities = calculateAbilityPosition(
@@ -46,6 +44,28 @@ class CombatController extends Component {
       let images = calculateCombatImages(user.character.location);
       let monster = calculateCombatEnemies(user.character.location);
       let initiateMonsterHealthPercent = 100;
+
+      // Starting Positions
+      // [10] - Position 1
+      // [9] - Position 2
+      // [8] - Position 3
+      // [7] - Position 4
+      // [6] - Position 5
+      // [5] - Position 6
+      //
+      // Empty Space will be 0, User will be 1, Enemy will be 2;
+      let positionIndex = 9;
+      let relativePositions = [0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0];
+      
+      // Sets the user's initial relativePosition according to their preferredPosition
+      for(let i = 1; i <= 6; i++){
+        if(i === user.character.combatPrefs.preferredPosition){
+          relativePositions[positionIndex] = 1;
+        }
+        positionIndex -= 1;
+      }
+
+
       //Position, Combat Abilities and Reposition Abilities will be pulled in from combat prefs. These will be within user.character.combatPrefs.
       this.state = {
         validCombat: true,
@@ -54,7 +74,7 @@ class CombatController extends Component {
         hasUpdated: false,
         userHasChained: 0,
         currentWeapon: user.character.equipment.weaponOne,
-
+        relativePosition: relativePositions,
         position: user.character.combatPrefs.preferredPosition,
         combatAbilities: user.character.combatPrefs.weaponOne.position,
         chainerAbilities: user.character.combatPrefs.weaponOne.chainers,
@@ -91,9 +111,8 @@ class CombatController extends Component {
     };
 
     for (let i = 1; i <= 6; i++) {
-      abilityPackage = this.setStateAbilityPositions(i, false, 0, false);
+      abilityPackage = this.setStateAbilityPositions(i, false, 0, false, true, true);
       if(abilityPackage.setState){
-        console.log("Trying to set new abilities");
         this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions})
       }
     }
@@ -128,7 +147,6 @@ class CombatController extends Component {
     // };
 
     // -------------------Player Damage-------------------------
-    //console.log([abilityUsed, weaponUsed, this.state.enemy]);
 
     // Clone Enemy to be modified later.
     let currentEnemy = cloneDeep(this.state.enemy);
@@ -159,24 +177,45 @@ class CombatController extends Component {
     let enemyDamage = 0;
     let modifiedPosition = clickedAbilityPackage.position;
 
+    let relativePlayerPosition = 0;
+    let relativeEnemyPosition = 0;
+
+    for(let i = 0; i <= this.state.relativePosition.length; i++){
+      if(this.state.relativePosition[i] === 1){
+        relativePlayerPosition = i;
+      }
+
+      if(this.state.relativePosition[i] === 2){
+        relativeEnemyPosition = i;
+      }
+    }
+
+    let differenceInRelativePlayerPosition = this.state.position - clickedAbilityPackage.position;
+    let newRelativePlayerPosition = relativePlayerPosition + differenceInRelativePlayerPosition;
+
     // If the enemy's health is at zero, you win.
 
     // For Melee:
     // If the current state's position (Ex: 3) is greater than the enemy's preferred position (Ex: Skeleton's 2), the Skeleton will move forward (Decreasing position of the player by its movement property). The enemy can only attack while moving if it has the attackAndMove property set to true.
-    
+
+    let newRelativeEnemyPosition = 0;
+
     if(currentEnemy.health > 0){
       if(clickedAbilityPackage.position > currentEnemy.prefPosition && currentEnemy.rangeOrMelee === "Melee") {
         modifiedPosition = clickedAbilityPackage.position - currentEnemy.movement;
+        newRelativeEnemyPosition = relativeEnemyPosition - currentEnemy.movement;
         if(currentEnemy.attackAndMove){
           enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
         }
       } else if(clickedAbilityPackage.position < currentEnemy.prefPosition && currentEnemy.rangeOrMelee === "Ranged") {
         modifiedPosition = clickedAbilityPackage.position + currentEnemy.movement;
+        newRelativeEnemyPosition = relativeEnemyPosition + currentEnemy.movement;
         if(currentEnemy.attackAndMove){
           enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
         }
       } else {
         // Randomize the min/max attack values for the enemy.
+        newRelativeEnemyPosition = relativeEnemyPosition;
         enemyDamage = Math.round(Math.random() * (currentEnemy.attackMax - currentEnemy.attackMin) + currentEnemy.attackMin);
       }
       
@@ -184,6 +223,10 @@ class CombatController extends Component {
     } else {
         this.winCombat();
     }
+    
+      let relativePositions = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+      relativePositions[newRelativePlayerPosition] = 1;
+      relativePositions[newRelativeEnemyPosition] = 2;
 
       let abilityPackage = {
         hasUpdated: false,
@@ -191,26 +234,33 @@ class CombatController extends Component {
         setState: false,
       };
 
-      abilityPackage = this.setStateAbilityPositions(modifiedPosition, false, clickedAbilityPackage.userHasChained, true);
 
-      console.log(this.state);
+      //------------------------------------
+      // These bools only get changed when the user is near the back wall (relative positions 0 and 1). They will remove the ability to use backwards repositions.
+      // This is done to create a boundary that the player is in during combat, so that they are unable to backwards reposition indefinitely.
+      let allowBackwardsReposition = true;
+      let allowBackwardsFeint = true;
+      if(newRelativePlayerPosition === 0){
+        allowBackwardsReposition = false;
+      }
 
+      if(newRelativePlayerPosition <= 1){
+        allowBackwardsFeint = false;
+      }
+      //-----------------------------------
+      
+      // Contains the abilities that will be updated, based on the user's new position, if the state has been updated yet(false), if they've chained, if the position has been modified(A bool to force an update), if the relativePosition is allowing a backwards reposition, or a backwards feint(bools); 
+      abilityPackage = this.setStateAbilityPositions(modifiedPosition, false, clickedAbilityPackage.userHasChained, true, allowBackwardsReposition, allowBackwardsFeint);
+      
       damageUser(user, enemyDamage);
-
-
-      console.log(`You have been hit for ${enemyDamage} damage!`);
-
-
-      saveLocalUser(user);
-
       this.props.updateWrapperAction(`Combat:E-${currentEnemy.name}:PD-${totalPlayerDamage}:ED-${enemyDamage}`);
 
-      this.setState({enemy: currentEnemy, monsterHealthPercent: currentMonsterHealthPercent, position: modifiedPosition, hasUpdated: true, abilities: abilityPackage.newAbilityPositions});    
+      this.setState({enemy: currentEnemy, monsterHealthPercent: currentMonsterHealthPercent, position: modifiedPosition, hasUpdated: true, abilities: abilityPackage.newAbilityPositions, relativePosition: relativePositions});    
     }
   
 
   // Ability Position Control for componentDidUpdate
-  setStateAbilityPositions = (position, hasUpdated, hasChained, positionModified) => {
+  setStateAbilityPositions = (position, hasUpdated, hasChained, positionModified, canRepositionBackwards, allowBackwardsFeint) => {
     let abilityPackage = {};
     let chained = hasChained;
 
@@ -219,6 +269,7 @@ class CombatController extends Component {
       this.state.hasUpdated === hasUpdated) || positionModified
     ) {
       // Calculate Ability Position will need to take in the combat prefs opposed to combat abilities and reposition abilities.
+      
       let newAbilityPositions = calculateAbilityPosition(
         position,
         chained,
@@ -229,9 +280,31 @@ class CombatController extends Component {
         this.state.genericAbility
       );
 
+      // -----------------------------------------------
+      // These next two checks are to limit the abilities shown when the user is close to the left wall (Relative Positions 0, 1, and 2. These will modify the ability positions four, five, and six by settings the given abilities to blank abilities).
+      // canRepositionBackwards only applies to the backwards reposition ability that moves the user back one space and is only removed at relativePosition 0.
+      // allowBackwardsFeint applies when the user is within 2 tiles of the relative position 0 and removes the ability to use backwards feints.
+      if(canRepositionBackwards === false){
+        Object.keys(newAbilityPositions).forEach((key) => {
+          if(newAbilityPositions[key].position.repositionDirection === "Backward"){
+            newAbilityPositions[key] = { info: { name: "" }, position: { repositionDirection: "None" }};
+          }
+        });
+      }
+
+      if(allowBackwardsFeint === false){
+        Object.keys(newAbilityPositions).forEach((key) => {
+          if((key === "four" || key === "five" || key === "six") && newAbilityPositions[key].info.name === "Feint"){
+            newAbilityPositions[key] = { info: { name: "" }, position: { repositionDirection: "None" }};
+          }
+        });
+      }
+      //------------------------------------------------
+
       abilityPackage.hasUpdated = true;
       abilityPackage.newAbilityPositions = newAbilityPositions;
       abilityPackage.setState = true;
+      
     }
 
     return abilityPackage;
@@ -248,10 +321,8 @@ class CombatController extends Component {
       hasUpdated: false,
     };
 
-    console.log(ability);
     //If the ability does not reposition
     if (ability.position.doesReposition === false) {
-      //console.log("Ability Does Not Reposition");
       if (ability.info.type === "Basic") {
         clickedAbilityPackage = {
           position: clickedNumber,

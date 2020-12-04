@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 import "./../Combat.css";
 
 class Combat extends Component {
@@ -13,7 +14,6 @@ class Combat extends Component {
   };
 
   render() {
-    console.log(this.props.controllerState.abilities);
     return (
       <div id="combat">
         <div id="leftImage">
@@ -26,17 +26,30 @@ class Combat extends Component {
               <h3>{this.props.controllerState.enemy.name}</h3>
             </div>
               <div id="healthBarCombat">
-                  <div id="healthBarOutlineCombat">
-                    <div
-                      style={{
-                        backgroundColor: "#8B0000",
-                        height: "100%",
-                        width: `${this.props.controllerState.monsterHealthPercent}%`,
-                      }}
-                    ></div>
-                  </div>
-                </div>
+                <div id="healthBarOutlineCombat">
+                  <div
+                    style={{
+                      backgroundColor: "#8B0000",
+                      height: "100%",
+                      width: `${this.props.controllerState.monsterHealthPercent}%`,
+                    }}
+                ></div>
+              </div>
+              </div>
+              <div id="relativePositionIconDiv">
+                {
+                  this.props.controllerState.relativePosition.map((position) =>
+                    (position === 0 && <span key={uuidv4()} className="material-icons relativePositionIcons">brightness_1</span>) || 
+                    (position === 1 && <span key={uuidv4()} className="material-icons relativePositionIcons">brightness_7</span>) || 
+                    (position === 2 && <span key={uuidv4()} className="material-icons relativePositionIcons">brightness_low</span>)
+                  )
+                }
+
+            </div>
             <div id="combatInteractibles">
+              <div>
+
+              </div>
               <div id="abilityPanel">
                 <div
                   className="skillPanel"
@@ -75,7 +88,9 @@ class Combat extends Component {
                   {this.props.controllerState.abilities.six.info.name}
                 </div>
               </div>
-              
+              <div>
+
+              </div>
             </div>
             <button
             style={{

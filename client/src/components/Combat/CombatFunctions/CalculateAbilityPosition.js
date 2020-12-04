@@ -16,7 +16,9 @@ function calculateAbilityPositions(
     six: genericAbility,
   };
 
-  //console.log(position, combatAbilities, repositionAbilities);
+  console.log(position);
+
+  let fillerPositionObject = { info: { name: "" }, position: { repositionDirection: "None" }};
 
   // I will need to redo this whole place. When a user is in combat, the position they chose determines the starting point. That position will have it's basic default ability chosen in combat prefs, and the utility repositions for forward and backward. The user will have a dodge/feint ability that will be +1 or -1 the current abilities.
 
@@ -47,9 +49,9 @@ function calculateAbilityPositions(
       abilities.one = combatAbilities.one;
       abilities.two = repositionAbilities.backward;
       abilities.three = genericAbility;
-      abilities.four = { info: { name: "" } };
-      abilities.five = { info: { name: "" } };
-      abilities.six = { info: { name: "" } };
+      abilities.four = fillerPositionObject;
+      abilities.five = fillerPositionObject;
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 2) {
@@ -57,8 +59,8 @@ function calculateAbilityPositions(
       abilities.two = combatAbilities.two;
       abilities.three = repositionAbilities.backward;
       abilities.four = genericAbility;
-      abilities.five = { info: { name: "" } };
-      abilities.six = { info: { name: "" } };
+      abilities.five = fillerPositionObject;
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 3) {
@@ -67,11 +69,11 @@ function calculateAbilityPositions(
       abilities.three = combatAbilities.three;
       abilities.four = repositionAbilities.backward;
       abilities.five = genericAbility;
-      abilities.six = { info: { name: "" } };
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 4) {
-      abilities.one = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
       abilities.two = genericAbility;
       abilities.three = repositionAbilities.forward;
       abilities.four = combatAbilities.four;
@@ -80,8 +82,8 @@ function calculateAbilityPositions(
     }
 
     if (position === 5) {
-      abilities.one = { info: { name: "" } };
-      abilities.two = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
+      abilities.two = fillerPositionObject;
       abilities.three = genericAbility;
       abilities.four = repositionAbilities.forward;
       abilities.five = combatAbilities.five;
@@ -89,9 +91,9 @@ function calculateAbilityPositions(
     }
 
     if (position === 6) {
-      abilities.one = { info: { name: "" } };
-      abilities.two = { info: { name: "" } };
-      abilities.three = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
+      abilities.two = fillerPositionObject;
+      abilities.three = fillerPositionObject;
       abilities.four = genericAbility;
       abilities.five = repositionAbilities.forward;
       abilities.six = combatAbilities.six;
@@ -103,9 +105,9 @@ function calculateAbilityPositions(
       abilities.one = combatAbilities.one;
       abilities.two = chainerAbilities.backward;
       abilities.three = genericAbility;
-      abilities.four = { info: { name: "" } };
-      abilities.five = { info: { name: "" } };
-      abilities.six = { info: { name: "" } };
+      abilities.four = fillerPositionObject;
+      abilities.five = fillerPositionObject;
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 2) {
@@ -113,8 +115,8 @@ function calculateAbilityPositions(
       abilities.two = combatAbilities.two;
       abilities.three = chainerAbilities.backward;
       abilities.four = genericAbility;
-      abilities.five = { info: { name: "" } };
-      abilities.six = { info: { name: "" } };
+      abilities.five = fillerPositionObject;
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 3) {
@@ -123,11 +125,11 @@ function calculateAbilityPositions(
       abilities.three = combatAbilities.three;
       abilities.four = chainerAbilities.backward;
       abilities.five = genericAbility;
-      abilities.six = { info: { name: "" } };
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 4) {
-      abilities.one = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
       abilities.two = genericAbility;
       abilities.three = chainerAbilities.forward;
       abilities.four = combatAbilities.four;
@@ -136,8 +138,8 @@ function calculateAbilityPositions(
     }
 
     if (position === 5) {
-      abilities.one = { info: { name: "" } };
-      abilities.two = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
+      abilities.two = fillerPositionObject;
       abilities.three = genericAbility;
       abilities.four = chainerAbilities.forward;
       abilities.five = combatAbilities.five;
@@ -145,9 +147,9 @@ function calculateAbilityPositions(
     }
 
     if (position === 6) {
-      abilities.one = { info: { name: "" } };
-      abilities.two = { info: { name: "" } };
-      abilities.three = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
+      abilities.two = fillerPositionObject;
+      abilities.three = fillerPositionObject;
       abilities.four = genericAbility;
       abilities.five = chainerAbilities.forward;
       abilities.six = combatAbilities.six;
@@ -159,9 +161,9 @@ function calculateAbilityPositions(
       abilities.one = finisherAbility;
       abilities.two = chainerAbilities.backward;
       abilities.three = genericAbility;
-      abilities.four = { info: { name: "" } };
-      abilities.five = { info: { name: "" } };
-      abilities.six = { info: { name: "" } };
+      abilities.four = fillerPositionObject;
+      abilities.five = fillerPositionObject;
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 2) {
@@ -169,8 +171,8 @@ function calculateAbilityPositions(
       abilities.two = finisherAbility;
       abilities.three = chainerAbilities.backward;
       abilities.four = genericAbility;
-      abilities.five = { info: { name: "" } };
-      abilities.six = { info: { name: "" } };
+      abilities.five = fillerPositionObject;
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 3) {
@@ -179,11 +181,11 @@ function calculateAbilityPositions(
       abilities.three = finisherAbility;
       abilities.four = chainerAbilities.backward;
       abilities.five = genericAbility;
-      abilities.six = { info: { name: "" } };
+      abilities.six = fillerPositionObject;
     }
 
     if (position === 4) {
-      abilities.one = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
       abilities.two = genericAbility;
       abilities.three = chainerAbilities.forward;
       abilities.four = finisherAbility;
@@ -192,8 +194,8 @@ function calculateAbilityPositions(
     }
 
     if (position === 5) {
-      abilities.one = { info: { name: "" } };
-      abilities.two = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
+      abilities.two = fillerPositionObject;
       abilities.three = genericAbility;
       abilities.four = chainerAbilities.forward;
       abilities.five = finisherAbility;
@@ -201,9 +203,9 @@ function calculateAbilityPositions(
     }
 
     if (position === 6) {
-      abilities.one = { info: { name: "" } };
-      abilities.two = { info: { name: "" } };
-      abilities.three = { info: { name: "" } };
+      abilities.one = fillerPositionObject;
+      abilities.two = fillerPositionObject;
+      abilities.three = fillerPositionObject;
       abilities.four = genericAbility;
       abilities.five = chainerAbilities.forward;
       abilities.six = finisherAbility;
