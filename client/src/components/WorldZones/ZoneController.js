@@ -10,6 +10,7 @@ import { calculateCurrentZoneData, calculateCurrentRegionData } from "./Calculat
 import RegionComponent from "./ZoneLayouts/RegionComponent";
 import CombatController from "../Combat/CombatController";
 import CelestialTower from "../WorldZones/Dungeons/CelestialTower";
+import HUB from "./MajorLocations/HUB/HUB";
 
 class ZoneController extends Component {
   constructor(props){
@@ -63,13 +64,9 @@ class ZoneController extends Component {
     // Double check if user.character holds data (No character data = Something messed up in Wrapper)
     if (this.checkObj(user.character)) {
       // If the user's location is not the current zone's location, and their location is "/HUB" due to pathing/location issue, send them back.
-      if (user.character.location !== this.state.location && user.character.location === "/HUB") {
-        saveUser(user);
-        
-
-        this.props.history.push(user.character.location);
-      } else if(Object.keys(this.state.currentZoneData).length !== 0 && this.state.currentZoneData.name !== user.character.sublocation){
+       if(Object.keys(this.state.currentZoneData).length !== 0 && (this.state.currentZoneData.name !== user.character.sublocation || this.state.currentZoneData.location === "/Zone/HUB")){
         // Grab zone data from WorldZoneData
+        console.log("Loading Zone Data");
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
         // If the current state's zone data is not the same as the retrieved data, set the state to the new zone's data
         if(this.state.currentZoneData.name !== tempZoneData.name){
@@ -109,7 +106,7 @@ class ZoneController extends Component {
   redirectToWorldZone = (location, subLocation) => {
     let user = this.props.auth.user;
     // If the user's location is set to the HUB, then we're sending them back and wiping their character subzone data.
-    if(subLocation === "/HUB"){
+    if(subLocation === "/Zone/HUB"){
       setLocation(user, subLocation);
       setSubLocation(user, "");
 
@@ -135,8 +132,15 @@ class ZoneController extends Component {
 
   render() {
     const { user } = this.props.auth;
+    console.log(this.state.currentZoneData, this.state.currentRegionData);
     if(this.checkObj(user.character)){
-      if(user.character.location === "/Zone/CelestialTower" && this.state.inCombat === false){
+      if(user.character.location === "/Zone/HUB" && this.state.inCombat === false){
+        return(
+          <div id="zoneContainer">
+            <HUB sendToCombat={this.beginZoneCombat} updateWrapperAction={this.props.updateWrapperAction}/>
+          </div>
+        );
+      } else if(user.character.location === "/Zone/CelestialTower" && this.state.inCombat === false){
         return(
           <div id="zoneContainer">
             <CelestialTower sendToCombat={this.beginZoneCombat}/>

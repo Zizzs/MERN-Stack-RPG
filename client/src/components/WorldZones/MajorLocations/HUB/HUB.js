@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import HubImage from "../../images/cosmicCity.png";
+import HubImage from "../../../../images/cosmicCity.png";
 
-import { saveUser, saveLocalUser } from "../../actions/authActions";
-import { logoutUser } from "../../actions/authActions";
-import { giveUserItem, generateItem } from "../../actions/itemActions";
-import { setLocation, setSubLocation } from "../../actions/locationActions";
-import { healUser } from "../../actions/beneficialActions";
+import { saveUser, saveLocalUser } from "../../../../actions/authActions";
+import { logoutUser } from "../../../../actions/authActions";
+import { giveUserItem, generateItem } from "../../../../actions/itemActions";
+import { setLocation, setSubLocation } from "../../../../actions/locationActions";
+import { healUser } from "../../../../actions/beneficialActions";
 
 import "./HUB.css";
 
 class HUB extends Component {
   state = {
     showHealer: false,
-    location: "/HUB",
+    location: "/Zone/HUB",
   };
 
   componentDidMount() {

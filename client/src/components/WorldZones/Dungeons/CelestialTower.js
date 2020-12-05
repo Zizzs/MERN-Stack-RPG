@@ -108,7 +108,7 @@ class CelestialTower extends Component {
                 marginTop: "1rem"
               }}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-              onClick={() => this.redirectLocation("/HUB")}
+              onClick={() => this.redirectLocation("/Zone/HUB")}
             >
               Back To HUB
             </button>

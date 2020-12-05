@@ -252,7 +252,7 @@ class Navbar extends Component {
               </button>
             </div>
             <div className="navTitle">
-              <div to="/HUB" id="voidHeader">
+              <div to="/Zone/HUB" id="voidHeader">
                 <i className="material-icons medium" id="chevLeft">
                   chevron_left
                 </i>

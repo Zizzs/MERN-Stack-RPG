@@ -20,14 +20,15 @@ class Login extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/HUB");
+      this.props.history.push("/Zone/HUB");
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // If the user is logged in then push user to dashboard when they login
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/HUB");
+      console.log(nextProps.auth);
+      this.props.history.push("/Zone/HUB");
     }
 
     if (nextProps.errors) {

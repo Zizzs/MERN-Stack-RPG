@@ -2,6 +2,10 @@ import CrystalForestLeftImg from "../../images/zoneImages/CrystalForestLeft.png"
 import CrystalForestRightImg from "../../images/zoneImages/CrystalForestRight.png"
 
 export const zoneData = {
+  HUB: {
+    name: "HUB",
+    location: "/Zone/HUB"
+  },
   CrystalForest: {
     regionSpecificData: {
       imgLeft: CrystalForestLeftImg,
@@ -10,7 +14,7 @@ export const zoneData = {
     spirePath: {
       name: "Spire Path",
       location: "/Zone/CrystalForest",
-      exitOne: "/HUB",
+      exitOne: "/Zone/HUB",
       exitTwo: "Vinefall",
       exitThree: "The Ruined Stairway",
       exitFour: "The Rootway",

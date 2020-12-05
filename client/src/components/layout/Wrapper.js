@@ -11,8 +11,7 @@ import Navbar from "../layout/Navbar";
 import Landing from "../layout/Landing";
 import Register from "../auth/Register";
 import Login from "../auth/Login";
-import HUB from "../HUB/HUB";
-import CombatController from "../Combat/CombatController";
+
 import ZoneController from "../WorldZones/ZoneController";
 
 import ForgotPassword from "../auth/ForgotPassword";
@@ -120,7 +119,6 @@ class Wrapper extends Component {
               <Route exact path="/emailreset" component={ForgotPassword} />
               <Route path="/reset/:token" component={ResetPassword} />
               <Switch>
-                <PrivateRoute exact path="/HUB" component={HUB} updateWrapperAction={this.updatePreviousAction}/>
                 <PrivateRoute
                   exact
                   path="/Zone/*"

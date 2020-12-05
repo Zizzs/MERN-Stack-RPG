@@ -11,7 +11,7 @@ class Landing extends Component {
     const { user } = this.props.auth;
     console.log(user);
     if (this.props.auth.isAuthenticated && this.checkObj(user.character)) {
-      this.props.history.push("/HUB");
+      this.props.history.push("/Zone/HUB");
     }
   }
 

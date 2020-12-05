@@ -94,7 +94,7 @@ class Combat extends Component {
               letterSpacing: "1.5px",
               marginTop: "1rem",
             }}
-            to="/HUB"
+            to="/Zone/HUB"
             className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
             onClick={(e) => {
               e.preventDefault();
@@ -111,7 +111,7 @@ class Combat extends Component {
               letterSpacing: "1.5px",
               marginTop: "1rem",
             }}
-            to="/HUB"
+            to="/Zone/HUB"
             className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
             onClick={(e) => {
               e.preventDefault();
