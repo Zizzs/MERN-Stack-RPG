@@ -5,6 +5,7 @@ import "./ZoneController.css";
 import { saveUser, saveLocalUser } from "../../actions/authActions";
 import { setLocation, setSubLocation } from "../../actions/locationActions";
 import { calculateCurrentZoneData, calculateCurrentRegionData } from "./CalculateZoneLocation";
+import { giveUserItem, generateItem } from "../../actions/itemActions";
 
 
 import RegionComponent from "./ZoneLayouts/RegionComponent";
@@ -46,6 +47,7 @@ class ZoneController extends Component {
         // Sets the state to the currentRegionData
         this.setState({ currentRegionData: tempRegionData }, () => {
           //console.log(`${user.character.location} data has been set.`);
+          console.log(this.state);
         }); 
       } else if(Object.keys(this.state.currentZoneData).length === 0){
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
@@ -63,18 +65,20 @@ class ZoneController extends Component {
     let user = this.props.auth.user;
     // Double check if user.character holds data (No character data = Something messed up in Wrapper)
     if (this.checkObj(user.character)) {
-      // If the user's location is not the current zone's location, and their location is "/HUB" due to pathing/location issue, send them back.
-       if(Object.keys(this.state.currentZoneData).length !== 0 && (this.state.currentZoneData.name !== user.character.sublocation || this.state.currentZoneData.location === "/Zone/HUB")){
+      // If the user's location is not the current zone's location, and their location is "/Zone/HUB" due to pathing/location issue, send them back.
+       if(Object.keys(this.state.currentZoneData).length !== 0 && (this.state.currentZoneData.name !== user.character.sublocation || user.character.location === "/Zone/HUB")){
         // Grab zone data from WorldZoneData
         console.log("Loading Zone Data");
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
+        let tempRegionData = calculateCurrentRegionData(user.character.location);
         // If the current state's zone data is not the same as the retrieved data, set the state to the new zone's data
         if(this.state.currentZoneData.name !== tempZoneData.name){
-          this.setState({ currentZoneData: tempZoneData }, () => {
+          this.setState({ currentZoneData: tempZoneData, currentRegionData: tempRegionData }, () => {
             //console.log(`${user.character.location} data has been set.`);
           }); 
         }
       }
+      //this.props.history.push(this.state.currentZoneData.location);
     }
   }
 
@@ -106,14 +110,16 @@ class ZoneController extends Component {
   redirectToWorldZone = (location, subLocation) => {
     let user = this.props.auth.user;
     // If the user's location is set to the HUB, then we're sending them back and wiping their character subzone data.
-    if(subLocation === "/Zone/HUB"){
+    if(subLocation === "/Zone/HUB" || subLocation === "/Zone/CelestialTower"){
       setLocation(user, subLocation);
       setSubLocation(user, "");
 
       user = this.props.auth.user;
       saveLocalUser(user);
-      saveUser(user);
-      this.props.history.push(location);
+      if(subLocation === "/Zone/HUB"){
+        saveUser(user);
+      }
+      this.props.history.push(subLocation);
     } else {
       // If the user's location is not the HUB, that means they've chosen a new subzone to go to. (Spire Path -> Vinefall)
       //console.log(`Sending ${user.name} to ${location}/${subLocation}.`);
@@ -122,12 +128,23 @@ class ZoneController extends Component {
 
       user = this.props.auth.user;
       saveLocalUser(user);
+      this.props.history.push(location);
       // -----------
       // Save user is commented out for now, and will use the saves from the combat controler or event controllers
       //saveUser(user);
       // ----------
       this.props.updateWrapperAction(`Moved Zone To ${location}/${subLocation}`);
     }
+  };
+
+  createItem = (e) => {
+    e.preventDefault();
+    let user = this.props.auth.user;
+    generateItem(1, "Weapon", "Dagger", 1.0, "", "").then((response) => {
+      giveUserItem(user, response.data.item);
+      this.props.updateWrapperAction(`Gained Item`);
+    });
+
   };
 
   render() {
@@ -137,13 +154,13 @@ class ZoneController extends Component {
       if(user.character.location === "/Zone/HUB" && this.state.inCombat === false){
         return(
           <div id="zoneContainer">
-            <HUB sendToCombat={this.beginZoneCombat} updateWrapperAction={this.props.updateWrapperAction}/>
+            <HUB createItem={this.createItem} sendToCombat={this.beginZoneCombat} updateWrapperAction={this.props.updateWrapperAction} redirectToWorldZone={this.redirectToWorldZone}/>
           </div>
         );
       } else if(user.character.location === "/Zone/CelestialTower" && this.state.inCombat === false){
         return(
           <div id="zoneContainer">
-            <CelestialTower sendToCombat={this.beginZoneCombat}/>
+            <CelestialTower redirectToWorldZone={this.redirectToWorldZone} sendToCombat={this.beginZoneCombat}/>
           </div>
         );
       } else if (this.state.inCombat === false){

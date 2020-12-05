@@ -6,6 +6,10 @@ export const zoneData = {
     name: "HUB",
     location: "/Zone/HUB"
   },
+  CelestialTower: {
+    name: "Celestial Tower",
+    location: "/Zone/CelestialTower"
+  },
   CrystalForest: {
     regionSpecificData: {
       imgLeft: CrystalForestLeftImg,

@@ -10,6 +10,10 @@ export const calculateCurrentZoneData = (region, subLocation) => {
     currentZoneData = zoneData.HUB;
   }
 
+  if(region === "/Zone/CelestialTower"){
+    currentZoneData = zoneData.CelestialTower;
+  }
+
   if(region === "/Zone/CrystalForest"){
     let regionData = zoneData.CrystalForest;
 

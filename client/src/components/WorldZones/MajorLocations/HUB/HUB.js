@@ -6,8 +6,7 @@ import HubImage from "../../../../images/cosmicCity.png";
 
 import { saveUser, saveLocalUser } from "../../../../actions/authActions";
 import { logoutUser } from "../../../../actions/authActions";
-import { giveUserItem, generateItem } from "../../../../actions/itemActions";
-import { setLocation, setSubLocation } from "../../../../actions/locationActions";
+import { setLocation} from "../../../../actions/locationActions";
 import { healUser } from "../../../../actions/beneficialActions";
 
 import "./HUB.css";
@@ -16,43 +15,6 @@ class HUB extends Component {
   state = {
     showHealer: false,
     location: "/Zone/HUB",
-  };
-
-  componentDidMount() {
-    // ------ Location Redirect and Save ------ Required for every use.
-    const { user } = this.props.auth;
-
-    if (!this.props.auth.isAuthenticated) {
-      this.props.history.push("/");
-    }
-
-    if (this.checkObj(user.character)) {
-      if (user.character.location !== this.state.location) {
-        console.log("User in wrong place!");
-        //this.props.history.push(user.character.location);
-      }
-    }
-  }
-
-  redirectToWorldZone = (location, subLocation) => {
-    let user = this.props.auth.user;
-    console.log(`Sending ${user.name} to ${location}/${subLocation}.`);
-    setLocation(user, location);
-    setSubLocation(user, subLocation);
-    user = this.props.auth.user;
-    saveLocalUser(user);
-    saveUser(user);
-    this.props.history.push(location);
-  };
-
-  redirectLocation = (location) => {
-    let user = this.props.auth.user;
-    console.log(`Sending ${user.name} to ${location}.`);
-    setLocation(user, location);
-    user = this.props.auth.user;
-    saveLocalUser(user);
-    saveUser(user);
-    this.props.history.push(location);
   };
 
   showHealerModal = () => {
@@ -71,29 +33,12 @@ class HUB extends Component {
     window.location.reload(false);
   };
 
-  createItem = (e) => {
-    e.preventDefault();
-    let user = this.props.auth.user;
-    generateItem(1, "Weapon", "Dagger", 1.0, "", "").then((response) => {
-      giveUserItem(user, response.data.item);
-      this.props.updateWrapperAction(`Gained Item`);
-    });
-
-  };
-
   healerAction = () => {
     let user = this.props.auth.user;
     healUser(user, 25);
     saveUser(user);
     this.props.updateWrapperAction(`Heal`);
   }
-
-  checkObj = (obj) => {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) return true;
-    }
-    return false;
-  };
 
   render() {
     const { user } = this.props.auth;
@@ -201,7 +146,7 @@ class HUB extends Component {
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                     onClick={(e) => {
                       e.preventDefault();
-                      this.redirectToWorldZone("/Zone/CrystalForest", "Spire Path");
+                      this.props.redirectToWorldZone("/Zone/CrystalForest", "Spire Path");
                     }}
                   >
                     Crystal Forest
@@ -254,7 +199,7 @@ class HUB extends Component {
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   onClick={(e) => {
                     e.preventDefault();
-                    this.redirectLocation("/Zone/CelestialTower");
+                    this.props.redirectToWorldZone("", "/Zone/CelestialTower");
                   }}
                 >
                   Celestial Tower
