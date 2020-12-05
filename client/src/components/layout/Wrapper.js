@@ -12,7 +12,6 @@ import Landing from "../layout/Landing";
 import Register from "../auth/Register";
 import Login from "../auth/Login";
 import HUB from "../HUB/HUB";
-import CelestialTower from "../Dungeons/CelestialTower";
 import CombatController from "../Combat/CombatController";
 import ZoneController from "../WorldZones/ZoneController";
 
@@ -124,19 +123,8 @@ class Wrapper extends Component {
                 <PrivateRoute exact path="/HUB" component={HUB} updateWrapperAction={this.updatePreviousAction}/>
                 <PrivateRoute
                   exact
-                  path="/HUB/CelestialTower"
-                  component={CelestialTower}
-                />
-                <PrivateRoute
-                  exact
                   path="/Zone/*"
                   component={ZoneController}
-                  updateWrapperAction={this.updatePreviousAction}
-                />
-                <PrivateRoute
-                  exact
-                  path="/HUB/CelestialTower/Combat"
-                  component={CombatController}
                   updateWrapperAction={this.updatePreviousAction}
                 />
               </Switch>

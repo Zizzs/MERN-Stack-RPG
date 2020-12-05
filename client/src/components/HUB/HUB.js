@@ -254,7 +254,7 @@ class HUB extends Component {
                   className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                   onClick={(e) => {
                     e.preventDefault();
-                    this.redirectLocation("/HUB/CelestialTower");
+                    this.redirectLocation("/Zone/CelestialTower");
                   }}
                 >
                   Celestial Tower

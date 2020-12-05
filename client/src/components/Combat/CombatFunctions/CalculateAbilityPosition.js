@@ -16,7 +16,6 @@ function calculateAbilityPositions(
     six: genericAbility,
   };
 
-  console.log(position);
 
   let fillerPositionObject = { info: { name: "" }, position: { repositionDirection: "None" }};
 

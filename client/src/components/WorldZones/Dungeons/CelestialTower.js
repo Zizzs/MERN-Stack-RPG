@@ -4,16 +4,16 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./CelestialTower.css";
 
-import celestialTowerLeft from "../../images/celestialTower.png";
-import celestialTowerRight from "../../images/celestialTowerRight.png";
+import celestialTowerLeft from "../../../images/celestialTower.png";
+import celestialTowerRight from "../../../images/celestialTowerRight.png";
 
-import { setLocation } from "../../actions/locationActions";
-import { saveUser, saveLocalUser } from "../../actions/authActions";
+import { setLocation } from "../../../actions/locationActions";
+import { saveUser, saveLocalUser } from "../../../actions/authActions";
 
 class CelestialTower extends Component {
   state = {
     saved: false,
-    location: "/HUB/CelestialTower"
+    location: "/Zone/CelestialTower"
   };
 
   componentDidMount() {
@@ -92,7 +92,7 @@ class CelestialTower extends Component {
                 }}
                 className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                 onClick={() =>
-                  this.redirectLocation("/HUB/CelestialTower/Combat")
+                  this.props.sendToCombat()
                 }
               >
                 Enter The Tower

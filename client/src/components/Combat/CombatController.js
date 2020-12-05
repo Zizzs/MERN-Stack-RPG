@@ -10,9 +10,6 @@ import { damageUser } from "../../actions/combatActions";
 // Import Combat Components
 import Combat from "./CombatComponents/Combat";
 
-// Import Combat Types
-import { CELESTIAL_TOWER } from "./CombatFunctions/CombatTypes";
-
 // Import Calculate Initial Abilities function
 import calculateAbilityPosition from "./CombatFunctions/CalculateAbilityPosition";
 
@@ -96,6 +93,8 @@ class CombatController extends Component {
         validCombat: false,
       };
     }
+
+    console.log(this.state);
   }
 
   componentDidMount = () => {
@@ -116,6 +115,7 @@ class CombatController extends Component {
         this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions})
       }
     }
+
   };
 
   componentDidUpdate = () => {
@@ -131,7 +131,7 @@ class CombatController extends Component {
         console.log("User Has Lost!");
       }
       this.props.updateWrapperAction("Combat Finished");
-      this.props.history.push(user.character.location);
+      this.props.endCombat();
     }
   };
 
@@ -413,19 +413,9 @@ class CombatController extends Component {
     }
 
     if (this.state.validCombat === true) {
-      switch (this.state.playerLocation) {
-        case CELESTIAL_TOWER:
-          return (
-            <Combat clickedAbility={this.clickedAbility} setStateAbilityPositions={this.setStateAbilityPositions} winCombat={this.winCombat} controllerState={this.state} />
-          );
-        default:
-          return (
-            <div>
-              <p>You are in the wrong place!</p>
-              <p>Click the button below to return to your current zone.</p>
-            </div>
-          );
-      }
+      return (
+        <Combat clickedAbility={this.clickedAbility} setStateAbilityPositions={this.setStateAbilityPositions} winCombat={this.winCombat} controllerState={this.state} endCombat={this.props.endCombat}/>
+      );
     } else {
       return (
         <div>

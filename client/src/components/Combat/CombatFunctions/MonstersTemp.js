@@ -19,25 +19,41 @@ import skeletonImage from "../../../images/skeleton.png";
 //  
 //}
 
-const skeleton = {
-  name: "Skeleton Warrior",
-  level: 1,
-  health: 100,
-  attackMin: 1,
-  attackMax: 3,
-  prefPosition: 2,
-  movement: 1,
-  attackAndMove: false,
-  rangeOrMelee: "Melee",
-  drops: {
-    minItemCount: 1,
-    maxItemCount: 2,
-    minFragmentCount: 25,
-    maxFragmentCount: 50,
-  },
-  image: skeletonImage,
-};
-
 export const enemies = {
-  skeleton: skeleton,
+  skeleton: {
+    name: "Skeleton Warrior",
+    level: 1,
+    health: 100,
+    attackMin: 1,
+    attackMax: 3,
+    prefPosition: 2,
+    movement: 1,
+    attackAndMove: false,
+    rangeOrMelee: "Melee",
+    drops: {
+      minItemCount: 1,
+      maxItemCount: 2,
+      minFragmentCount: 25,
+      maxFragmentCount: 50,
+    },
+    image: skeletonImage,
+  },
+  soulBandit: {
+    name: "Soul Bandit",
+    level: 1,
+    health: 150,
+    attackMin: 2,
+    attackMax: 4,
+    prefPosition: 2,
+    movement: 1,
+    attackAndMove: false,
+    rangeOrMelee: "Melee",
+    drops: {
+      minItemCount: 1,
+      maxItemCount: 2,
+      minFragmentCount: 25,
+      maxFragmentCount: 50,
+    },
+    image: skeletonImage,
+  },
 };

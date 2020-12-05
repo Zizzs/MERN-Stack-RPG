@@ -1,5 +1,7 @@
 import { zoneData } from "./WorldZoneData"
 
+console.log(zoneData);
+
 export const calculateCurrentZoneData = (region, subLocation) => {
 
   let currentZoneData = {};
@@ -7,13 +9,16 @@ export const calculateCurrentZoneData = (region, subLocation) => {
   if(region === "/Zone/CrystalForest"){
     let regionData = zoneData.CrystalForest;
 
+    console.log(regionData);
+
     for (const subZone in regionData){
       if(regionData[subZone].name === subLocation){
-        //console.log(`Found Zone Data for: ${subLocation}`);
         currentZoneData = regionData[subZone];
       }
     }
   }
+
+  console.log(currentZoneData);
   return currentZoneData;
 }
 

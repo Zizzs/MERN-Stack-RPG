@@ -23,7 +23,7 @@ const Abilities = {
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMulti: 1.0,
+          damageMulti: 1.2,
         },
         position: {
           doesReposition: false,
@@ -96,8 +96,8 @@ const Abilities = {
         },
         damage: {
           doesDamage: true,
-          attackCount: 2,
-          damageMulti: 1.0,
+          attackCount: 1,
+          damageMulti: 0.8,
         },
         position: {
           doesReposition: false,
@@ -136,7 +136,7 @@ const Abilities = {
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMulti: 1.0,
+          damageMulti: 1.2,
         },
         position: {
           doesReposition: true,
@@ -174,7 +174,7 @@ const Abilities = {
         damage: {
           doesDamage: true,
           attackCount: 1,
-          damageMulti: 1.0,
+          damageMulti: 0.8,
         },
         position: {
           doesReposition: true,
@@ -218,7 +218,7 @@ const Abilities = {
         },
         damage: {
           doesDamage: true,
-          attackCount: 5,
+          attackCount: 3,
           damageMulti: 1.0,
         },
         position: {

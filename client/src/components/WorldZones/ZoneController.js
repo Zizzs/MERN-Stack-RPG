@@ -8,6 +8,8 @@ import { calculateCurrentZoneData, calculateCurrentRegionData } from "./Calculat
 
 
 import RegionComponent from "./ZoneLayouts/RegionComponent";
+import CombatController from "../Combat/CombatController";
+import CelestialTower from "../WorldZones/Dungeons/CelestialTower";
 
 class ZoneController extends Component {
   constructor(props){
@@ -15,6 +17,7 @@ class ZoneController extends Component {
     this.state = {
       currentZoneData: {},
       currentRegionData: {},
+      inCombat: false,
     }
   }
 
@@ -94,6 +97,14 @@ class ZoneController extends Component {
     this.props.history.push(location);
   };
 
+  beginZoneCombat = () => {
+    this.setState({inCombat: true});
+  }
+
+  endZoneCombat = () => {
+    this.setState({inCombat: false});
+  }
+
   // Main Zone Redirect Function
   redirectToWorldZone = (location, subLocation) => {
     let user = this.props.auth.user;
@@ -125,15 +136,29 @@ class ZoneController extends Component {
   render() {
     const { user } = this.props.auth;
     if(this.checkObj(user.character)){
+      if(user.character.location === "/Zone/CelestialTower" && this.state.inCombat === false){
         return(
           <div id="zoneContainer">
-            <RegionComponent regionData={this.state.currentRegionData} redirectToWorldZone={this.redirectToWorldZone} zoneData={this.state.currentZoneData}/>
+            <CelestialTower sendToCombat={this.beginZoneCombat}/>
           </div>
         );
-      
+      } else if (this.state.inCombat === false){
+          return(
+            <div id="zoneContainer">
+              <RegionComponent regionData={this.state.currentRegionData} redirectToWorldZone={this.redirectToWorldZone} zoneData={this.state.currentZoneData} sendToCombat={this.beginZoneCombat}/>
+            </div>
+          );
+        
+      } else if(this.state.inCombat === true){
+        return(
+          <div id="zoneContainer">
+            <CombatController updateWrapperAction={this.props.updateWrapperAction} endCombat={this.endZoneCombat}/>
+          </div>
+        );
+      } 
     } else {
-      return(<div>Loading...</div>);
-    }
+        return(<div>Loading...</div>);
+      }
   }
 
 }

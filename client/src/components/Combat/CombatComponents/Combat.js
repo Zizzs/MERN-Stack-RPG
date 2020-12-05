@@ -47,9 +47,7 @@ class Combat extends Component {
 
             </div>
             <div id="combatInteractibles">
-              <div>
-
-              </div>
+              
               <div id="abilityPanel">
                 <div
                   className="skillPanel"
@@ -88,9 +86,6 @@ class Combat extends Component {
                   {this.props.controllerState.abilities.six.info.name}
                 </div>
               </div>
-              <div>
-
-              </div>
             </div>
             <button
             style={{
@@ -103,7 +98,7 @@ class Combat extends Component {
             className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
             onClick={(e) => {
               e.preventDefault();
-              this.redirectLocation(this.props.auth.user.character.location);
+              this.redirectLocation(this.props.endCombat());
             }}
           >
             Flee

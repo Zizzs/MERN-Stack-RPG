@@ -13,7 +13,8 @@ export const zoneData = {
       exitOne: "/HUB",
       exitTwo: "Vinefall",
       exitThree: "The Ruined Stairway",
-      exitFour: "The Rootway",  
+      exitFour: "The Rootway",
+      canCombat: true,
     },
     vineFall: {
       name: "Vinefall",
@@ -22,6 +23,7 @@ export const zoneData = {
       exitTwo: "Underbrush",
       exitThree: "The Climb",
       exitFour: "None",  
+      canCombat: true,  
     },
     ruinedStairway: {
       name: "The Ruined Stairway",
@@ -29,7 +31,8 @@ export const zoneData = {
       exitOne: "Spire Path",
       exitTwo: "Shimmering Valley",
       exitThree: "None",
-      exitFour: "None",  
+      exitFour: "None", 
+      canCombat: true,  
     },
     shimmeringValley: {
       name: "Shimmering Valley",
@@ -38,6 +41,7 @@ export const zoneData = {
       exitTwo: "Petrified Gate",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     petrifiedGate: {
       name: "Petrified Gate",
@@ -45,7 +49,8 @@ export const zoneData = {
       exitOne: "Shimmering Valley",
       exitTwo: "None",
       exitThree: "None",
-      exitFour: "None",  
+      exitFour: "None", 
+      canCombat: true,   
     },
     rootway: {
       name: "The Rootway",
@@ -53,7 +58,8 @@ export const zoneData = {
       exitOne: "Spire Path",
       exitTwo: "Rotting River",
       exitThree: "Crystal Rat's Domain",
-      exitFour: "None",  
+      exitFour: "None",
+      canCombat: true,    
     },
     crystalRatLairOne: {
       name: "Crystal Rat's Domain",
@@ -62,6 +68,7 @@ export const zoneData = {
       exitTwo: "Crystal Rat's Hive",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     crystalRatLairTwo: {
       name: "Crystal Rat's Hive",
@@ -70,6 +77,7 @@ export const zoneData = {
       exitTwo: "Crystal Rat's Armory",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     crystalRatLairThree: {
       name: "Crystal Rat's Armory",
@@ -78,6 +86,7 @@ export const zoneData = {
       exitTwo: "Throne of the Crystal Rat",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     crystalRatLairFour: {
       name: "Throne of the Crystal Rat",
@@ -86,6 +95,7 @@ export const zoneData = {
       exitTwo: "None",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     rottingRiver: {
       name: "Rotting River",
@@ -94,6 +104,7 @@ export const zoneData = {
       exitTwo: "Deeprot",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     deeprot: {
       name: "Deeprot",
@@ -101,7 +112,8 @@ export const zoneData = {
       exitOne: "Rotting River",
       exitTwo: "Desecrated Core",
       exitThree: "None",
-      exitFour: "None",  
+      exitFour: "None", 
+      canCombat: true,   
     },
     desecratedCore: {
       name: "Desecrated Core",
@@ -110,6 +122,7 @@ export const zoneData = {
       exitTwo: "None",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     underbrush: {
       name: "Underbrush",
@@ -118,6 +131,7 @@ export const zoneData = {
       exitTwo: "Vinemother's Garden",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     vinemotherGarden: {
       name: "Vinemother's Garden",
@@ -126,6 +140,7 @@ export const zoneData = {
       exitTwo: "Vinemother's Grove",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     vinemotherGrove: {
       name: "Vinemother's Grove",
@@ -134,6 +149,7 @@ export const zoneData = {
       exitTwo: "Twisted Vines of the Vinemother",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     vinemotherTwistedVines: {
       name: "Twisted Vines of the Vinemother",
@@ -142,6 +158,7 @@ export const zoneData = {
       exitTwo: "None",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     theClimb: {
       name: "The Climb",
@@ -150,6 +167,7 @@ export const zoneData = {
       exitTwo: "Crystal Top",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     crystalTop: {
       name: "Crystal Top",
@@ -158,6 +176,7 @@ export const zoneData = {
       exitTwo: "Ascension Rise",
       exitThree: "None",
       exitFour: "None",  
+      canCombat: true,  
     },
     ascensionRise: {
       name: "Ascension Rise",
@@ -165,7 +184,8 @@ export const zoneData = {
       exitOne: "Crystal Top",
       exitTwo: "None",
       exitThree: "None",
-      exitFour: "None",  
+      exitFour: "None", 
+      canCombat: true,   
     },
 
   }

@@ -2,8 +2,12 @@ import { enemies } from "./MonstersTemp";
 
 let monster = {};
 function calculateCombatEnemies(location) {
-  if (location === "/HUB/CelestialTower") {
+  if (location === "/Zone/CelestialTower") {
     monster = { ...enemies.skeleton };
+  }
+
+  if (location === "/Zone/CrystalForest") {
+    monster = { ...enemies.soulBandit };
   }
   return monster;
 }
