@@ -7,51 +7,12 @@ import "./CelestialTower.css";
 import celestialTowerLeft from "../../../images/celestialTower.png";
 import celestialTowerRight from "../../../images/celestialTowerRight.png";
 
-import { setLocation } from "../../../actions/locationActions";
 import { saveUser, saveLocalUser } from "../../../actions/authActions";
 
 class CelestialTower extends Component {
   state = {
     saved: false,
     location: "/Zone/CelestialTower"
-  };
-
-  componentDidMount() {
-    // ------ Location Redirect and Save ------ Required for every use.
-    const { user } = this.props.auth;
-    //console.log(user);
-    if (!this.props.auth.isAuthenticated || !user) {
-      this.props.history.push("/");
-    }
-
-    if (this.checkObj(user.character)) {
-      if (user.character.location !== this.state.location) {
-        console.log("User in wrong place!");
-        this.props.history.push(user.character.location);
-      }
-    }
-  
-    // if (user.character.location !== this.state.location) {
-    //   this.props.history.push(user.character.location);
-    // }
-  }
-
-  redirectLocation = location => {
-    const { user } = this.props.auth;
-    console.log(`Sending ${user.name} to ${location}.`);
-    if (location !== "/HUB/CelestialTower/Combat") {
-      setLocation(user, location);
-    }
-    saveLocalUser(user);
-    saveUser(user);
-    this.props.history.push(location);
-  };
-
-  checkObj = (obj) => {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) return true;
-    }
-    return false;
   };
 
   render() {
@@ -108,7 +69,7 @@ class CelestialTower extends Component {
                 marginTop: "1rem"
               }}
               className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
-              onClick={() => this.redirectLocation("/Zone/HUB")}
+              onClick={() => this.props.redirectToWorldZone("", "/Zone/HUB")}
             >
               Back To HUB
             </button>

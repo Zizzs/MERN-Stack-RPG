@@ -39,7 +39,7 @@ class CombatController extends Component {
         user.character.combatPrefs.utility.generic
       );
       let images = calculateCombatImages(user.character.location);
-      let monster = calculateCombatEnemies(user.character.location);
+      
       let initiateMonsterHealthPercent = 100;
 
       // Starting Positions
@@ -78,7 +78,7 @@ class CombatController extends Component {
         finisherAbility: user.character.combatPrefs.weaponOne.finisher,
         repositionAbilities: user.character.combatPrefs.utility.reposition,
         genericAbility: user.character.combatPrefs.utility.generic,
-        enemy: monster,
+        enemy: {},
         playerLocation: user.character.location,
         abilities: initialAbilities,
         imageLeft: images.left,
@@ -86,7 +86,7 @@ class CombatController extends Component {
         weaponOne: user.character.equipment.weaponOne,
         weaponTwo: user.character.equipment.weaponTwo,
         monsterHealthPercent: initiateMonsterHealthPercent,
-        monsterMaxHealth: monster.health,
+        monsterMaxHealth: 100,
       };
     } else {
       this.state = {
@@ -109,10 +109,14 @@ class CombatController extends Component {
       setState: false,
     };
 
+    const { user } = this.props.auth;
+    console.log(user.character.location, this.props.zoneData, this.props.regionData);
+    let monster = calculateCombatEnemies(user.character.location, this.props.zoneData, this.props.regionData);
+
     for (let i = 1; i <= 6; i++) {
       abilityPackage = this.setStateAbilityPositions(i, false, 0, false, true, true);
       if(abilityPackage.setState){
-        this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions})
+        this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions, enemy: monster, monsterMaxHealth: monster.health})
       }
     }
 

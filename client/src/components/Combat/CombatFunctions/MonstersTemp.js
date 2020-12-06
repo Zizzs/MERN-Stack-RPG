@@ -1,4 +1,4 @@
-import skeletonImage from "../../../images/skeleton.png";
+import skeletonImage from "../../../images/enemyImages/skeleton.png";
 
 // prefPosition: 1-6 -- Monster will try to modify the space between the player to achieve their preferred position.
 // movement: Number(1-5?) Most monsters will most likely be 1 or 2 movement. The amount of position the monster may move.
@@ -20,13 +20,49 @@ import skeletonImage from "../../../images/skeleton.png";
 //}
 
 export const enemies = {
-  skeleton: {
+  skeletonWarrior: {
     name: "Skeleton Warrior",
     level: 1,
     health: 100,
     attackMin: 1,
     attackMax: 3,
     prefPosition: 2,
+    movement: 1,
+    attackAndMove: false,
+    rangeOrMelee: "Melee",
+    drops: {
+      minItemCount: 1,
+      maxItemCount: 2,
+      minFragmentCount: 25,
+      maxFragmentCount: 50,
+    },
+    image: skeletonImage,
+  },
+  rickitySkeleton: {
+    name: "Rickity Skeleton ",
+    level: 1,
+    health: 80,
+    attackMin: 1,
+    attackMax: 2,
+    prefPosition: 2,
+    movement: 1,
+    attackAndMove: false,
+    rangeOrMelee: "Melee",
+    drops: {
+      minItemCount: 1,
+      maxItemCount: 2,
+      minFragmentCount: 25,
+      maxFragmentCount: 50,
+    },
+    image: skeletonImage,
+  },
+  skeletonGiant: {
+    name: "Skeleton Giant ",
+    level: 1,
+    health: 225,
+    attackMin: 2,
+    attackMax: 6,
+    prefPosition: 1,
     movement: 1,
     attackAndMove: false,
     rangeOrMelee: "Melee",
@@ -45,6 +81,42 @@ export const enemies = {
     attackMin: 2,
     attackMax: 4,
     prefPosition: 2,
+    movement: 1,
+    attackAndMove: false,
+    rangeOrMelee: "Melee",
+    drops: {
+      minItemCount: 1,
+      maxItemCount: 2,
+      minFragmentCount: 25,
+      maxFragmentCount: 50,
+    },
+    image: skeletonImage,
+  },
+  youngTreant: {
+    name: "Young Treant",
+    level: 1,
+    health: 125,
+    attackMin: 1,
+    attackMax: 4,
+    prefPosition: 2,
+    movement: 1,
+    attackAndMove: false,
+    rangeOrMelee: "Melee",
+    drops: {
+      minItemCount: 1,
+      maxItemCount: 2,
+      minFragmentCount: 25,
+      maxFragmentCount: 50,
+    },
+    image: skeletonImage,
+  },
+  crystalRatBaby: {
+    name: "Baby Crystal Rat",
+    level: 1,
+    health: 80,
+    attackMin: 1,
+    attackMax: 2,
+    prefPosition: 1,
     movement: 1,
     attackAndMove: false,
     rangeOrMelee: "Melee",

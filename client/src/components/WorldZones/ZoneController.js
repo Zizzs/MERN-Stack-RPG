@@ -39,23 +39,19 @@ class ZoneController extends Component {
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
         let tempRegionData = calculateCurrentRegionData(user.character.location);
         // Sets the state to the currentZoneData and currentRegionData
-        this.setState({ currentZoneData: tempZoneData, currentRegionData: tempRegionData }, () => {
-          //console.log(`${user.character.location} data has been set.`);
-        }); 
+        this.setState({ currentZoneData: tempZoneData, currentRegionData: tempRegionData }); 
+
       } else if (Object.keys(this.state.currentRegionData).length === 0){
         let tempRegionData = calculateCurrentRegionData(user.character.location);
+
         // Sets the state to the currentRegionData
-        this.setState({ currentRegionData: tempRegionData }, () => {
-          //console.log(`${user.character.location} data has been set.`);
-          console.log(this.state);
-        }); 
+        this.setState({ currentRegionData: tempRegionData }); 
+
       } else if(Object.keys(this.state.currentZoneData).length === 0){
         let tempZoneData = calculateCurrentZoneData(user.character.location, user.character.subLocation);
-        //console.log("Setting Current Zone");
+      
         // Sets the state to the currentZoneData and currentRegionData
-        this.setState({ currentZoneData: tempZoneData }, () => {
-          //console.log(`${user.character.location} data has been set.`);
-        }); 
+        this.setState({ currentZoneData: tempZoneData }); 
       }
     }
   };
@@ -149,7 +145,7 @@ class ZoneController extends Component {
 
   render() {
     const { user } = this.props.auth;
-    console.log(this.state.currentZoneData, this.state.currentRegionData);
+    //console.log(this.state.currentZoneData, this.state.currentRegionData);
     if(this.checkObj(user.character)){
       if(user.character.location === "/Zone/HUB" && this.state.inCombat === false){
         return(
@@ -173,7 +169,7 @@ class ZoneController extends Component {
       } else if(this.state.inCombat === true){
         return(
           <div id="zoneContainer">
-            <CombatController updateWrapperAction={this.props.updateWrapperAction} endCombat={this.endZoneCombat}/>
+            <CombatController zoneData={this.state.currentZoneData} regionData={this.state.currentRegionData} updateWrapperAction={this.props.updateWrapperAction} endCombat={this.endZoneCombat}/>
           </div>
         );
       } 
