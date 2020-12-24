@@ -112,7 +112,7 @@ class HUB extends Component {
                     }}
                     className="btn btn-large waves-effect hoverable #1a237e indigo darken-4"
                     onClick={(e) => {
-                      this.createItem(e);
+                      this.props.createItem(e);
                     }}
                   >
                     Merchant Ring

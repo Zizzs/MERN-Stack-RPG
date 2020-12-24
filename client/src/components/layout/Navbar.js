@@ -348,7 +348,7 @@ class Navbar extends Component {
             togglePanel={this.toggleInventoryPanel}
             panelOpen={this.state.isInventoryPanelOpen}
             previousAction={this.state.previousAction}
-            updateNavbarState={this.updateWrapperAction}
+            updateNavbarState={this.props.updateWrapperAction}
           />
           <ChatPanel
             togglePanel={this.toggleChatPanel}

@@ -86,8 +86,15 @@ const UserSchema = new Schema(
         type: Object,
         default: {
           weaponOne: {
-            type: Object,
-            default: {}
+            name: "Time-Worn Dagger",
+            type: "Weapon",
+            subType: "Dagger",
+            img: "",
+            tradeable: true,
+            fragment: 100,
+            id: "temporary-id-for-new-weapon",
+            damage: 10,
+            rarity: "Abnormal"
           },
           weaponTwo: {
             type: Object,
@@ -133,7 +140,7 @@ const UserSchema = new Schema(
       },
       location: {
         type: String,
-        default: "/HUB"
+        default: "/Zone/HUB"
       },
       subLocation: {
         type: String,
@@ -153,47 +160,61 @@ const UserSchema = new Schema(
             position: {
               one: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               two: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               three: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               four: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               five: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               six: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               }
             },
             chainers: {
               forward: {
-                type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               backward: {
-                type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               }
             },
             finisher: {
-              type: Object,
-              default: {}
+              info: {
+                  name: "None",
+                }
             }
           },
           weaponTwo: {
             type: Object,
-
             weaponType: "",
             position: {
               one: {
@@ -239,23 +260,31 @@ const UserSchema = new Schema(
           utility: {
             heal: {
               type: Object,
-              default: {}
+              info: {
+                  name: "None",
+                }
             },
             reposition: {
               type: Object,
 
               forward: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               },
               backward: {
                 type: Object,
-                default: {}
+                info: {
+                  name: "None",
+                }
               }
             },
             generic: {
               type: Object,
-              default: {}
+              info: {
+                  name: "None",
+                }
             }
           }
         }
