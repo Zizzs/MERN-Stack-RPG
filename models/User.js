@@ -299,6 +299,10 @@ const UserSchema = new Schema(
           swords: 0,
           utility: 0
         }
+      },
+      newUser: {
+        type: Boolean,
+        default: true,
       }
     },
     resetPasswordToken: String,

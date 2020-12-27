@@ -109,7 +109,7 @@ class Wrapper extends Component {
       return (
         <Router>
           <div className="container">
-            <div>
+            <div id="navbarContainer">
               <Navbar updateWrapperAction={this.updatePreviousAction} previousAction={this.state.previousAction}/>
             </div>
             <div>

@@ -7,3 +7,12 @@
   margin-top: -30px;
   border-radius: 3px;
 }
+
+#zoneContainerForNewUser {
+  text-align: center;
+  color: white;
+  border: 2px solid white;
+  padding: 25px;
+  margin: 50px;
+  border-radius: 3px;
+}

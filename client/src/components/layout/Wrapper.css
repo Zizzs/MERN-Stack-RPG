@@ -10,3 +10,7 @@
   grid-template-columns: 1fr 8fr 1fr;
   height: 60px;
 }
+
+#navbarContainer {
+  height: 150px;
+}

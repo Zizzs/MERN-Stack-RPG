@@ -12,6 +12,7 @@ import RegionComponent from "./ZoneLayouts/RegionComponent";
 import CombatController from "../Combat/CombatController";
 import CelestialTower from "../WorldZones/Dungeons/CelestialTower";
 import HUB from "./MajorLocations/HUB/HUB";
+import NewUser from "../layout/NewUser";
 
 class ZoneController extends Component {
   constructor(props){
@@ -146,8 +147,15 @@ class ZoneController extends Component {
   render() {
     const { user } = this.props.auth;
     //console.log(this.state.currentZoneData, this.state.currentRegionData);
+    console.log(user);
     if(this.checkObj(user.character)){
-      if(user.character.location === "/Zone/HUB" && this.state.inCombat === false){
+      if(user.character.newUser === true){
+        return (
+        <div id="zoneContainerForNewUser">
+            <NewUser updateWrapperAction={this.props.updateWrapperAction}/>
+        </div> 
+        );
+      } else if(user.character.location === "/Zone/HUB" && this.state.inCombat === false){
         return(
           <div id="zoneContainer">
             <HUB createItem={this.createItem} sendToCombat={this.beginZoneCombat} updateWrapperAction={this.props.updateWrapperAction} redirectToWorldZone={this.redirectToWorldZone}/>
