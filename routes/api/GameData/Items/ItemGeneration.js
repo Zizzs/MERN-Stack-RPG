@@ -20,9 +20,10 @@ const generateItem = (itemData, res) => {
     rarityBonus,
     forceRarity,
     uniqueName,
+    amount,
   } = itemData.body;
   console.log(
-    `Generating Item: Tier: ${tier} Type: ${type}, SubType: ${subType}, RarityBonus: ${rarityBonus}, ForceRarity: ${forceRarity}, UniqueName: ${uniqueName}`
+    `Generating Item: Tier: ${tier} Type: ${type}, SubType: ${subType}, RarityBonus: ${rarityBonus}, ForceRarity: ${forceRarity}, UniqueName: ${uniqueName}, Amount: ${amount}`
   );
   // Create Item Base
   let item = {};
@@ -42,10 +43,32 @@ const generateItem = (itemData, res) => {
   // }
   let itemBlueprint = {};
 
+  let tempSubType = subType;
+  // An array of all current available weapon subtypes.
+  let availableWeaponSubTypes = ["Dagger"];
+  // An array of all current available material subtypes.
+  let availableMaterialSubTypes = ["Metal", "Wood", "Cloth"];
+  // An array of all current available token subtypes.
+  let availableTokenSubTypes = ["Rusted"];
+
+  if (tempSubType === "Any") {
+    if (type === "Weapon") {
+      tempSubType = availableWeaponSubTypes[Math.floor(Math.random() * Math.floor(availableWeaponSubTypes.length))];
+    }
+
+    if (type === "Material") {
+      tempSubType = availableMaterialSubTypes[Math.floor(Math.random() * Math.floor(availableMaterialSubTypes.length))];
+    }
+
+    if (type === "Token") {
+      tempSubType = availableTokenSubTypes[Math.floor(Math.random() * Math.floor(availableTokenSubTypes.length))];
+    }
+  }
+
   // Check for Uniques.
   // Check Type/SubType/Tier to get blueprint.
   if (type === "Weapon") {
-    if (subType === "Dagger") {
+    if (tempSubType === "Dagger") {
       if (tier === 1) {
         itemBlueprint =
           Weapons.daggers.tierOne[
@@ -58,8 +81,26 @@ const generateItem = (itemData, res) => {
   }
 
   if (type === "Token") {
-    if (subType === "Skeleton") {
-      itemBlueprint = Tokens.tierOne.skeleton;
+    if (tier === 1) {
+      if (tempSubType === "Rusted") {
+        itemBlueprint = Tokens.tokens.tierOne.rusted;
+      }
+    }
+  }
+
+  if (type === "Material") {
+    if (tier === 1) {
+      if (tempSubType === "Metal") {
+        itemBlueprint = Materials.materials.tierOne.metal;
+      }
+
+      if (tempSubType === "Cloth") {
+        itemBlueprint = Materials.materials.tierOne.cloth;
+      }
+
+      if (tempSubType === "Wood") {
+        itemBlueprint = Materials.materials.tierOne.wood;
+      }
     }
   }
 
@@ -86,17 +127,21 @@ const generateItem = (itemData, res) => {
   //   auras: [{},{}],
   // }
 
-  // Tokens require these 6 variables, but they also apply to weapons.
+  // Tokens require these 7 variables, but they also apply to weapons.
   item.name = itemBlueprint.name;
   item.type = itemBlueprint.type;
-  item.subType = itemBlueprint.subType;
+  item.subType = tempSubType;
   item.img = itemBlueprint.img;
   item.tradeable = itemBlueprint.tradeable;
   item.fragment = itemBlueprint.fragment;
   item.id = uuidv1();
 
   if (type === "Token") {
-    item.count = 1;
+    item.count = amount;
+  }
+
+  if (type === "Material") {
+    item.count = amount;
   }
 
   // Build
@@ -117,31 +162,45 @@ const generateItem = (itemData, res) => {
     // Peerless 9500 - [NEON PINK, Damage++++, All Stats++, Aura+++, Skill+]
     // Fabled 9900 - [Silver/Gold, Damage+++++, All Stats+++, Aura++++, Aura++++, Skill++]
     // Ancient 9999 - [Rainbow?, Damage++++++, All Stats++++, Aura+++++, Aura+++++, Skill+++, Skill+++]
-    item.rarity = "Ordinary";
-    let roll = Math.floor(Math.random() * 10000) + 1;
-    if (roll >= 5000) {
-      item.rarity = "Abnormal";
-      roll = Math.floor(Math.random() * 10000) + 1;
-      if (roll >= 7500) {
-        item.rarity = "Unusual";
-        roll = Math.floor(Math.random() * 10000) + 1;
-        if (roll >= 9000) {
-          item.rarity = "Exceptional";
-          roll = Math.floor(Math.random() * 10000) + 1;
-          if (roll >= 9500) {
-            item.rarity = "Peerless";
-            roll = Math.floor(Math.random() * 10000) + 1;
-            if (roll >= 9900) {
-              item.rarity = "Fabled";
-              roll = Math.floor(Math.random() * 10000) + 1;
-              if (roll >= 9999) {
-                item.rarity = "Ancient";
-              }
-            }
-          }
+    let extraDamageRollMax = 0;
+    let rollIsSuccessful = true;
+    let currentRarityBonus = rarityBonus;
+    let rarityArray = [
+      {rarity: "Ordinary", requiredRoll: 0, bonusStats: {damage: 0}},
+      {rarity: "Abnormal", requiredRoll: 5000, bonusStats: {damage: 5}},
+      {rarity: "Unusual", requiredRoll: 7500, bonusStats: {damage: 7}},
+      {rarity: "Exceptional", requiredRoll: 8500, bonusStats: {damage: 9}},
+      {rarity: "Peerless", requiredRoll: 9500, bonusStats: {damage: 11}},
+      {rarity: "Fabled", requiredRoll: 9900, bonusStats: {damage: 13}},
+      {rarity: "Ancient", requiredRoll: 9990, bonusStats: {damage: 15}},
+    ];
+
+    
+    for (let rarityObj of rarityArray) {
+      if(rollIsSuccessful){
+        let roll = (Math.floor(Math.random() * 10000) + 1);
+        let difference = rarityObj.requiredRoll - roll;
+        //console.log(roll, rarityObj.requiredRoll, rarityObj.rarity, currentRarityBonus);
+        if (roll >= rarityObj.requiredRoll) {
+          extraDamageRollMax += rarityObj.bonusStats.damage;
+          item.rarity = rarityObj.rarity;
+        } else if (roll < rarityObj.requiredRoll && currentRarityBonus >= difference) {
+          currentRarityBonus -= difference;
+          extraDamageRollMax += rarityObj.bonusStats.damage;
+          item.rarity = rarityObj.rarity;
+        } else {
+          rollIsSuccessful = false;
         }
       }
     }
+
+
+    item.damage += Math.floor(
+      Math.random() *
+        (extraDamageRollMax - (extraDamageRollMax / 2) + 1) +
+        extraDamageRollMax / 2
+    );
+    
   }
 
   res.status(200).send({

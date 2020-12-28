@@ -137,10 +137,15 @@ class ZoneController extends Component {
   createItem = (e) => {
     e.preventDefault();
     let user = this.props.auth.user;
-    generateItem(1, "Weapon", "Dagger", 1.0, "", "").then((response) => {
+    generateItem(1, "Weapon", "Dagger", 2000, "", "", 1).then((response) => {
       giveUserItem(user, response.data.item);
       this.props.updateWrapperAction(`Gained Item`);
     });
+    // generateItem(1, "Token", "Rusted", 1.0, "", "", 1).then((response) => {
+    //   console.log(response);
+    //   giveUserItem(user, response.data.item);
+    //   this.props.updateWrapperAction(`Gained Item`);
+    // });
 
   };
 

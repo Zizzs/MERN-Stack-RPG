@@ -1,11 +1,12 @@
 const tokens = {
   tierOne: {
-    skeleton: {
-      name: "Skeleton Token",
+    rusted: {
+      name: "Rusted Token",
       type: "Token",
-      subType: "Skeleton",
+      subType: "Rusted",
       tradeable: false,
       count: 0,
+      fragment: 0,
       img: "../../images/Items/Tokens/skeleton_token.png"
     }
   }

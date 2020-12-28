@@ -16,8 +16,23 @@ export const giveUserItem = (userData, item) => {
     userData: userData,
     item: item,
   };
+  
+  let foundItem = false;
+  if (data.item.type === "Material" || data.item.type === "Token") {
+    let index = 0;
+    for (let item of data.userData.character.items) {
+      if (item.name === data.item.name) {
+        foundItem = true;
+        index = data.userData.character.items.findIndex(item => item.name === data.item.name);
+        data.userData.character.items[index].count += data.item.count;
+        break;
+      }
+    }
+  }
 
-  data.userData.character.items.push(item);
+  if (foundItem === false) {
+    data.userData.character.items.push(item);
+  }
 
   axios({
     method: "post",
@@ -41,7 +56,8 @@ export const generateItem = (
   subType,
   rarityBonus,
   forceRarity,
-  uniqueName
+  uniqueName,
+  amount
 ) => {
   let data = {
     tier: tier,
@@ -50,6 +66,7 @@ export const generateItem = (
     rarityBonus: rarityBonus,
     forceRarity: forceRarity,
     uniqueName: uniqueName,
+    amount: amount,
   };
 
   return axios({

@@ -62,7 +62,7 @@ class InventoryPanel extends Component {
             <p>Total Items: {user.character.items.length}</p>
             {user.character.items.map((item) => (
               <p className="inventoryItem" key={uuidv4()}>
-                {item.name} - {item.type} - {item.rarity} - {item.damage}{" "}
+                {item.name} - {item.type} - {item.subType} - {item.rarity} - {item.damage} - {item.count}{" "}
                 <button
                   onClick={(e) => {
                     this.equipInventoryItem(e, item);
