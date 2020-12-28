@@ -67,7 +67,7 @@ class CombatController extends Component {
       this.state = {
         validCombat: true,
         completedCombat: false,
-        hasWon: false,
+        hasWon: 0,
         hasUpdated: false,
         userHasChained: 0,
         currentWeapon: user.character.equipment.weaponOne,
@@ -124,9 +124,9 @@ class CombatController extends Component {
 
   componentDidUpdate = () => {
     const { user } = this.props.auth;
-    // If statement at the top to catch completed combats. If the enemy has been killed, the combat component will perform a function callback to set the this.state.hasWon variable to true. If they lost, this.state.hasWon will be false. Regardless if they have won or not, completedCombat will be true, and will redirect the user back to the location they were previously at.
+    // If statement at the top to catch completed combats. If the enemy has been killed, the combat component will perform a function callback to set the this.state.hasWon variable to 1. If they lost, this.state.hasWon will be 2. Regardless if they have won or not, completedCombat will be true, and will redirect the user back to the location they were previously at.
     if (this.state.completedCombat) {
-      if (this.state.hasWon) {
+      if (this.state.hasWon === 1) {
         console.log("User Has Won!");
         //If user has won, distribute the loot here.
         saveLocalUser(user);
@@ -137,6 +137,7 @@ class CombatController extends Component {
       this.props.updateWrapperAction("Combat Finished");
       this.props.endCombat();
     }
+    console.log(this.state);
   };
 
   // Function where turn damage will be calculated and applied. Takes in the ability used, and the weapon used by the player. Initial damage will be calculated by taking the player's weapon's damage, and multiplying it by the skill's multiplier. This will give the damage for one hit. This number will then be multiplied by the attack count.
@@ -259,6 +260,10 @@ class CombatController extends Component {
       damageUser(user, enemyDamage);
       this.props.updateWrapperAction(`Combat:E-${currentEnemy.name}:PD-${totalPlayerDamage}:ED-${enemyDamage}`);
 
+      if(user.character.health === 0){
+        this.loseCombat();
+      }
+
       this.setState({enemy: currentEnemy, monsterHealthPercent: currentMonsterHealthPercent, position: modifiedPosition, hasUpdated: true, abilities: abilityPackage.newAbilityPositions, relativePosition: relativePositions});    
     }
   
@@ -318,6 +323,8 @@ class CombatController extends Component {
     let ability = this.state.abilities[
       Object.keys(this.state.abilities)[clickedNumber - 1]
     ];
+
+    console.log(ability);
 
     let clickedAbilityPackage = {
       position: 0,
@@ -391,7 +398,9 @@ class CombatController extends Component {
       }
     }
 
-    this.calculateTurn(ability, this.state.currentWeapon, clickedAbilityPackage);
+    if(ability.info.name !== ""){
+      this.calculateTurn(ability, this.state.currentWeapon, clickedAbilityPackage);
+    }
    
   };
 
@@ -405,15 +414,23 @@ class CombatController extends Component {
 
   // Callback function for the current combat component to pass the boolean back to combat controller.
   winCombat = () => {
-    this.setState({ completedCombat: true, hasWon: true });
+    this.setState({ completedCombat: true, hasWon: 1 });
+  };
+
+  loseCombat = () => {
+    this.setState({ completedCombat: true, hasWon: 2 });
   };
 
   render() {
     // Switch/Case to choose which return combat component to use
     // Pass the full CombatController state to the combat component to use as props.
     // Render Combat Component
-    if (this.state.hasWon === true) {
+    if (this.state.hasWon === 1) {
       alert("You have won the combat");
+    }
+
+    if (this.state.hasWon === 2) {
+      alert("You have lost the combat");
     }
 
     if (this.state.validCombat === true) {

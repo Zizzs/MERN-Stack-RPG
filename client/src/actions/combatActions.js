@@ -8,6 +8,10 @@ export const damageUser = (userData, damage) => {
 
   data.userData.character.health -= damage;
 
+  if(data.userData.character.health < 0){
+    data.userData.character.health = 0;
+  }
+
   axios({
     method: "post",
     url: "/api/saveLocalUser",
