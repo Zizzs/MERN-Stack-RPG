@@ -12,6 +12,7 @@ const saveLocal = require("./routes/api/saveLocalUser");
 const resetPassModule = require("./routes/api/resetPassword");
 const abilitiesModule = require("./routes/api/GameData/Abilities/GetAbilities");
 const itemsModule = require("./routes/api/GameData/Items/ItemGeneration");
+const monstersModule = require("./routes/api/GameData/Monsters/MonsterGeneration");
 
 const app = express();
 // Bodyparser middleware
@@ -41,6 +42,11 @@ app.get("/api/abilities/getAllAbilities", abilitiesModule.getAllAbilities);
 app.post("/api/items/generateItem", (req, res) => {
   itemsModule.generateItem(req, res);
 });
+
+// Monster Routes
+app.post("/api/monsters/calculateMonster", (req, res) => {
+  monstersModule.calculateMonster(req, res);
+})
 
 // User Routes
 app.use("/api/users", users);

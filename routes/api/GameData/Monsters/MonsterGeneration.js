@@ -1,8 +1,10 @@
-import { enemyTable } from "./MonsterTable";
+const {enemyTable} = require("./MonsterTable");
 
-let monster = {};
-function calculateCombatEnemies(userLocation, zoneData, regionData) {
+const calculateMonster = (locationData, res) => {
+  let monster = {};
   let table = {};
+
+  let {userLocation, zoneData, regionData} = locationData.body;
 
   if (userLocation === "/Zone/CelestialTower") {
     //monster = { ...enemies.skeletonWarrior };
@@ -23,8 +25,6 @@ function calculateCombatEnemies(userLocation, zoneData, regionData) {
 
   randomNumber = Math.round((Math.random() * totalWeight) + 1);
 
-  console.log(randomNumber);
-
   let currentWeightTotal = 0;
   for(let enemyKey in table){
     currentWeightTotal += table[enemyKey].weight;
@@ -33,9 +33,11 @@ function calculateCombatEnemies(userLocation, zoneData, regionData) {
       break;
     }
   }
-  return monster;
+
+  res.status(200).send({
+    monster: monster,
+  });
+
 }
 
-export default calculateCombatEnemies;
-
-// Most likely will move this to serverside, so the server can hold the monster data.
+exports.calculateMonster = calculateMonster;

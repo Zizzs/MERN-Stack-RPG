@@ -1,5 +1,3 @@
-import skeletonImage from "../../../images/enemyImages/skeleton.png";
-
 // prefPosition: 1-6 -- Monster will try to modify the space between the player to achieve their preferred position.
 // movement: Number(1-5?) Most monsters will most likely be 1 or 2 movement. The amount of position the monster may move.
 // attackAndMove: true/false -- Monster will perform an attack while moving if it needs to move.
@@ -19,7 +17,7 @@ import skeletonImage from "../../../images/enemyImages/skeleton.png";
 //  
 //}
 
-export const enemies = {
+const enemies = {
   skeletonWarrior: {
     name: "Skeleton Warrior",
     level: 1,
@@ -40,7 +38,7 @@ export const enemies = {
       minFragmentCount: 25,
       maxFragmentCount: 50,
     },
-    image: skeletonImage,
+    image: "",
   },
   rickitySkeleton: {
     name: "Rickity Skeleton ",
@@ -62,7 +60,7 @@ export const enemies = {
       minFragmentCount: 25,
       maxFragmentCount: 50,
     },
-    image: skeletonImage,
+    image: "",
   },
   skeletonGiant: {
     name: "Skeleton Giant ",
@@ -84,7 +82,7 @@ export const enemies = {
       minFragmentCount: 25,
       maxFragmentCount: 50,
     },
-    image: skeletonImage,
+    image: "",
   },
   soulBandit: {
     name: "Soul Bandit",
@@ -106,7 +104,7 @@ export const enemies = {
       minFragmentCount: 25,
       maxFragmentCount: 50,
     },
-    image: skeletonImage,
+    image: "",
   },
   youngTreant: {
     name: "Young Treant",
@@ -128,7 +126,7 @@ export const enemies = {
       minFragmentCount: 25,
       maxFragmentCount: 50,
     },
-    image: skeletonImage,
+    image: "",
   },
   crystalRatBaby: {
     name: "Baby Crystal Rat",
@@ -150,6 +148,8 @@ export const enemies = {
       minFragmentCount: 25,
       maxFragmentCount: 50,
     },
-    image: skeletonImage,
+    image: "",
   },
 };
+
+exports.enemies = enemies;

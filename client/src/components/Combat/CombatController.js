@@ -16,8 +16,8 @@ import calculateAbilityPosition from "./CombatFunctions/CalculateAbilityPosition
 // Import Calculate Combat Images function
 import calculateCombatImages from "./CombatFunctions/CalculateCombatImages";
 
-// Import Calculate Combat Enemies function
-import calculateCombatEnemies from "./CombatFunctions/CalculateCombatEnemies";
+// Import Monster Generation
+import { generateMonster } from "../../actions/monsterActions";
 
 class CombatController extends Component {
   // Get Player's Location
@@ -65,7 +65,7 @@ class CombatController extends Component {
 
       //Position, Combat Abilities and Reposition Abilities will be pulled in from combat prefs. These will be within user.character.combatPrefs.
       this.state = {
-        validCombat: true,
+        validCombat: false,
         completedCombat: false,
         hasWon: 0,
         hasUpdated: false,
@@ -111,17 +111,18 @@ class CombatController extends Component {
 
     const { user } = this.props.auth;
     console.log(user.character.location, this.props.zoneData, this.props.regionData);
-    let monster = calculateCombatEnemies(user.character.location, this.props.zoneData, this.props.regionData);
-
-    for (let i = 1; i <= 6; i++) {
-      abilityPackage = this.setStateAbilityPositions(i, false, 0, false, true, true);
-      if(abilityPackage.setState){
-        this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions, enemy: monster, monsterMaxHealth: monster.health})
+    generateMonster(user.character.location, this.props.zoneData, this.props.regionData).then((monster) => {
+      for (let i = 1; i <= 6; i++) {
+        abilityPackage = this.setStateAbilityPositions(i, false, 0, false, true, true);
+        if(abilityPackage.setState){
+          this.setState({hasUpdated: abilityPackage.hasUpdated, abilities: abilityPackage.newAbilityPositions, enemy: monster, monsterMaxHealth: monster.health, validCombat: true});
+        }
       }
-    }
-
+    });
+    
+    
   };
-
+  
   componentDidUpdate = () => {
     const { user } = this.props.auth;
     // If statement at the top to catch completed combats. If the enemy has been killed, the combat component will perform a function callback to set the this.state.hasWon variable to 1. If they lost, this.state.hasWon will be 2. Regardless if they have won or not, completedCombat will be true, and will redirect the user back to the location they were previously at.
@@ -137,6 +138,7 @@ class CombatController extends Component {
       this.props.updateWrapperAction("Combat Finished");
       this.props.endCombat();
     }
+    //this.props.updateWrapperAction(`Enemy Generated for ${user.character.location}`);
     console.log(this.state);
   };
 
@@ -447,8 +449,7 @@ class CombatController extends Component {
           <br />
           <br />
           <p>
-            Comabt is invalid, click below to return to your last known
-            location.
+            Loading Enemy...
           </p>
           {/* This button breaks when refreshing on combat <button onClick={this.returnToLastLocation()}>Return</button>*/}
         </div>

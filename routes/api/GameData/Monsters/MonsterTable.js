@@ -1,6 +1,6 @@
-import { enemies } from "./MonstersTemp";
+const {enemies} = require("./MonsterData");
 
-export const enemyTable = {
+const enemyTable = {
   CelestialTower:{
     location: "/Zone/CelestialTower",
     enemies: {
@@ -38,3 +38,5 @@ export const enemyTable = {
   }
   
 };
+
+exports.enemyTable = enemyTable;
